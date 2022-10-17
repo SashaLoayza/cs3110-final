@@ -1,0 +1,5 @@
+# dune init proj scrabble_solver
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Workspace root: /Users/ianyang/cs3110/finalproject/cs3110-final
+# Auto-detected concurrency: 8

@@ -1,0 +1,4 @@
+(executable
+ (public_name scrabble_solver)
+ (name main)
+ (libraries scrabble_solver))
