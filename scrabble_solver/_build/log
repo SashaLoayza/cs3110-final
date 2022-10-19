@@ -2,9 +2,9 @@
 # OCAMLPARAM: unset
 # Shared cache: disabled
 # Workspace root:
-# /Users/ianyang/cs3110/finalproject/cs3110-final/scrabble_solver
+# /Users/sashaloayza/Cornell/FA22/CS3110/final/cs3110-final/scrabble_solver
 # Auto-detected concurrency: 8
-$ /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/_y/m1jd9tg55jgch8j4sn5n3j0m0000gn/T/dune_956499_output
+$ /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/1x/8r0f5x_j2wzd73r9t1v_6g_c0000gn/T/dune_d138c0_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -14,44 +14,44 @@ $ /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/_y/m1
 #  ; fdo_target_exe = None
 #  ; build_dir = "default"
 #  ; toplevel_path =
-#      Some External "/Users/ianyang/.opam/cs3110-2022fa/lib/toplevel"
-#  ; ocaml_bin = External "/Users/ianyang/.opam/cs3110-2022fa/bin"
-#  ; ocaml = Ok External "/Users/ianyang/.opam/cs3110-2022fa/bin/ocaml"
-#  ; ocamlc = External "/Users/ianyang/.opam/cs3110-2022fa/bin/ocamlc.opt"
+#      Some External "/Users/sashaloayza/.opam/cs3110-2022fa/lib/toplevel"
+#  ; ocaml_bin = External "/Users/sashaloayza/.opam/cs3110-2022fa/bin"
+#  ; ocaml = Ok External "/Users/sashaloayza/.opam/cs3110-2022fa/bin/ocaml"
+#  ; ocamlc = External "/Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt"
 #  ; ocamlopt =
-#      Ok External "/Users/ianyang/.opam/cs3110-2022fa/bin/ocamlopt.opt"
+#      Ok External "/Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt"
 #  ; ocamldep =
-#      Ok External "/Users/ianyang/.opam/cs3110-2022fa/bin/ocamldep.opt"
+#      Ok External "/Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamldep.opt"
 #  ; ocamlmklib =
-#      Ok External "/Users/ianyang/.opam/cs3110-2022fa/bin/ocamlmklib.opt"
+#      Ok External "/Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlmklib.opt"
 #  ; env =
 #      map
-#        { "DUNE_OCAML_HARDCODED" : "/Users/ianyang/.opam/cs3110-2022fa/lib"
-#        ; "DUNE_OCAML_STDLIB" : "/Users/ianyang/.opam/cs3110-2022fa/lib/ocaml"
+#        { "DUNE_OCAML_HARDCODED" :
+#            "/Users/sashaloayza/.opam/cs3110-2022fa/lib"
+#        ; "DUNE_OCAML_STDLIB" :
+#            "/Users/sashaloayza/.opam/cs3110-2022fa/lib/ocaml"
 #        ; "DUNE_SOURCEROOT" :
-#            "/Users/ianyang/cs3110/finalproject/cs3110-final/scrabble_solver"
+#            "/Users/sashaloayza/Cornell/FA22/CS3110/final/cs3110-final/scrabble_solver"
 #        ; "INSIDE_DUNE" :
-#            "/Users/ianyang/cs3110/finalproject/cs3110-final/scrabble_solver/_build/default"
-#        ; "MANPATH" :
-#            "/Users/ianyang/cs3110/finalproject/cs3110-final/scrabble_solver/_build/install/default/bin"
+#            "/Users/sashaloayza/Cornell/FA22/CS3110/final/cs3110-final/scrabble_solver/_build/default"
 #        ; "OCAMLFIND_IGNORE_DUPS_IN" :
-#            "/Users/ianyang/cs3110/finalproject/cs3110-final/scrabble_solver/_build/install/default/lib"
+#            "/Users/sashaloayza/Cornell/FA22/CS3110/final/cs3110-final/scrabble_solver/_build/install/default/lib"
 #        ; "OCAMLPATH" :
-#            "/Users/ianyang/cs3110/finalproject/cs3110-final/scrabble_solver/_build/install/default/lib"
+#            "/Users/sashaloayza/Cornell/FA22/CS3110/final/cs3110-final/scrabble_solver/_build/install/default/lib"
 #        ; "OCAMLTOP_INCLUDE_PATH" :
-#            "/Users/ianyang/cs3110/finalproject/cs3110-final/scrabble_solver/_build/install/default/lib/toplevel"
+#            "/Users/sashaloayza/Cornell/FA22/CS3110/final/cs3110-final/scrabble_solver/_build/install/default/lib/toplevel"
 #        ; "OCAML_COLOR" : "always"
 #        ; "OPAMCOLOR" : "always"
 #        }
-#  ; findlib_paths = [ External "/Users/ianyang/.opam/cs3110-2022fa/lib" ]
+#  ; findlib_paths = [ External "/Users/sashaloayza/.opam/cs3110-2022fa/lib" ]
 #  ; arch_sixtyfour = true
 #  ; natdynlink_supported = true
 #  ; supports_shared_libraries = true
 #  ; ocaml_config =
 #      { version = "4.14.0"
 #      ; standard_library_default =
-#          "/Users/ianyang/.opam/cs3110-2022fa/lib/ocaml"
-#      ; standard_library = "/Users/ianyang/.opam/cs3110-2022fa/lib/ocaml"
+#          "/Users/sashaloayza/.opam/cs3110-2022fa/lib/ocaml"
+#      ; standard_library = "/Users/sashaloayza/.opam/cs3110-2022fa/lib/ocaml"
 #      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
 #      ; ccomp_type = "cc"
 #      ; c_compiler = "cc"
@@ -81,7 +81,7 @@ $ /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/_y/m1
 #      ; native_c_libraries = [ "-lm" ]
 #      ; native_pack_linker = [ "ld"; "-r"; "-o" ]
 #      ; cc_profile = []
-#      ; architecture = "amd64"
+#      ; architecture = "arm64"
 #      ; model = "default"
 #      ; int_size = 63
 #      ; word_size = 64
@@ -97,8 +97,8 @@ $ /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/_y/m1
 #      ; os_type = "Unix"
 #      ; default_executable_name = "a.out"
 #      ; systhread_supported = true
-#      ; host = "x86_64-apple-darwin20.6.0"
-#      ; target = "x86_64-apple-darwin20.6.0"
+#      ; host = "aarch64-apple-darwin20.6.0"
+#      ; target = "aarch64-apple-darwin20.6.0"
 #      ; profiling = false
 #      ; flambda = false
 #      ; spacetime = false
@@ -118,15 +118,14 @@ $ /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/_y/m1
 #      ; windows_unicode = false
 #      }
 #  }
-# Promoting "_build/default/scrabble_solver.opam" to "scrabble_solver.opam"
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -I test/.scrabble_solver.eobjs/byte -no-alias-deps -opaque -o test/.scrabble_solver.eobjs/byte/dune__exe__Scrabble_solver.cmi -c -intf test/scrabble_solver.mli)
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -I lib/.scrabble_solver.objs/byte -no-alias-deps -opaque -o lib/.scrabble_solver.objs/byte/scrabble_solver.cmo -c -impl lib/scrabble_solver.ml-gen)
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -a -o lib/scrabble_solver.cma lib/.scrabble_solver.objs/byte/scrabble_solver.cmo)
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -I bin/.main.eobjs/byte -I lib/.scrabble_solver.objs/byte -no-alias-deps -opaque -o bin/.main.eobjs/byte/dune__exe__Main.cmi -c -intf bin/main.mli)
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I test/.scrabble_solver.eobjs/byte -I test/.scrabble_solver.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.scrabble_solver.eobjs/native/dune__exe__Scrabble_solver.cmx -c -impl test/scrabble_solver.ml)
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I lib/.scrabble_solver.objs/byte -I lib/.scrabble_solver.objs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o lib/.scrabble_solver.objs/native/scrabble_solver.cmx -c -impl lib/scrabble_solver.ml-gen)
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -a -o lib/scrabble_solver.cmxa lib/.scrabble_solver.objs/native/scrabble_solver.cmx)
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.scrabble_solver.objs/byte -I lib/.scrabble_solver.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o test/scrabble_solver.exe test/.scrabble_solver.eobjs/native/dune__exe__Scrabble_solver.cmx)
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -shared -linkall -I lib -o lib/scrabble_solver.cmxs lib/scrabble_solver.cmxa)
-$ (cd _build/default && /Users/ianyang/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/main.exe lib/scrabble_solver.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -I lib/.scrabble_solver.objs/byte -no-alias-deps -opaque -o lib/.scrabble_solver.objs/byte/scrabble_solver.cmo -c -impl lib/scrabble_solver.ml-gen)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I test/.scrabble_solver.eobjs/byte -no-alias-deps -opaque -o test/.scrabble_solver.eobjs/byte/dune__exe__Scrabble_solver.cmi -c -intf test/scrabble_solver.mli)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/scrabble_solver.cma lib/.scrabble_solver.objs/byte/scrabble_solver.cmo)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I bin/.main.eobjs/byte -I lib/.scrabble_solver.objs/byte -no-alias-deps -opaque -o bin/.main.eobjs/byte/dune__exe__Main.cmi -c -intf bin/main.mli)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I test/.scrabble_solver.eobjs/byte -I test/.scrabble_solver.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.scrabble_solver.eobjs/native/dune__exe__Scrabble_solver.cmx -c -impl test/scrabble_solver.ml)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I lib/.scrabble_solver.objs/byte -I lib/.scrabble_solver.objs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o lib/.scrabble_solver.objs/native/scrabble_solver.cmx -c -impl lib/scrabble_solver.ml-gen)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.scrabble_solver.objs/byte -I lib/.scrabble_solver.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/scrabble_solver.cmxa lib/.scrabble_solver.objs/native/scrabble_solver.cmx)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o test/scrabble_solver.exe test/.scrabble_solver.eobjs/native/dune__exe__Scrabble_solver.cmx)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -shared -linkall -I lib -o lib/scrabble_solver.cmxs lib/scrabble_solver.cmxa)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o bin/main.exe lib/scrabble_solver.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
