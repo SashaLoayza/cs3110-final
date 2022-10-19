@@ -4,7 +4,7 @@
 # Workspace root:
 # /Users/sashaloayza/Cornell/FA22/CS3110/final/cs3110-final/scrabble_solver
 # Auto-detected concurrency: 8
-$ /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/1x/8r0f5x_j2wzd73r9t1v_6g_c0000gn/T/dune_d138c0_output
+$ /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/1x/8r0f5x_j2wzd73r9t1v_6g_c0000gn/T/dune_aa2e05_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -119,13 +119,35 @@ $ /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/1
 #      }
 #  }
 $ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -I lib/.scrabble_solver.objs/byte -no-alias-deps -opaque -o lib/.scrabble_solver.objs/byte/scrabble_solver.cmo -c -impl lib/scrabble_solver.ml-gen)
-$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I test/.scrabble_solver.eobjs/byte -no-alias-deps -opaque -o test/.scrabble_solver.eobjs/byte/dune__exe__Scrabble_solver.cmi -c -intf test/scrabble_solver.mli)
-$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/scrabble_solver.cma lib/.scrabble_solver.objs/byte/scrabble_solver.cmo)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamldep.opt -modules -impl lib/hand.ml) > _build/default/lib/.scrabble_solver.objs/hand.ml.d
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamldep.opt -modules -intf lib/hand.mli) > _build/default/lib/.scrabble_solver.objs/hand.mli.d
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamldep.opt -modules -intf lib/letter.mli) > _build/default/lib/.scrabble_solver.objs/letter.mli.d
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.scrabble_solver.objs/byte -no-alias-deps -opaque -open Scrabble_solver -o lib/.scrabble_solver.objs/byte/scrabble_solver__Hand.cmi -c -intf lib/hand.mli)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.scrabble_solver.objs/byte -no-alias-deps -opaque -open Scrabble_solver -o lib/.scrabble_solver.objs/byte/scrabble_solver__Letter.cmi -c -intf lib/letter.mli)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.scrabble_solver.objs/byte -intf-suffix .ml -no-alias-deps -opaque -open Scrabble_solver -o lib/.scrabble_solver.objs/byte/scrabble_solver__Hand.cmo -c -impl lib/hand.ml)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.scrabble_solver.objs/byte -intf-suffix .ml -no-alias-deps -opaque -open Scrabble_solver -o lib/.scrabble_solver.objs/byte/scrabble_solver__Letter.cmo -c -impl lib/letter.ml)
+> File "lib/letter.ml", line 1:
+> Error: The implementation lib/letter.ml
+>        does not match the interface lib/.scrabble_solver.objs/byte/scrabble_solver__Letter.cmi:
+>         The type `t' is required but not provided
+>        File "lib/letter.mli", line 1, characters 0-6: Expected declaration
+>        The value `char_value' is required but not provided
+>        File "lib/letter.mli", line 4, characters 0-26: Expected declaration
+>        The value `point_value' is required but not provided
+>        File "lib/letter.mli", line 5, characters 0-26: Expected declaration
+[2]
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.scrabble_solver.objs/byte -I lib/.scrabble_solver.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Scrabble_solver -o lib/.scrabble_solver.objs/native/scrabble_solver__Letter.cmx -c -impl lib/letter.ml)
+> File "lib/letter.ml", line 1:
+> Error: The implementation lib/letter.ml
+>        does not match the interface lib/.scrabble_solver.objs/byte/scrabble_solver__Letter.cmi:
+>         The type `t' is required but not provided
+>        File "lib/letter.mli", line 1, characters 0-6: Expected declaration
+>        The value `char_value' is required but not provided
+>        File "lib/letter.mli", line 4, characters 0-26: Expected declaration
+>        The value `point_value' is required but not provided
+>        File "lib/letter.mli", line 5, characters 0-26: Expected declaration
+[2]
 $ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I bin/.main.eobjs/byte -I lib/.scrabble_solver.objs/byte -no-alias-deps -opaque -o bin/.main.eobjs/byte/dune__exe__Main.cmi -c -intf bin/main.mli)
-$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I test/.scrabble_solver.eobjs/byte -I test/.scrabble_solver.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.scrabble_solver.eobjs/native/dune__exe__Scrabble_solver.cmx -c -impl test/scrabble_solver.ml)
 $ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I lib/.scrabble_solver.objs/byte -I lib/.scrabble_solver.objs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o lib/.scrabble_solver.objs/native/scrabble_solver.cmx -c -impl lib/scrabble_solver.ml-gen)
+$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.scrabble_solver.objs/byte -I lib/.scrabble_solver.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Scrabble_solver -o lib/.scrabble_solver.objs/native/scrabble_solver__Hand.cmx -c -impl lib/hand.ml)
 $ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.scrabble_solver.objs/byte -I lib/.scrabble_solver.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
-$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/scrabble_solver.cmxa lib/.scrabble_solver.objs/native/scrabble_solver.cmx)
-$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o test/scrabble_solver.exe test/.scrabble_solver.eobjs/native/dune__exe__Scrabble_solver.cmx)
-$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -shared -linkall -I lib -o lib/scrabble_solver.cmxs lib/scrabble_solver.cmxa)
-$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o bin/main.exe lib/scrabble_solver.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
