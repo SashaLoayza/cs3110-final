@@ -1,2 +1,3 @@
 (test
- (name scrabble_solver))
+ (name main)
+ (libraries ounit2 scrabble_solver))
