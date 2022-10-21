@@ -14,7 +14,7 @@ let rec validate_letters letters =
 
 (** [solve letters] returns a list of valid scrabble words given letters. *)
 let solve letters =
-  match validate_letters with
+  match validate_letters letters with
   | _ -> raise (Failure "Unimplemented: solve")
 
 let main =
