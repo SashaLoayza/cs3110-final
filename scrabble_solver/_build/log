@@ -4,7 +4,7 @@
 # Workspace root:
 # /Users/sashaloayza/Cornell/FA22/CS3110/final/cs3110-final/scrabble_solver
 # Auto-detected concurrency: 8
-$ /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/1x/8r0f5x_j2wzd73r9t1v_6g_c0000gn/T/dune_d5be52_output
+$ /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/1x/8r0f5x_j2wzd73r9t1v_6g_c0000gn/T/dune_86f5a8_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -118,18 +118,3 @@ $ /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -config > /var/folders/1
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamldep.opt -modules -impl lib/hand.ml) > _build/default/lib/.scrabble_solver.objs/hand.ml.d
-$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.scrabble_solver.objs/byte -intf-suffix .ml -no-alias-deps -opaque -open Scrabble_solver -o lib/.scrabble_solver.objs/byte/scrabble_solver__Hand.cmo -c -impl lib/hand.ml)
-> File "lib/hand.ml", line 1:
-> Error: The implementation lib/hand.ml
->        does not match the interface lib/.scrabble_solver.objs/byte/scrabble_solver__Hand.cmi:
->         The value `word_list' is required but not provided
->        File "lib/hand.mli", line 7, characters 0-32: Expected declaration
-[2]
-$ (cd _build/default && /Users/sashaloayza/.opam/cs3110-2022fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.scrabble_solver.objs/byte -I lib/.scrabble_solver.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Scrabble_solver -o lib/.scrabble_solver.objs/native/scrabble_solver__Hand.cmx -c -impl lib/hand.ml)
-> File "lib/hand.ml", line 1:
-> Error: The implementation lib/hand.ml
->        does not match the interface lib/.scrabble_solver.objs/byte/scrabble_solver__Hand.cmi:
->         The value `word_list' is required but not provided
->        File "lib/hand.mli", line 7, characters 0-32: Expected declaration
-[2]

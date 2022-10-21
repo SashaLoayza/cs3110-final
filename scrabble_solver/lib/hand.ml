@@ -6,4 +6,6 @@ let from_char_list (char_list : char list) = char_list
 
 let letter_list (t : t) = List.map Letter.from_input t
 let permutations t = raise (Failure "Unimplemented: Hand.permutations")
-let word_list dictionary t = List.filter (Array.mem dictionary) (permutations t)
+
+let word_list dictionary t =
+  List.filter (fun perms -> Array.mem perms dictionary) (permutations t)
