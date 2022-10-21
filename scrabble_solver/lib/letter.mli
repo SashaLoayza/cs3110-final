@@ -5,7 +5,7 @@ exception NotValidLetter of string
 (** Rasied when an unkown letter is encountered. It carries the value not valid
     letter*)
 
-val from_input : string -> t
+val from_input : char -> t
 (**[from_input j] is the in game letter representation of a character passed in
    as a *string*. Requires that j is a one letter string from the english
    alphabet or the empty string.*)
