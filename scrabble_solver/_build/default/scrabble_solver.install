@@ -1,8 +1,0 @@
-lib: [
-  "_build/install/default/lib/scrabble_solver/META"
-  "_build/install/default/lib/scrabble_solver/dune-package"
-  "_build/install/default/lib/scrabble_solver/opam"
-]
-bin: [
-  "_build/install/default/bin/scrabble_solver"
-]

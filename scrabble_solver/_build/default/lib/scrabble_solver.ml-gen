@@ -1,6 +1,0 @@
-(** @canonical Scrabble_solver.Hand *)
-module Hand = Scrabble_solver__Hand
-
-
-(** @canonical Scrabble_solver.Letter *)
-module Letter = Scrabble_solver__Letter
