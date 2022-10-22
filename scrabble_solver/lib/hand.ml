@@ -2,7 +2,7 @@ type t = char list
 
 (** [from_char_list char_list] returns char_list, which is a valid value of type
     t in the current implementation. t. Requires: char_list is *)
-let from_char_list (char_list : char list) = char_list
+let from_char_list (char_list : char list) : t = char_list
 
 let letter_list (t : t) = List.map Letter.from_input t
 let to_string_list t = List.map (String.make 1) t
