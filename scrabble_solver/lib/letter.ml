@@ -9,7 +9,8 @@ exception NotValidLetter of string
     function used by from_input. Requires that [c] is a valid english letter (1
     character) or the underscore, which represents a blank piece.*)
 let get_point_val c =
-  match c with
+  let cU = Char.uppercase_ascii c in
+  match cU with
   | 'A' | 'E' | 'I' | 'O' | 'U' | 'L' | 'N' | 'S' | 'T' | 'R' -> 1
   | 'D' | 'G' -> 2
   | 'B' | 'C' | 'M' | 'P' -> 3
