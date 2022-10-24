@@ -14,12 +14,11 @@ val size : t -> int
 val letter_list : t -> Letter.t list
 (** [letter_list t] is a [Letter.t list] of the letters in [t:hand]*)
 
-val unique : char list -> char list
-(** [unique chars] is the char list of the characters in chars with duplicates
-    removed*)
+val unique : 'a list -> 'a list
+(** [unique a_list] is the list with duplicates removed. The order is not preserved.*)
 
 val bit_word : string -> t -> Bitv.t
-(**bit_hand is the (7-bit) bitwise [Bitv.t] representation of [string s] with
+(**bit_hand is the bitwise [Bitv.t] representation of [string s] with
    respect to the initial ordering of [Hand.t t], which is maintained in
    [char_list t]. If there are duplicate letters in hand, then they are
    populated left to right in the bitwise representation of the integer.For
