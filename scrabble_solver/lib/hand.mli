@@ -23,7 +23,7 @@ val bit_word : string -> t -> Bitv.t
    [char_list t]. If there are duplicate letters in hand, then they are
    populated left to right in the bitwise representation of the integer.For
    example, if [char_list t] is ['a', 'b', 'b', 'd', 'e', 'x', 'y', ], then
-   [bit_word "bad"] is the int 1101000. *)
+   [bit_word "bad"] is the [Bitv.t] 1101000. *)
 
 val unused_letters : t -> string -> char list
 (** [unused_letters t perm] is the [char list] of the unused letters of
