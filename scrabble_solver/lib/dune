@@ -1,3 +1,4 @@
 (library
  (name scrabble_solver)
- (public_name scrabble_solver))
+ (public_name scrabble_solver)
+ (libraries bitv))

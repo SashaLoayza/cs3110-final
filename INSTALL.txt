@@ -1,2 +1,4 @@
 Please follow the steps listed below before running this application:
-*** No packages need to be installed in the current implementation ***
+
+RUN THE FOLLOWING COMMAND IN THE TERMINAL:
+opam install bitv
