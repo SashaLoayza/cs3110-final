@@ -6,7 +6,7 @@ let valid_words = Arg.read_arg "data/dictionary.txt"
 
 (**[validate_letters letters] [string list], a list of seven strings, raises
    exception if letters is not a string list of length 7 with each index only
-   having at most length 1*)
+   having length of 1*)
 let rec validate_letters letters =
   match letters with
   | [] -> []

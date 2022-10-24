@@ -18,7 +18,7 @@ let get_point_val c =
   | 'K' -> 5
   | 'J' | 'X' -> 8
   | 'Q' | 'Z' -> 10
-  | '_' -> 0
+  | '0' | '_' -> 0
   | _ -> raise (NotValidLetter "Not a valid Letter")
 
 let from_input s = { value = s; points = get_point_val s }
