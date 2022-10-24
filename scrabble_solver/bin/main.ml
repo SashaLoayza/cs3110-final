@@ -11,8 +11,17 @@ let rec validate_letters letters =
   match letters with
   | [] -> []
   | h :: t ->
-      if String.length h < 2 then h.[0] :: validate_letters t
-      else raise (Failure "Did not meet preconditions for letter input 1")
+      if String.length h < 2 then
+        let num = Char.code (Char.uppercase_ascii h.[0]) in
+        if (num > 64 && num < 91) || num = 48 then h.[0] :: validate_letters t
+        else
+          raise
+            (Failure
+               "Did not meet preconditions for letter input (error code: VL1)")
+      else
+        raise
+          (Failure
+             "Did not meet preconditions for letter input (error code: VL2)")
 
 (** [solve letters] returns a list of valid scrabble words given letters. *)
 let solve letters =
@@ -21,7 +30,9 @@ let solve letters =
       (word_list valid_words (from_char_list (validate_letters letters)))
     (* print_endline (List.nth (word_list valid_words (from_char_list
        (validate_letters letters))) 0)*)
-  else raise (Failure "Did not meet preconditions for letter input 2")
+  else
+    raise
+      (Failure "Did not meet preconditions for letter input (error code: SL1)")
 
 let main =
   print_endline "Welcome to team LION's Scrabble Solver!";
