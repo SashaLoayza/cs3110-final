@@ -70,10 +70,9 @@ let unused_letters (t : t) perm =
   |> Bitv.foldi_left (fun acc index elt -> cons_if_unused t acc index elt) []
   |> unique
 
-(**[create_perm perm_index perm t] is the string with the perm_index^th unused
-   letter added to the end of it.*)
-let create_perm perm_index perm t =
-  let unused = unused_letters t perm in
+(**[create_perm perm_index perm unused] is the string with the perm_index^th
+   unused letter added to the end of it.*)
+let create_perm perm_index perm unused =
   perm ^ String.make 1 (List.nth unused perm_index)
 
 (**[permutations_n t n] is the list of all length n strings made by combining
@@ -87,17 +86,12 @@ let permutations_n t n (previous : string list) =
       let result =
         Array.init (List.length previous) (fun prev_index ->
             let unused = unused_letters t (List.nth previous prev_index) in
-            Array.make (List.length unused) (List.nth previous prev_index))
-        (*Only create one new copy of the previous n string for each unused
-          letter*)
+            let current_perm = List.nth previous prev_index in
+            Array.init (List.length unused) (fun perm_index ->
+                create_perm perm_index current_perm unused))
+        (*Initialize each perm list by adding each of the unused letters to the
+          end of the current permutation*)
       in
-      Array.iteri
-        (fun prev_index perm_array ->
-          Array.iteri
-            (fun perm_index perm ->
-              perm_array.(perm_index) <- create_perm perm_index perm t)
-            perm_array)
-        result;
       result |> Array.to_list |> Array.concat |> Array.to_list
 
 let permutations_helper (t : t) (current_result : string list array) n list_n =
