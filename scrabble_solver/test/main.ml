@@ -2,6 +2,7 @@ open OUnit2
 open Scrabble_solver
 open Hand
 open Letter
+open Dictionary
 
 let point_val_test (name : string) (c : Letter.t) (expected_output : int) : test
     =

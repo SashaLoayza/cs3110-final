@@ -4,4 +4,6 @@ type t
    of letters described by the bit vectors that create valid words as
    represented in dictionary.txt*)
 
-val get_bitv : string -> Bitv.t
+(*val get_bitv : string -> Bitv.t*)
+val hashcode : Bitv.t -> int
+val create_hash : string array -> t
