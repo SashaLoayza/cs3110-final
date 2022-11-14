@@ -43,9 +43,29 @@ let main () =
       solve
         (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
 
+let help () =
+  let command_descriptions =
+    "add: \n\
+     To add a tile with letter [l] to the board at row [r] and column [c], \
+     type command 'add [l] [r] [c]'.\n\n\
+     remove: \n\
+     To remove an existing tile from board at row [r] and column [c], type \
+     command 'remove [r] [c]'\n\n\
+     view: To view the current board's position, type 'view'\n\n\
+     To see this help command, type 'help-setup' at any time.\n"
+  in
+  print_endline command_descriptions
+
 let main () =
-  print_endline "Welcome to team LION's Scrabble Solver!";
-  print_endline "Currently, the scrabble board is empty. There are ";
+  print_endline "Welcome to team LION's Scrabble Solver!\n";
+  print_endline
+    "Currently, the scrabble board is empty.\n\
+     Use the following commands to set up the board to your desired \
+     configuration:\n";
+  help ();
+  print_endline
+    "To enter solving mode, type 'solve' at any time. Then, to go back to \
+     setup mode, type 'setup'.";
   match read_line () with
   | exception End_of_file -> ()
   | letters ->
