@@ -1,4 +1,5 @@
-Please follow the steps listed below before running this application:
-
 RUN THE FOLLOWING COMMAND IN THE TERMINAL:
 opam install bitv
+
+Please follow the steps listed below before running this application:
+make play
