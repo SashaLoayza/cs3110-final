@@ -1,6 +1,13 @@
 type t = (int, string) Hashtbl.t (*I DID NOT USE THIS IN MY IMPLEMENTATION*)
 
-let hashcode w = raise (Failure "Unimplemented")
+let hashcode (word : string) : int =
+  let char_list =
+    List.init (String.length word) (fun n ->
+        String.get word n |> Char.uppercase_ascii)
+    |> List.sort Char.compare
+  in
+  Hashtbl.hash char_list
+
 let create_l d = Array.to_list d
 
 let rec add_el d m =
