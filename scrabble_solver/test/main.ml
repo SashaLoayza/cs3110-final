@@ -26,13 +26,28 @@ let letter_tests =
   output and input use type t. The idea of using both is if a hastable is
   created with a given list of words, then those words will be output by the
   find_words function.*)
-let get_words_test (name : string) (d : string array) (expected_output : int) :
-    test =
+let get_words_test (name : string) (t : Dictionary.t) (l : string)
+    (expected_output : string list) : test =
   name >:: fun _ ->
   (* the [printer] tells OUnit how to convert the output to a string *)
-  assert_equal expected_output (point_value c)
+  assert_equal expected_output (get_words t l)
 
-let dictionary_tests = []
+let dictionary_tests =
+  [
+    get_words_test "1 key value pair"
+      (create_hash [| "oneWord" |])
+      "oneWord" [ "oneWord" ];
+    get_words_test "1 key, 2 values find based  on first word"
+      (create_hash [| "oneWord"; "Wordone" |])
+      "oneWord" [ "Wordone"; "oneWord" ];
+    get_words_test "1 key, 2 values, find based on second word"
+      (create_hash [| "oneWord"; "Wordone" |])
+      "Wordone" [ "Wordone"; "oneWord" ];
+    get_words_test "2 words, but find key is not present"
+      (create_hash [| "oneWord"; "Wordone" |])
+      "no" [];
+  ]
+
 let hand_tests = []
 let board_tests = []
 let main_tests = []

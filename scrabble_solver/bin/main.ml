@@ -1,6 +1,7 @@
 open Scrabble_solver
 open Hand
 open Letter
+open Dictionary
 
 let valid_words = Arg.read_arg "data/dictionary.txt"
 
