@@ -56,15 +56,14 @@ let bit_word (s : string) (t : t) =
 let cons_if_unique acc elt = if List.mem elt acc then acc else elt :: acc
 let unique a_list = List.fold_left cons_if_unique [] a_list
 
-(** unused_letters t perm is a char list of the unique set of letters that are
-    in [Hand.t t] but not in perm. Requires: All letters in perm are from
-    [Hand.t t] and there are no more letters of any character than t has
-    available. *)
-
 let cons_if_unused t acc index elt =
   if elt then acc (*elt is true so [letter_n t index] is used*)
   else letter_n t index :: acc
 
+(** unused_letters t perm is a char list of the unique set of letters that are
+    in [Hand.t t] but not in perm. Requires: All letters in perm are from
+    [Hand.t t] and there are no more letters of any character than t has
+    available. *)
 let unused_letters (t : t) perm =
   bit_word perm t
   |> Bitv.foldi_left (fun acc index elt -> cons_if_unused t acc index elt) []
