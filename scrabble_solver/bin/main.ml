@@ -34,7 +34,7 @@ let solve letters =
     raise
       (Failure "Did not meet preconditions for letter input (error code: SL1)")
 
-let main =
+let main () =
   print_endline "Welcome to team LION's Scrabble Solver!";
   print_endline "Enter 7 letters. They must be separated by spaces.";
   match read_line () with
@@ -42,3 +42,15 @@ let main =
   | letters ->
       solve
         (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
+
+let main () =
+  print_endline "Welcome to team LION's Scrabble Solver!";
+  print_endline "Currently, the scrabble board is empty. There are ";
+  match read_line () with
+  | exception End_of_file -> ()
+  | letters ->
+      solve
+        (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
+
+(* Execute the solver engine. *)
+let () = main ()

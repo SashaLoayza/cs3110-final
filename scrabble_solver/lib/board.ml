@@ -113,15 +113,27 @@ let rec sublist first last lst =
       let tail = if last = 0 then [] else sublist (first - 1) (last - 1) t in
       if first > 0 then tail else h :: tail
 
-let place letter row column t =
+let get t row column : tile =
+  let r = List.nth t row in
+  List.nth r column
+
+let place_tile (board : t) tile row column =
   if row > 15 || column > 15 || row < 1 || column < 1 then
     failwith "Unbound row or column, please enter values between 1 and 15"
   else
     let new_row =
-      let initial = List.nth t row in
+      let initial = List.nth board row in
       sublist 0 (column - 1) initial
-      @ (letter :: sublist (column + 1) (List.length initial - 1) initial)
+      @ (tile :: sublist (column + 1) (List.length initial - 1) initial)
     in
-    sublist 0 (row - 1) t @ (new_row :: sublist (row + 1) (List.length t - 1) t)
+    sublist 0 (row - 1) board
+    @ (new_row :: sublist (row + 1) (List.length board - 1) board)
 
-let remove l row column t = place { l with letter = None } row column t
+let place board letter row column =
+  if row > 15 || column > 15 || row < 1 || column < 1 then
+    failwith "Unbound row or column, please enter values between 1 and 15"
+  else
+    let new_tile = { (get board row column) with letter } in
+    place_tile board new_tile row column
+
+let remove board row column = place board None row column

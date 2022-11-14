@@ -9,7 +9,7 @@ code:
 	! dune build --watch
 
 utop:
-	OCAMLRUNPARAM=b dune utop
+	OCAMLRUNPARAM=b dune utop lib
 
 test:
 	OCAMLRUNPARAM=b dune test 
