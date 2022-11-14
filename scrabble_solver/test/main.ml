@@ -22,5 +22,24 @@ let letter_tests =
     point_val_test "Q is one poiont" (from_input 'Q') 10;
   ]
 
-let suite = "test suite for A2" >::: List.flatten [ letter_tests ]
+(*[get_words_test] tests both create_hash and find_words as the respective
+  output and input use type t. The idea of using both is if a hastable is
+  created with a given list of words, then those words will be output by the
+  find_words function.*)
+let get_words_test (name : string) (d : string array) (expected_output : int) :
+    test =
+  name >:: fun _ ->
+  (* the [printer] tells OUnit how to convert the output to a string *)
+  assert_equal expected_output (point_value c)
+
+let dictionary_tests = []
+let hand_tests = []
+let board_tests = []
+let main_tests = []
+
+let suite =
+  "test suite for A2"
+  >::: List.flatten
+         [ letter_tests; dictionary_tests; hand_tests; board_tests; main_tests ]
+
 let _ = run_test_tt_main suite

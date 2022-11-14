@@ -1,4 +1,4 @@
-type t = (int, string) Hashtbl.t (*I DID NOT USE THIS IN MY IMPLEMENTATION*)
+type t = (int, string) Hashtbl.t
 
 let hashcode (word : string) : int =
   let char_list =
