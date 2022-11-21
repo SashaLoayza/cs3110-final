@@ -14,6 +14,12 @@ type tile = {
 
 type t = tile list list
 
+type direction =
+  | Up
+  | Down
+  | Left
+  | Right
+
 let row1 =
   [
     { letter = None; point = TripleWord };

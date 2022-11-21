@@ -1,6 +1,8 @@
 type t
 (** The board **)
 
+type direction
+(**Up, Down, Left, or Right.*)
 val place : t -> Letter.t option -> int -> int -> t
 (** place [board] [letter] [row] [column] is [board] with [letter] placed on
     [board\[row\]\[column\]]. If a letter is already on that tile, that letter
