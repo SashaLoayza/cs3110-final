@@ -57,6 +57,18 @@ let help () =
   in
   print_endline command_descriptions
 
+let read_hand () =
+  match read_line () with
+  | exception End_of_file -> ()
+  | letters ->
+      solve
+        (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
+
+let rec command_loop () =
+  match read_line () with
+  | exception End_of_file -> command_loop ()
+  | cmd -> print_endline "Not yet implemented"
+
 let main () =
   print_endline "Welcome to team LION's Scrabble Solver!\n";
   print_endline
@@ -67,11 +79,7 @@ let main () =
   print_endline
     "To enter solving mode, type 'solve' at any time. Then, to go back to \
      setup mode, type 'setup'.";
-  match read_line () with
-  | exception End_of_file -> ()
-  | letters ->
-      solve
-        (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
+  command_loop ()
 
 (* Execute the solver engine. *)
 let () = main ()

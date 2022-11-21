@@ -1,12 +1,9 @@
-type t = (int, string) Hashtbl.t
+type t = (char list, string) Hashtbl.t
 
-let hashcode (word : string) : int =
-  let char_list =
-    List.init (String.length word) (fun n ->
-        String.get word n |> Char.uppercase_ascii)
-    |> List.sort Char.compare
-  in
-  Hashtbl.hash char_list
+let create_key (word : string) =
+  List.init (String.length word) (fun n ->
+      String.get word n |> Char.uppercase_ascii)
+  |> List.sort Char.compare
 
 let create_l d = Array.to_list d
 
@@ -14,7 +11,7 @@ let rec add_el d m =
   match d with
   | [] -> m
   | h :: t ->
-      Hashtbl.add m (hashcode h) h;
+      Hashtbl.add m (create_key h) h;
       add_el t m
 
 let create_hash d =
@@ -23,5 +20,5 @@ let create_hash d =
   add_el lst m
 
 let get_words (t : t) l =
-  let code = hashcode l in
-  Hashtbl.find_all t code
+  let key = create_key l in
+  Hashtbl.find_all t key
