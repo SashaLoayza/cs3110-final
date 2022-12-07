@@ -103,5 +103,30 @@ let permutations t =
   Array.iteri (permutations_helper t result) result;
   result |> Array.to_list |> List.concat
 
+(**[factorial n] is n!. Requires: 0<n<=20.*)
+let factorial n =
+  let rec factorial_tr n acc =
+    if n <= 0 then acc else factorial_tr (n - 1) (acc * n)
+  in
+  factorial_tr n 1
+
+(**[combination_number n] is the number of combinations of n objects (assuming
+   they are all distinct). Requires: 0<n<=20.*)
+let combination_number n =
+  let rec combination_helper n k acc =
+    if k <= 0 then acc
+    else
+      let acc' = acc + (factorial n / (factorial (n - k) * factorial k)) in
+      combination_helper n (k - 1) acc'
+  in
+  combination_helper n (n - 1) 0
+
+let combinations s =
+  List.fold_left
+    (fun acc elt ->
+      let new_key = Dictionary.create_key elt in
+      if List.mem new_key acc then acc else new_key :: acc)
+    [] (permutations s)
+
 let word_list dictionary t =
   List.filter (fun perm -> Array.mem perm dictionary) (permutations t)

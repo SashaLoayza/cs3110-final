@@ -1,4 +1,5 @@
 type t =
+  (*state includes the last command*)
   | Initialize of { board : Board.t }
     (*State when player is creating the board (populating it with letters/words
       for the first time.)*)
