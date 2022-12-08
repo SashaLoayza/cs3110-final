@@ -23,7 +23,7 @@ type word = {
   pos : int * int;
   direction : direction;
   length : int;
-  word : Letter.t list;
+  word : Letter.t option list;
 }
 
 let row1 =
@@ -150,5 +150,10 @@ let place board letter row column =
     let new_tile = { (get board row column) with letter } in
     place_tile board new_tile row column
 
+let add_word (t : Board.t) (word : word) : Board.t = failwith "unimpl"
 let remove board row column = place board None row column
-let validate_board (t : Board.t) (word : word) = failwith "u"
+
+let validate_boardwords (t : Board.t) (word : word) : Board.t =
+  failwith "unimpl"
+
+let validate_placement (t : Board.t) (word : word) = failwith "unimpl"
