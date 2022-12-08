@@ -12,3 +12,5 @@ val remove : t -> int -> int -> t
 (** [remove board row column] is the board with the letter at position
     [board\[row\]\[column\]] removed. If there is no letter at that position,
     the same board is returned.*)
+
+

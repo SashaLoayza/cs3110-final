@@ -1,4 +1,5 @@
 open Letter
+open Command
 
 type tile_value =
   | Normal
@@ -15,10 +16,15 @@ type tile = {
 type t = tile list list
 
 type direction =
-  | Up
   | Down
-  | Left
   | Right
+
+type word = {
+  pos : int * int;
+  direction : direction;
+  length : int;
+  word : Letter.t list;
+}
 
 let row1 =
   [
@@ -111,6 +117,7 @@ let middle_row =
 
 (* init initializes an empty board*)
 let init = first_half @ middle_row @ List.rev first_half
+let place_word (board : t) word direction row column = failwith "unimplemented"
 
 let rec sublist first last lst =
   match lst with
@@ -119,6 +126,7 @@ let rec sublist first last lst =
       let tail = if last = 0 then [] else sublist (first - 1) (last - 1) t in
       if first > 0 then tail else h :: tail
 
+(* *)
 let get t row column : tile =
   let r = List.nth t row in
   List.nth r column
@@ -143,3 +151,4 @@ let place board letter row column =
     place_tile board new_tile row column
 
 let remove board row column = place board None row column
+let validate_board (t : Board.t) (word : word) = failwith "u"
