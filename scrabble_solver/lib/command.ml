@@ -1,7 +1,5 @@
 type t =
-  | BoardAdd of {pos: int * int; x : Letter.t} (*Add a single tile to the board*)
-  | BoardAddWord of {pos: int*int; direction : Board.direction; length : int}(*Add a word/succession of tiles to the board*)
-  | BoardRem of int * int (*Remove a single tile from the board*)
+  | BoardAddWord of {pos: int*int; direction : Board.direction; length : int; word: string}(*Add a word/succession of tiles to the board*)
   | BoardRemWord of {pos: int*int; direction : Board.direction; length : int}(*Remove a word/succession of tiles from the board*)
   | BoardClear (*Clear the board*)
   | HandMake of Letter.t list
