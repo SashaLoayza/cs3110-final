@@ -19,7 +19,7 @@ type direction =
   | Down
   | Right
 
-type word = {
+type bword = {
   pos : int * int;
   direction : direction;
   length : int;
@@ -117,7 +117,7 @@ let middle_row =
 
 (* init initializes an empty board*)
 let init = first_half @ middle_row @ List.rev first_half
-let place_word (board : t) word direction row column = failwith "unimplemented"
+let place_word (board : t) (word : bword) = failwith "unimplemented"
 
 let rec sublist first last lst =
   match lst with
@@ -126,7 +126,7 @@ let rec sublist first last lst =
       let tail = if last = 0 then [] else sublist (first - 1) (last - 1) t in
       if first > 0 then tail else h :: tail
 
-(* *)
+(* get obtains the tile of the board *)
 let get t row column : tile =
   let r = List.nth t row in
   List.nth r column
@@ -150,10 +150,51 @@ let place board letter row column =
     let new_tile = { (get board row column) with letter } in
     place_tile board new_tile row column
 
-let add_word (t : Board.t) (word : word) : Board.t = failwith "unimpl"
+let add_word (board : t) (word : bword) : t = failwith "unimpl"
 let remove board row column = place board None row column
 
-let validate_boardwords (t : Board.t) (word : word) : Board.t =
-  failwith "unimpl"
+let unbound_check (board : t) (word : bword) =
+  let r, c = word.pos in
+  if r > 15 || r < 1 || c > 15 || c < 1 then failwith "Unbound placement"
+  else
+    match word.direction with
+    | Down ->
+        if c + word.length > 15 then failwith "Unbound placement" else true
+    | Right ->
+        if r + word.length > 15 then failwith "Unbound placement" else true
 
-let validate_placement (t : Board.t) (word : word) = failwith "unimpl"
+let horizontal_placement_check (board : t) (word : bword) =
+  let r, c = word.pos in
+  let tile_list =
+    sublist (c - 1) (c + word.length - 2) (List.nth board (r - 1))
+  in
+  let check_list = List.filter (fun i -> i.letter = None) tile_list in
+  List.length check_list == List.length tile_list
+
+(* sublist_column is similar to sublist except this time the outputted list is
+   the list of tiles in the place the word is supposed to be inputted on*)
+let rec sublist_column (board : t) (word : bword) = failwith "unimpl"
+
+(* im thinking you do sublist (c-1) (c-1) (List.nth board (r-1)) :: sublist
+   (c-1) (c-1) (List.nth board (r)) :: sublist (c-1) (c-1) (List.nth board
+   (r+1)) . . . until the length of that list equals the length of the word they
+   inputted, this should work if my logic is correct but am unsure about
+   implementing :( *)
+let vertical_placement_check (board : t) (word : bword) = failwith "unimpl"
+
+(* let tile_list = sublist_column board word in let check_list = List.filter
+   (fun i -> i.letter = None) tile_list in List.length check_list == List.length
+   tile_list *)
+let placement_check (board : t) (word : bword) =
+  match word.direction with
+  | Right -> horizontal_placement_check board word
+  | Down -> vertical_placement_check board word
+
+let validate_placement (board : t) (word : bword) =
+  unbound_check board word && placement_check board word
+
+let validate_words (board : t) (word : bword) =
+  if board = init then true else false (* else branch isn't updated*)
+
+let validate_board (board : t) (word : bword) =
+  validate_placement board word && validate_words board word

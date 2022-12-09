@@ -3,6 +3,7 @@ open Scrabble_solver
 open Hand
 open Letter
 open Dictionary
+open Board
 
 let point_val_test (name : string) (c : Letter.t) (expected_output : int) : test
     =
@@ -12,14 +13,14 @@ let point_val_test (name : string) (c : Letter.t) (expected_output : int) : test
 
 let letter_tests =
   [
-    point_val_test "a is one poiont" (from_input 'a') 1;
-    point_val_test "A is one poiont" (from_input 'A') 1;
-    point_val_test "D is one poiont" (from_input 'D') 2;
-    point_val_test "B is one poiont" (from_input 'B') 3;
-    point_val_test "F is one poiont" (from_input 'F') 4;
-    point_val_test "K is one poiont" (from_input 'K') 5;
-    point_val_test "J is one poiont" (from_input 'J') 8;
-    point_val_test "Q is one poiont" (from_input 'Q') 10;
+    point_val_test "a is one point" (from_input 'a') 1;
+    point_val_test "A is one point" (from_input 'A') 1;
+    point_val_test "D is one point" (from_input 'D') 2;
+    point_val_test "B is one point" (from_input 'B') 3;
+    point_val_test "F is one point" (from_input 'F') 4;
+    point_val_test "K is one point" (from_input 'K') 5;
+    point_val_test "J is one point" (from_input 'J') 8;
+    point_val_test "Q is one point" (from_input 'Q') 10;
   ]
 
 (*[get_words_test] tests both create_hash and find_words as the respective
@@ -53,7 +54,7 @@ let board_tests = []
 let main_tests = []
 
 let suite =
-  "test suite for A2"
+  "test suite for final project"
   >::: List.flatten
          [ letter_tests; dictionary_tests; hand_tests; board_tests; main_tests ]
 
