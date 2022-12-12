@@ -145,7 +145,7 @@ let rec add_word_horizontal (board : t) (word : Word.t) : t =
   match word.letter_list with
   | [] -> board
   | h :: t ->
-      let newboard = place board h (r - 1) (c - 1) in
+      let newboard = place board h r c in
       add_word_horizontal newboard
         { word with pos = (r, c + 1); letter_list = t }
 
@@ -154,7 +154,7 @@ let rec add_word_vertical (board : t) (word : Word.t) : t =
   match word.letter_list with
   | [] -> board
   | h :: t ->
-      let newboard = place board h (r - 1) (c - 1) in
+      let newboard = place board h r c in
       add_word_vertical newboard { word with pos = (r + 1, c); letter_list = t }
 
 let add_word (board : t) (word : Word.t) : t =
@@ -227,10 +227,10 @@ let rec col_tile_list board c r acc =
 let rec row_tile_list board r c acc =
   if c = 14 then acc else row_tile_list board r (c + 1) (get board r c :: acc)
 
-let row_to_string board r =
+let row_to_string (board : t) r =
   let tList = tile_to_letters (row_tile_list board r 0 []) in
   letter_opt_ts tList
 
-let col_to_string board c =
+let col_to_string (board : t) c =
   let tList = tile_to_letters (col_tile_list board c 0 []) in
   letter_opt_ts tList

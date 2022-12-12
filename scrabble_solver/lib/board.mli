@@ -15,3 +15,4 @@ val remove : t -> int -> int -> t
     the same board is returned.*)
 
 val add_word : t -> Word.t -> t
+val row_to_string : t -> int -> string

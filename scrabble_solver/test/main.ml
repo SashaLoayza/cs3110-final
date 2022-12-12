@@ -46,15 +46,21 @@ let dictionary_tests =
   ]
 
 let hand_tests = []
+let catword = Word.from_input (0, 0) Right "cat"
 
-let add_word_test (name : string) (board : Board.t) (word : Word.t)
-    (expected_output : Board.t) : test =
-  name >:: fun _ -> assert_equal expected_output (Board.add_word board word)
+let add_word_test (name : string) (board : Board.t) (word : Word.t) (row : int)
+    (expected_output : string) : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (Board.row_to_string (Board.add_word board word) row)
+    ~printer:Fun.id
 
-let letterc = Letter.from_input 'c'
-let lettera = Letter.from_input 'a'
-let lettert = Letter.from_input 't'
-let board_tests = []
+let board_tests =
+  [
+    add_word_test "adding cat to empty board" Board.init catword 0
+      "c,a,t,_,_,_,_,_,_,_,_,_,_,_,_";
+  ]
+
 let main_tests = []
 
 let suite =
