@@ -15,12 +15,12 @@ let letter_tests =
   [
     point_val_test "a is one point" (from_input 'a') 1;
     point_val_test "A is one point" (from_input 'A') 1;
-    point_val_test "D is one point" (from_input 'D') 2;
-    point_val_test "B is one point" (from_input 'B') 3;
-    point_val_test "F is one point" (from_input 'F') 4;
-    point_val_test "K is one point" (from_input 'K') 5;
-    point_val_test "J is one point" (from_input 'J') 8;
-    point_val_test "Q is one point" (from_input 'Q') 10;
+    point_val_test "D is two points" (from_input 'D') 2;
+    point_val_test "B is three points" (from_input 'B') 3;
+    point_val_test "F is four points" (from_input 'F') 4;
+    point_val_test "K is five points" (from_input 'K') 5;
+    point_val_test "J is eight points" (from_input 'J') 8;
+    point_val_test "Q is ten points" (from_input 'Q') 10;
   ]
 
 (*[get_words_test] tests both create_hash and find_words as the respective
