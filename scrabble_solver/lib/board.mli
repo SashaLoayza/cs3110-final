@@ -1,8 +1,11 @@
 type t
-(** The board **)
+(** The board**)
 
 type direction
 (**Up, Down, Left, or Right.*)
+
+type bword
+
 val place : t -> Letter.t option -> int -> int -> t
 (** place [board] [letter] [row] [column] is [board] with [letter] placed on
     [board\[row\]\[column\]]. If a letter is already on that tile, that letter
@@ -13,4 +16,4 @@ val remove : t -> int -> int -> t
     [board\[row\]\[column\]] removed. If there is no letter at that position,
     the same board is returned.*)
 
-
+val add_word : t -> bword -> t

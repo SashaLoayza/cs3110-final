@@ -22,7 +22,7 @@ type bword = {
   pos : int * int;
   direction : direction;
   length : int;
-  word : Letter.t option list;
+  letterlist : Letter.t option list;
 }
 
 let row1 =
@@ -131,8 +131,8 @@ let get t row column : tile =
   List.nth r column
 
 let place_tile (board : t) tile row column =
-  if row > 15 || column > 15 || row < 1 || column < 1 then
-    failwith "Unbound row or column, please enter values between 1 and 15"
+  if row > 14 || column > 14 || row < 0 || column < 0 then
+    failwith "Unbound row or column, please enter values between 0 and 14"
   else
     let new_row =
       let initial = List.nth board row in
@@ -142,14 +142,36 @@ let place_tile (board : t) tile row column =
     sublist 0 (row - 1) board
     @ (new_row :: sublist (row + 1) (List.length board - 1) board)
 
+(** place letter on a tile*)
 let place board letter row column =
-  if row > 15 || column > 15 || row < 1 || column < 1 then
-    failwith "Unbound row or column, please enter values between 1 and 15"
+  if row > 14 || column > 14 || row < 0 || column < 0 then
+    failwith "Unbound row or column, please enter values between 0 and 14"
   else
     let new_tile = { (get board row column) with letter } in
     place_tile board new_tile row column
 
-let add_word (board : t) (word : bword) : t = failwith "unimpl"
+let rec add_word_horizontal (board : t) (word : bword) : t =
+  let r, c = word.pos in
+  match word.letterlist with
+  | [] -> board
+  | h :: t ->
+      let newboard = place board h (r - 1) (c - 1) in
+      add_word_horizontal newboard
+        { word with pos = (r, c + 1); letterlist = t }
+
+let rec add_word_vertical (board : t) (word : bword) : t =
+  let r, c = word.pos in
+  match word.letterlist with
+  | [] -> board
+  | h :: t ->
+      let newboard = place board h (r - 1) (c - 1) in
+      add_word_vertical newboard { word with pos = (r + 1, c); letterlist = t }
+
+let add_word (board : t) (word : bword) : t =
+  match word.direction with
+  | Right -> add_word_horizontal board word
+  | Down -> add_word_vertical board word
+
 let remove board row column = place board None row column
 
 let unbound_check (board : t) (word : bword) =
