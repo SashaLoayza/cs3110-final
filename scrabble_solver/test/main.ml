@@ -64,7 +64,7 @@ let place_test (name : string) (board : Board.t) (letter : Letter.t option)
 
 let board_tests =
   [
-    place_test "bruh" Board.init (Letter.from_input_opt 'a') 0 0 "idc"
+    place_test "bruh" Board.init (Letter.from_input_opt 'a') 1 5 "idc"
     (*add_word_test "adding cat to empty board" Board.init catword
       "c,a,t,_,_,_,_,_,_,_,_,_,_,_,_";*);
   ]

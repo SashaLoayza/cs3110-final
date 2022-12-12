@@ -218,8 +218,8 @@ let rec tile_to_letters (tList : tile list) =
 let rec letter_opt_ts lopt =
   match lopt with
   | [] -> ""
-  | None :: t -> "|_|" ^ letter_opt_ts t
-  | Some v :: t -> "|" ^ String.make 1 (char_value v) ^ "|" ^ letter_opt_ts t
+  | None :: t -> letter_opt_ts t ^ "|_|"
+  | Some v :: t -> letter_opt_ts t ^ "|" ^ String.make 1 (char_value v) ^ "|"
 
 let rec col_tile_list board c r acc =
   if r = 15 then acc else col_tile_list board c (r + 1) (get board r c :: acc)
