@@ -192,6 +192,7 @@ let horizontal_placement_check (board : t) (word : bword) =
   let check_list = List.filter (fun i -> i.letter = None) tile_list in
   List.length check_list == List.length tile_list
 
+(*tail recursive loop to return sublist of tiles*)
 let rec subcol_loop board c r rE acc =
   if r = rE then acc else subcol_loop board c (r + 1) rE (get board r c :: acc)
 
@@ -224,3 +225,29 @@ let validate_words (board : t) (word : bword) =
 
 let validate_board (board : t) (word : bword) =
   validate_placement board word && validate_words board word
+
+(*To String functions*)
+let rec tile_to_letters (tList : tile list) =
+  match tList with
+  | [] -> []
+  | h :: t -> h.letter :: tile_to_letters t
+
+let rec letter_opt_ts lopt =
+  match lopt with
+  | [] -> ""
+  | None :: t -> "," ^ letter_opt_ts t
+  | Some v :: t -> String.make 1 (char_value v) ^ letter_opt_ts t
+
+let rec col_tile_list board c r acc =
+  if r = 14 then acc else col_tile_list board c (r + 1) (get board r c :: acc)
+
+let rec row_tile_list board r c acc =
+  if c = 14 then acc else row_tile_list board r (c + 1) (get board r c :: acc)
+
+let row_to_string board r =
+  let tList = tile_to_letters (row_tile_list board r 0 []) in
+  letter_opt_ts tList
+
+let col_to_string board c =
+  let tList = tile_to_letters (col_tile_list board c 0 []) in
+  letter_opt_ts tList
