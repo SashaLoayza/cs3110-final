@@ -218,14 +218,14 @@ let rec tile_to_letters (tList : tile list) =
 let rec letter_opt_ts lopt =
   match lopt with
   | [] -> ""
-  | None :: t -> ",_" ^ letter_opt_ts t
+  | None :: t -> "|_|" ^ letter_opt_ts t
   | Some v :: t -> String.make 1 (char_value v) ^ letter_opt_ts t
 
 let rec col_tile_list board c r acc =
-  if r = 14 then acc else col_tile_list board c (r + 1) (get board r c :: acc)
+  if r = 15 then acc else col_tile_list board c (r + 1) (get board r c :: acc)
 
 let rec row_tile_list board r c acc =
-  if c = 14 then acc else row_tile_list board r (c + 1) (get board r c :: acc)
+  if c = 15 then acc else row_tile_list board r (c + 1) (get board r c :: acc)
 
 let row_to_string (board : t) r =
   let tList = tile_to_letters (row_tile_list board r 0 []) in
@@ -234,3 +234,13 @@ let row_to_string (board : t) r =
 let col_to_string (board : t) c =
   let tList = tile_to_letters (col_tile_list board c 0 []) in
   letter_opt_ts tList
+
+let board_to_string board =
+  row_to_string board 0 ^ "\n" ^ row_to_string board 1 ^ "\n"
+  ^ row_to_string board 2 ^ "\n" ^ row_to_string board 3 ^ "\n"
+  ^ row_to_string board 4 ^ "\n" ^ row_to_string board 5 ^ "\n"
+  ^ row_to_string board 6 ^ "\n" ^ row_to_string board 7 ^ "\n"
+  ^ row_to_string board 8 ^ "\n" ^ row_to_string board 9 ^ "\n"
+  ^ row_to_string board 10 ^ "\n" ^ row_to_string board 11 ^ "\n"
+  ^ row_to_string board 12 ^ "\n" ^ row_to_string board 13 ^ "\n"
+  ^ row_to_string board 14 ^ "\n"
