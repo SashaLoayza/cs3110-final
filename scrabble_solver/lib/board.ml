@@ -14,17 +14,6 @@ type tile = {
 
 type t = tile list list
 
-type direction =
-  | Down
-  | Right
-
-type bword = {
-  pos : int * int;
-  direction : direction;
-  length : int;
-  letterlist : Letter.t option list;
-}
-
 let row1 =
   [
     { letter = None; point = TripleWord };
@@ -116,7 +105,7 @@ let middle_row =
 
 (* init initializes an empty board*)
 let init = first_half @ middle_row @ List.rev first_half
-let place_word (board : t) (word : bword) = failwith "unimplemented"
+let place_word (board : t) (word : Word.t) = failwith "unimplemented"
 
 let rec sublist first last lst =
   match lst with
@@ -151,31 +140,31 @@ let place board letter row column =
     let new_tile = { (get board row column) with letter } in
     place_tile board new_tile row column
 
-let rec add_word_horizontal (board : t) (word : bword) : t =
+let rec add_word_horizontal (board : t) (word : Word.t) : t =
   let r, c = word.pos in
-  match word.letterlist with
+  match word.letter_list with
   | [] -> board
   | h :: t ->
       let newboard = place board h (r - 1) (c - 1) in
       add_word_horizontal newboard
-        { word with pos = (r, c + 1); letterlist = t }
+        { word with pos = (r, c + 1); letter_list = t }
 
-let rec add_word_vertical (board : t) (word : bword) : t =
+let rec add_word_vertical (board : t) (word : Word.t) : t =
   let r, c = word.pos in
-  match word.letterlist with
+  match word.letter_list with
   | [] -> board
   | h :: t ->
       let newboard = place board h (r - 1) (c - 1) in
-      add_word_vertical newboard { word with pos = (r + 1, c); letterlist = t }
+      add_word_vertical newboard { word with pos = (r + 1, c); letter_list = t }
 
-let add_word (board : t) (word : bword) : t =
+let add_word (board : t) (word : Word.t) : t =
   match word.direction with
   | Right -> add_word_horizontal board word
   | Down -> add_word_vertical board word
 
 let remove board row column = place board None row column
 
-let unbound_check (board : t) (word : bword) =
+let unbound_check (board : t) (word : Word.t) =
   let r, c = word.pos in
   if r > 14 || r < 0 || c > 14 || c < 0 then failwith "Unbound placement"
   else
@@ -185,7 +174,7 @@ let unbound_check (board : t) (word : bword) =
     | Right ->
         if r + word.length > 14 then failwith "Unbound placement" else true
 
-let horizontal_placement_check (board : t) (word : bword) =
+let horizontal_placement_check (board : t) (word : Word.t) =
   let r, c = word.pos in
   let tile_list = sublist c (c + word.length - 1) (List.nth board r) in
   let check_list = List.filter (fun i -> i.letter = None) tile_list in
@@ -197,27 +186,27 @@ let rec subcol_loop board c r rE acc =
 
 (* sublist_column is similar to sublist except this time the outputted list is
    the list of tiles in the place the word is supposed to be inputted on*)
-let rec sublist_column (board : t) (word : bword) =
+let rec sublist_column (board : t) (word : Word.t) =
   let r, c = word.pos in
   subcol_loop board c r (r + word.length - 1) []
 
-let vertical_placement_check (board : t) (word : bword) =
+let vertical_placement_check (board : t) (word : Word.t) =
   let tile_list = sublist_column board word in
   let check_list = List.filter (fun i -> i.letter = None) tile_list in
   List.length check_list == List.length tile_list
 
-let placement_check (board : t) (word : bword) =
+let placement_check (board : t) (word : Word.t) =
   match word.direction with
   | Right -> horizontal_placement_check board word
   | Down -> vertical_placement_check board word
 
-let validate_placement (board : t) (word : bword) =
+let validate_placement (board : t) (word : Word.t) =
   unbound_check board word && placement_check board word
 
-(** let validate_words (board : t) (word : bword) = if board = init then true
+(** let validate_words (board : t) (word : Word.t) = if board = init then true
     else false (* else branch isn't updated*)
 
-    let validate_board (board : t) (word : bword) = validate_placement board
+    let validate_board (board : t) (word : Word.t) = validate_placement board
     word && validate_words board word **)
 
 (*To String functions*)

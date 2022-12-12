@@ -1,13 +1,6 @@
 type t
 (** The board**)
 
-type direction
-(** Down or Right.*)
-
-type bword
-(** bword is the board word type, has the coordinate to put it on, the letter
-    list, and the direction ha *)
-
 val init : t
 (** empty board*)
 
@@ -21,4 +14,4 @@ val remove : t -> int -> int -> t
     [board\[row\]\[column\]] removed. If there is no letter at that position,
     the same board is returned.*)
 
-val add_word : t -> bword -> t
+val add_word : t -> Word.t -> t

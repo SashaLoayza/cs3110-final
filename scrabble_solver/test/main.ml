@@ -51,7 +51,7 @@ let dictionary_tests =
 
 let hand_tests = []
 
-let add_word_test (name : string) (board : Board.t) (word : Board.bword)
+let add_word_test (name : string) (board : Board.t) (word : Word.t)
     (expected_output : Board.t) : test =
   name >:: fun _ -> assert_equal expected_output (add_word board word)
 
