@@ -107,12 +107,27 @@ let middle_row =
 let init = first_half @ middle_row @ List.rev first_half
 let place_word (board : t) (word : Word.t) = failwith "unimplemented"
 
-let rec sublist first last lst =
-  match lst with
-  | [] -> failwith "Empty Sublist"
-  | h :: t ->
-      let tail = if last <= 0 then [] else sublist (first - 1) (last - 1) t in
-      if first > 0 then tail else h :: tail
+(**[sublist first last lst] ist lst[first..last+1], since last is included.
+   Requires: 0<= first <= length(lst) - 1 and first <= last <= list.length - 1.
+   (So List must be nonempty)*)
+let sublist first last lst =
+  let final_index = List.length lst - 1 in
+  assert (
+    0 <= first && first <= final_index && first <= last && last <= final_index);
+  (* ASSERT PRECONDITION*)
+  let rec sublist_helper first last lst =
+    match first with
+    | 0 -> (
+        match lst with
+        | [] -> failwith "sublist_helper cannot be called on the empty list"
+        | h :: t ->
+            if last = 0 then [ h ] else h :: sublist_helper 0 (last - 1) t)
+    | n -> (
+        match lst with
+        | [] -> failwith "sublist_helper cannot be called on the empty list"
+        | h :: t -> sublist_helper (first - 1) (last - 1) t)
+  in
+  sublist_helper first last lst
 
 (* get obtains the tile of the board *)
 let get t row column : tile =
