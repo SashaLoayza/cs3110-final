@@ -229,7 +229,7 @@ let rec tile_to_letters (tList : tile list) =
 let rec letter_opt_ts lopt =
   match lopt with
   | [] -> ""
-  | None :: t -> "," ^ letter_opt_ts t
+  | None :: t -> ",_" ^ letter_opt_ts t
   | Some v :: t -> String.make 1 (char_value v) ^ letter_opt_ts t
 
 let rec col_tile_list board c r acc =
