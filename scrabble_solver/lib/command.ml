@@ -1,7 +1,7 @@
 type t =
   | BoardAddWord of {pos: int*int; direction : Board.direction; length : int; word: Letter.t option list}(*Add a word/succession of tiles to the board*)
   | BoardRemWord of {pos: int*int; direction : Board.direction; length : int; word: Letter.t option list}(*Remove a word/succession of tiles from the board*)
-  | BoardClear (*Clear the board*)
+  | BoardClear of Board.t (*Clear the board*)
   | HandMake of Letter.t list
     (* Clear the current hand, if any, and initialize a new hand of up to 7
        letters. *)
