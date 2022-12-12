@@ -1,5 +1,4 @@
 open Letter
-open Command
 
 type tile_value =
   | Normal
