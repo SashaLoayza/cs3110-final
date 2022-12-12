@@ -59,12 +59,12 @@ let place_test (name : string) (board : Board.t) (letter : Letter.t option)
     (row : int) (column : int) (expected_output : string) : test =
   name >:: fun _ ->
   assert_equal expected_output
-    (Board.board_to_string (Board.place board (Letter.from_input_opt 'a') 0 0))
+    (Board.board_to_string (Board.place board letter row column))
     ~printer:Fun.id
 
 let board_tests =
   [
-    place_test "bruh" Board.init (Letter.from_input_opt 'a') 0 0 "idc"
+    place_test "bruh" Board.init (Letter.from_input_opt 'a') 0 10 "idc"
     (*add_word_test "adding cat to empty board" Board.init catword
       "c,a,t,_,_,_,_,_,_,_,_,_,_,_,_";*);
   ]
