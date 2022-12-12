@@ -251,12 +251,12 @@ let col_to_string (board : t) c =
   letter_opt_ts tList
 
 let board_to_string board =
-  "\n" ^ "    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14" ^ "\n1  "
-  ^ row_to_string board 0 ^ "\n2  " ^ row_to_string board 1 ^ "\n3  "
-  ^ row_to_string board 2 ^ "\n4  " ^ row_to_string board 3 ^ "\n5  "
-  ^ row_to_string board 4 ^ "\n6  " ^ row_to_string board 5 ^ "\n7  "
-  ^ row_to_string board 6 ^ "\n8  " ^ row_to_string board 7 ^ "\n9  "
-  ^ row_to_string board 8 ^ "\n10 " ^ row_to_string board 9 ^ "\n11 "
-  ^ row_to_string board 10 ^ "\n12 " ^ row_to_string board 11 ^ "\n13 "
-  ^ row_to_string board 12 ^ "\n14 " ^ row_to_string board 13 ^ "\n15 "
+  "\n" ^ "    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14" ^ "\n0  "
+  ^ row_to_string board 0 ^ "\n1  " ^ row_to_string board 1 ^ "\n2  "
+  ^ row_to_string board 2 ^ "\n3  " ^ row_to_string board 3 ^ "\n4  "
+  ^ row_to_string board 4 ^ "\n5  " ^ row_to_string board 5 ^ "\n6  "
+  ^ row_to_string board 6 ^ "\n7  " ^ row_to_string board 7 ^ "\n8  "
+  ^ row_to_string board 8 ^ "\n9 " ^ row_to_string board 9 ^ "\n10 "
+  ^ row_to_string board 10 ^ "\n11 " ^ row_to_string board 11 ^ "\n12 "
+  ^ row_to_string board 12 ^ "\n13 " ^ row_to_string board 13 ^ "\n14 "
   ^ row_to_string board 14 ^ "\n"
