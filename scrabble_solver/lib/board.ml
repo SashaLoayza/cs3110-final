@@ -122,7 +122,7 @@ let rec sublist first last lst =
   match lst with
   | [] -> failwith "Empty Sublist"
   | h :: t ->
-      let tail = if last = 0 then [] else sublist (first - 1) (last - 1) t in
+      let tail = if last <= 0 then [] else sublist (first - 1) (last - 1) t in
       if first > 0 then tail else h :: tail
 
 (* get obtains the tile of the board *)
@@ -130,6 +130,7 @@ let get t row column : tile =
   let r = List.nth t row in
   List.nth r column
 
+(** place_tile places a tile on the board*)
 let place_tile (board : t) tile row column =
   if row > 14 || column > 14 || row < 0 || column < 0 then
     failwith "Unbound row or column, please enter values between 0 and 14"

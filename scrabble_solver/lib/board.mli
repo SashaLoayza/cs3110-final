@@ -2,9 +2,14 @@ type t
 (** The board**)
 
 type direction
-(**Up, Down, Left, or Right.*)
+(** Down or Right.*)
 
 type bword
+(** bword is the board word type, has the coordinate to put it on, the letter
+    list, and the direction ha *)
+
+val init : t
+(** empty board*)
 
 val place : t -> Letter.t option -> int -> int -> t
 (** place [board] [letter] [row] [column] is [board] with [letter] placed on

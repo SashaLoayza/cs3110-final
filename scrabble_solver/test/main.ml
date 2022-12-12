@@ -50,6 +50,14 @@ let dictionary_tests =
   ]
 
 let hand_tests = []
+
+let add_word_test (name : string) (board : Board.t) (word : Board.bword)
+    (expected_output : Board.t) : test =
+  name >:: fun _ -> assert_equal expected_output (add_word board word)
+
+let letterc = from_input 'c'
+let lettera = from_input 'a'
+let lettert = from_input 't'
 let board_tests = []
 let main_tests = []
 
