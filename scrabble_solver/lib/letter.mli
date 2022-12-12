@@ -7,8 +7,13 @@ exception NotValidLetter of string
 
 val from_input : char -> t
 (**[from_input j] is the in game letter representation of a character passed in
-   as a *string*. Requires that j is a one letter string from the english
+   as a *char*. Requires that j is a one letter string from the english
    alphabet.*)
+
+val from_input_opt : char -> t option
+(**[from_input_opt j] is the in game letter opt representation of a character
+   passed in as a *char*. Requires that j is a one letter string from the
+   english alphabet or -.*)
 
 val char_value : t -> char
 (**[char_value l] is the character value of a letter. Requires that [l] is a
