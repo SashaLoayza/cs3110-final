@@ -170,9 +170,14 @@ let horizontal_placement_check (board : t) (word : bword) =
   let check_list = List.filter (fun i -> i.letter = None) tile_list in
   List.length check_list == List.length tile_list
 
+let rec subcol_loop board c r rE acc =
+  if r = rE then acc else subcol_loop board c (r + 1) rE (get board r c :: acc)
+
 (* sublist_column is similar to sublist except this time the outputted list is
    the list of tiles in the place the word is supposed to be inputted on*)
-let rec sublist_column (board : t) (word : bword) = failwith "unimpl"
+let rec sublist_column (board : t) (word : bword) =
+  let r, c = word.pos in
+  subcol_loop board c r (r + word.length) []
 
 (* im thinking you do sublist (c-1) (c-1) (List.nth board (r-1)) :: sublist
    (c-1) (c-1) (List.nth board (r)) :: sublist (c-1) (c-1) (List.nth board
