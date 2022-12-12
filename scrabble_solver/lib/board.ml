@@ -236,7 +236,8 @@ let col_to_string (board : t) c =
   letter_opt_ts tList
 
 let board_to_string board =
-  "\n" ^ row_to_string board 0 ^ "\n" ^ row_to_string board 1 ^ "\n"
+  "\n" ^ " 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15" ^ "\n"
+  ^ row_to_string board 0 ^ "\n" ^ row_to_string board 1 ^ "\n"
   ^ row_to_string board 2 ^ "\n" ^ row_to_string board 3 ^ "\n"
   ^ row_to_string board 4 ^ "\n" ^ row_to_string board 5 ^ "\n"
   ^ row_to_string board 6 ^ "\n" ^ row_to_string board 7 ^ "\n"
