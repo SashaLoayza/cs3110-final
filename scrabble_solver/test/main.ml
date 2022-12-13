@@ -69,22 +69,32 @@ let add_word_test_row (name : string) (board : Board.t) (word : Word.t)
     (Board.row_to_string (Board.add_word board word) row)
     ~printer:Fun.id
 
+let batword = Word.from_input (0, 5) Right "baths"
+let bigword = Word.from_input (0, 0) Right "abcdefghijklmno"
+
 let board_tests =
   [
-    (* place_test "place 0 1" Board.init (Letter.from_input_opt 'a') 0 1
-       "|_||a||_||_||_||_||_||_||_||_||_||_||_||_||_|"; *)
+    place_test "place 0 1" Board.init
+      (Letter.from_input_opt 'a')
+      0 1 "|_||a||_||_||_||_||_||_||_||_||_||_||_||_||_|";
     place_test "place 3 9" Board.init
       (Letter.from_input_opt 'j')
       3 9 "|_||_||_||_||_||_||_||_||_||j||_||_||_||_||_|";
     place_test "place 8 0" Board.init
       (Letter.from_input_opt 'y')
-      8 0 "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|"
-    (* place_test "place 14 14" Board.init (Letter.from_input_opt 'm') 14 14
-       "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||m|"; place_test "place 0 0"
-       Board.init (Letter.from_input_opt 'y') 0 0
-       "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|" *)
-    (* add_word_test_row "adding cat to empty board" Board.init catword 0
-       "c,a,t,_,_,_,_,_,_,_,_,_,_,_,_"; *);
+      8 0 "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
+    place_test "place 14 14" Board.init
+      (Letter.from_input_opt 'm')
+      14 14 "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||m|";
+    place_test "place 0 0" Board.init
+      (Letter.from_input_opt 'y')
+      0 0 "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
+    add_word_test_row "adding cat to empty board" Board.init catword 0
+      "|C||A||T||_||_||_||_||_||_||_||_||_||_||_||_|";
+    add_word_test_row "adding baths to empty board" Board.init batword 0
+      "|_||_||_||_||_||B||A||T||H||S||_||_||_||_||_|";
+    add_word_test_row "adding 14 letterr to empty board" Board.init bigword 0
+      "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|";
   ]
 
 let main_tests = []
