@@ -130,7 +130,7 @@ let sublist first last lst =
     && last <= List.length lst
     && first <= last + 1
   then List.rev (sublist2_aux first last lst 0 [])
-  else raise (Failure "Precondition was not met")
+  else raise (Failure "Preconditions of sublist were not met")
 
 (* get obtains the tile of the board *)
 let get t row column : tile =
@@ -162,18 +162,29 @@ let rec add_word_horizontal (board : t) (word : Word.t) : t =
   let r, c = word.pos in
   match word.letter_list with
   | [] -> board
-  | h :: t ->
-      let newboard = place board h r c in
-      add_word_horizontal newboard
-        { word with pos = (r, c + 1); letter_list = t }
+  | h :: t -> (
+      match h with
+      | Some v ->
+          let newboard = place board h r c in
+          add_word_horizontal newboard
+            { word with pos = (r, c + 1); letter_list = t }
+      | None ->
+          add_word_horizontal board
+            { word with pos = (r, c + 1); letter_list = t })
 
 let rec add_word_vertical (board : t) (word : Word.t) : t =
   let r, c = word.pos in
   match word.letter_list with
   | [] -> board
-  | h :: t ->
-      let newboard = place board h r c in
-      add_word_vertical newboard { word with pos = (r + 1, c); letter_list = t }
+  | h :: t -> (
+      match h with
+      | Some _ ->
+          let newboard = place board h r c in
+          add_word_vertical newboard
+            { word with pos = (r + 1, c); letter_list = t }
+      | None ->
+          add_word_vertical board
+            { word with pos = (r + 1, c); letter_list = t })
 
 let add_word (board : t) (word : Word.t) : t =
   match word.direction with

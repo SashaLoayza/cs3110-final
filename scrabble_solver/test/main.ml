@@ -180,10 +180,10 @@ let board_tests =
   ]
 
 let deluxeword = Word.from_input (2, 8) Down "deluxe"
-let greatestword = Word.from_input (7, 3) Right "greatest"
-let worldword = Word.from_input (5, 4) Down "world"
-let editionword = Word.from_input (9, 3) Right "edition"
-let teachword = Word.from_input (9, 6) Down "teach"
+let greatestword = Word.from_input (7, 3) Right "great-st"
+let worldword = Word.from_input (5, 4) Down "wo-ld"
+let editionword = Word.from_input (9, 3) Right "e-ition"
+let teachword = Word.from_input (9, 6) Down "-each"
 
 let big_words_test =
   [
