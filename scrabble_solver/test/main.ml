@@ -29,11 +29,21 @@ let get_words_test (name : string) (t : Dictionary.t) (l : string)
   (* the [printer] tells OUnit how to convert the output to a string *)
   assert_equal expected_output (Dictionary.get_words t l)
 
-let valid_word_test (name : string) (t : Dictionary.t) (l : string)
+let contains_word_test (name : string) (t : Dictionary.t) (l : string)
     (expected_output : bool) : test =
   name >:: fun _ ->
   (* the [printer] tells OUnit how to convert the output to a string *)
-  assert_equal expected_output (Dictionary.valid_word t l)
+  assert_equal expected_output (Dictionary.contains_word t l)
+
+(*copy and pasted from main.ml *)
+let valid_words = Arg.read_arg "data/dictionary.txt"
+let table = Dictionary.create_hash valid_words
+
+let full_d_test (name : string) (htable : Dictionary.t) (l : string)
+    (expected_output : bool) : test =
+  name >:: fun _ ->
+  (* the [printer] tells OUnit how to convert the output to a string *)
+  assert_equal expected_output (Dictionary.contains_word htable l)
 
 let dictionary_tests =
   [
@@ -49,12 +59,17 @@ let dictionary_tests =
     get_words_test "2 words, but find key is not present"
       (Dictionary.create_hash [| "oneWord"; "Wordone" |])
       "no" [];
-    valid_word_test "2 words, and not present"
+    contains_word_test "2 words, and not present"
       (Dictionary.create_hash [| "oneWord"; "Wordone" |])
-      "no" false;
-    valid_word_test "2 words, and present"
+      "nejrtykuli;klo" false;
+    contains_word_test "2 words, and present"
       (Dictionary.create_hash [| "oneWord"; "Wordone" |])
       "oneWord" true;
+    contains_word_test "2 words, and present"
+      (Dictionary.create_hash [| "oneWord"; "Wordone" |])
+      "onWoerd" false;
+    full_d_test "Ians word: abyssal" table "ABYSSAL" true;
+    full_d_test "not a word" table "POG" false;
   ]
 
 let hand_tests = []

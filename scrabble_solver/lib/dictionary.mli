@@ -17,6 +17,6 @@ val get_words : t -> string -> string list
 (*[get_words l] is all valid words of letter combinations defined by
   permutations of [l] *)
 
-val valid_word : t -> string -> bool
+val contains_word : t -> string -> bool
 (*[valid_words l] sees is word l is contained within the hasmap and returns true
   if it is and false otherwise*)
