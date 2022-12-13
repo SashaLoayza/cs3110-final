@@ -71,12 +71,12 @@ let read_command s (state : State.t) =
   State.execute_cmd state comm dictionaryTable
 
 (* State.execute_cmd state input_cmd *)
-let rec command_loop () (s : State.t) =
+let rec command_loop (s : State.t) =
   match read_line () with
-  | exception End_of_file -> command_loop () s
-  | cmd -> read_command cmd s
+  | exception End_of_file -> command_loop s
+  | cmd -> command_loop (read_command cmd s)
 
-let main () (state : State.t) =
+let main (state : State.t) =
   print_endline "Welcome to team LION's Scrabble Solver!\n";
   print_endline
     "Currently, the scrabble board is empty.\n\
@@ -86,8 +86,8 @@ let main () (state : State.t) =
   print_endline
     "To enter solving mode, type 'solve' at any time. Then, to go back to \
      setup mode, type 'setup'.";
-  command_loop () state;
+  command_loop state;
   ()
 
 (* Execute the solver engine. *)
-let () = main () state
+let () = main state

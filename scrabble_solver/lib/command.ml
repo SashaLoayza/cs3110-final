@@ -37,10 +37,10 @@ let cmd_of_string s =
         | "DOWN" -> Word.Down
         | _ -> raise (Failure "Incorrect direction")
       in
-      let length = String.length word in
       let pos = (row, col) in
       let letter_list = Letter.make_let_opt_list word in
-      BoardAddWord { pos; direction; length; letter_list }
+      BoardAddWord
+        { pos; direction; length = List.length letter_list; letter_list }
   | "VIEW" -> failwith "view"
   | "HELP-SETUP" -> failwith "help"
   | _ -> raise (Failure "Please enter something valid (add/view/help-setup)")

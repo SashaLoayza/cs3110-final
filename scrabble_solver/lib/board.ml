@@ -411,10 +411,8 @@ let pretty_board board =
 let add_word (board : t) (word : Word.t) (d : Dictionary.t) : t =
   match word.direction with
   | Right ->
-      if validate_board (add_word_horizontal board word) word d then
-        add_word_horizontal board word
+      if validate_board board word d then add_word_horizontal board word
       else raise (Failure "Not a valid word placement")
   | Down ->
-      if validate_board (add_word_vertical board word) word d then
-        add_word_vertical board word
+      if validate_board board word d then add_word_vertical board word
       else raise (Failure "Not a valid word placement")
