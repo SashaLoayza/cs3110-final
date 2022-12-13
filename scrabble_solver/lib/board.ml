@@ -328,10 +328,14 @@ let rec validate_right_verts b cords d =
       if String.length vword < 2 then validate_right_verts b t d
       else Dictionary.contains_word d vword && validate_right_verts b t d
 
+(*Validate the one large vertical word created when inputting a down facing
+  word*)
 let validate_down_vert b cords d =
   let vword = vertical_w b (List.nth cords 0) in
   if String.length vword < 2 then true else Dictionary.contains_word d vword
 
+(*vlidates all of the corsswords of the vertical input word, ie checking all of
+  the horizontal words that may or may not be created by the input word*)
 let rec validate_down_hors b cords d =
   match cords with
   | [] -> true
@@ -374,6 +378,16 @@ let col_to_string (board : t) c =
   letter_opt_ts tList
 
 let board_to_string board =
+  "\n" ^ row_to_string board 0 ^ "\n" ^ row_to_string board 1 ^ "\n"
+  ^ row_to_string board 2 ^ "\n" ^ row_to_string board 3 ^ "\n"
+  ^ row_to_string board 4 ^ "\n" ^ row_to_string board 5 ^ "\n"
+  ^ row_to_string board 6 ^ "\n" ^ row_to_string board 7 ^ "\n"
+  ^ row_to_string board 8 ^ "\n" ^ row_to_string board 9 ^ "\n"
+  ^ row_to_string board 10 ^ "\n" ^ row_to_string board 11 ^ "\n"
+  ^ row_to_string board 12 ^ "\n" ^ row_to_string board 13 ^ "\n"
+  ^ row_to_string board 14 ^ "\n"
+
+let pretty_board board =
   "\n" ^ "    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14" ^ "\n0  "
   ^ row_to_string board 0 ^ "\n1  " ^ row_to_string board 1 ^ "\n2  "
   ^ row_to_string board 2 ^ "\n3  " ^ row_to_string board 3 ^ "\n4  "
