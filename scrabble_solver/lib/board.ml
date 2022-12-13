@@ -256,7 +256,7 @@ let board_to_string board =
   ^ row_to_string board 2 ^ "\n3  " ^ row_to_string board 3 ^ "\n4  "
   ^ row_to_string board 4 ^ "\n5  " ^ row_to_string board 5 ^ "\n6  "
   ^ row_to_string board 6 ^ "\n7  " ^ row_to_string board 7 ^ "\n8  "
-  ^ row_to_string board 8 ^ "\n9 " ^ row_to_string board 9 ^ "\n10 "
+  ^ row_to_string board 8 ^ "\n9  " ^ row_to_string board 9 ^ "\n10 "
   ^ row_to_string board 10 ^ "\n11 " ^ row_to_string board 11 ^ "\n12 "
   ^ row_to_string board 12 ^ "\n13 " ^ row_to_string board 13 ^ "\n14 "
   ^ row_to_string board 14 ^ "\n"
