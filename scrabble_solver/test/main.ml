@@ -2,14 +2,26 @@ open OUnit2
 open Scrabble_solver
 open Board
 
+let char_val_test (name : string) (c : Letter.t) (expected_output : char) : test
+    =
+  name >:: fun _ -> assert_equal expected_output (Letter.char_value c)
+
+let from_input_option (name : string) (c : char)
+    (expected_output : Letter.t option) : test =
+  name >:: fun _ -> assert_equal expected_output (Letter.from_input_opt c)
+
 let point_val_test (name : string) (c : Letter.t) (expected_output : int) : test
     =
-  name >:: fun _ ->
-  (* the [printer] tells OUnit how to convert the output to a string *)
-  assert_equal expected_output (Letter.point_value c)
+  name >:: fun _ -> assert_equal expected_output (Letter.point_value c)
 
 let letter_tests =
   [
+    char_val_test "a" (Letter.from_input 'a') 'A';
+    char_val_test "B" (Letter.from_input 'B') 'B';
+    char_val_test "z" (Letter.from_input 'z') 'Z';
+    from_input_option "a" 'a' (Some (Letter.from_input 'a'));
+    from_input_option "T" 'T' (Some (Letter.from_input 'T'));
+    from_input_option "-" '-' None;
     point_val_test "a is one point" (Letter.from_input 'a') 1;
     point_val_test "A is one point" (Letter.from_input 'A') 1;
     point_val_test "D is two points" (Letter.from_input 'D') 2;
