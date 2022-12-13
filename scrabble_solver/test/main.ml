@@ -102,6 +102,12 @@ let add_word_test_col (name : string) (board : Board.t) (word : Word.t)
     (Board.col_to_string (Board.add_word board word) col)
     ~printer:Fun.id
 
+let validate_board_tests (name : string) (board : Board.t) (word : Word.t)
+    (d : Dictionary.t) (expected_output : bool) : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (Board.validate_board (Board.add_word board word) word d)
+
 let catword = Word.from_input (0, 0) Right "cat"
 let batword = Word.from_input (0, 5) Right "baths"
 let bigword = Word.from_input (0, 0) Right "abcdefghijklmno"
@@ -137,7 +143,9 @@ let board_tests =
     add_word_test_col "adding baths to empty board" Board.init batwordc 5
       "|B||A||T||H||S||_||_||_||_||_||_||_||_||_||_|";
     add_word_test_col "adding 14 letterr to empty board" Board.init bigwordc 0
-      "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|";
+      "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|"
+    (* validate_board_tests "testing cat is a valid word" Board.init catword
+       table true; *);
   ]
 
 let main_tests = []

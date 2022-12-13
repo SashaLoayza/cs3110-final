@@ -251,7 +251,7 @@ let rec word_opt_ts lopt =
   | Some v :: t -> String.make 1 (char_value v) :: word_opt_ts t
 
 (*Generates a list of the coordinates for each letter in word and does not
-  generatte coordinates for the dashes*)
+  generate coordinates for the dashes*)
 let positions (word : Word.t) =
   let listOfLetters = List.rev (word_opt_ts word.letter_list) in
   match word.direction with
@@ -275,36 +275,69 @@ let rec none_larger lst (s : int) : int =
   | _ -> if s = List.length lst - 1 then s else none_larger lst (s + 1)
 
 (*given a coordinate, this function scans left to find the edge of the word.*)
-let find_left board (r, c) =
-  let row = get_row board r in
-  none_smaller row c
+let find_left board lst (r, c) = none_smaller lst c
 
 (*given a coordinate, this function scans right to find the edge of the word.*)
-let find_right board (r, c) =
-  let row = get_row board r in
-  none_larger row c
+let find_right board lst (r, c) = none_larger lst c
+
 (*given a coordinate, this function scans up to find the edge of the word.*)
+let find_up board lst (r, c) = none_smaller lst r
 
-let find_up board (r, c) =
-  let col = get_column board c in
-  none_smaller col r
 (*given a coordinate, this function scans down to find the edge of the word.*)
+let find_down board lst (r, c) = none_larger lst r
 
-let find_down board (r, c) =
-  let col = get_column board c in
-  none_larger col r
-
-let validate_words (board : t) (word : Word.t) = failwith ":("
-
-let validate_board (board : t) (word : Word.t) =
-  validate_placement board word && validate_words board word
-
-(*******************to string**************************)
-(*To String functions To string works for rows, columns and board*)
+(*converts a list of tiles into a list of letter options. Also used in to string
+  methods*)
 let rec tile_to_letters (tList : tile list) =
   match tList with
   | [] -> []
   | h :: t -> h.letter :: tile_to_letters t
+
+(*get sublist of letters according to start and end indices of a list of tiles*)
+let generate_word lst s e =
+  List.fold_left
+    (fun x y -> x ^ y)
+    ""
+    (sublist s e (word_opt_ts (List.rev (tile_to_letters lst))))
+
+(*[horizontal_w b s] returns the start and end indices of the horizontal word
+  that is connnected to s*)
+let horizontal_w b (r, c) =
+  let row = get_row b r in
+  let sE = (find_left b row (r, c), find_right b row (r, c)) in
+  generate_word row (fst sE) (snd sE)
+
+(*[vertical_w b s] returns the start and end indices of the vertical word that
+  is connnected to s*)
+let vertical_w b (r, c) =
+  let col = get_column b c in
+  let sE = (find_up b col (r, c), find_down b col (r, c)) in
+  generate_word col (fst sE) (snd sE)
+
+let validate_right_hor b cords d =
+  let hword = horizontal_w b (List.nth cords 0) in
+  if String.length hword < 2 then true else Dictionary.contains_word d hword
+
+let rec validate_right_verts b cords d =
+  match cords with
+  | [] -> true
+  | h :: t ->
+      let vword = vertical_w b h in
+      if String.length vword < 2 then validate_right_verts b t d
+      else Dictionary.contains_word d vword && validate_right_verts b t d
+
+let validate_words (board : t) (word : Word.t) (d : Dictionary.t) =
+  let cords = positions word in
+  match word.direction with
+  | Right ->
+      validate_right_hor board cords d && validate_right_verts board cords d
+  | Down -> failwith ""
+
+let validate_board (board : t) (word : Word.t) (d : Dictionary.t) =
+  (*validate_placement board word &&*) validate_words board word d
+
+(*******************to string**************************)
+(*To String functions To string works for rows, columns and board*)
 
 let rec letter_opt_ts lopt =
   match lopt with
