@@ -9,6 +9,10 @@ val create_key : string -> char list
   Two words with the same letters will have the same [create_key w]. For example
   w= "tool" and w= "loot" have equivalent [create_key w]. *)
 
+val new_create_key : string -> int array
+(**[new_create_key word] is the int array [key] of length 26, where [key\[i\]]
+   is the number of times letter [i] in the alphabet appears in [word].*)
+
 val create_hash : string array -> t
 (*[create_hash d] is the hashmap with (k,v) pairs being the bitvector and list
   of valid words respectively created from the dictionary input [d]*)
@@ -18,5 +22,5 @@ val get_words : t -> string -> string list
   permutations of [l] *)
 
 val contains_word : t -> string -> bool
-(*[valid_words l] sees is word l is contained within the hasmap and returns true
-  if it is and false otherwise*)
+(*[contains_word l] sees if word l is contained within the hashmap and returns
+  true if it is and false otherwise*)
