@@ -30,3 +30,13 @@ let contains_word (d : t) (word : string) =
     match List.find_opt (fun x -> x = word) words with
     | None -> false
     | _ -> true
+
+let new_create_key (word : string) =
+  let char_list = Word.string_to_char_list word in
+  let array_key = Array.make 26 0 in
+  List.iter
+    (fun x ->
+      let alpha_index = Char.code x - 65 in
+      array_key.(alpha_index) <- array_key.(alpha_index) + 1)
+    char_list;
+  array_key
