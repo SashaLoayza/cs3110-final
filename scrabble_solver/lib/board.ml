@@ -14,6 +14,11 @@ type tile = {
 
 type t = tile list list
 
+let get_row (board : t) r = List.nth board r
+
+let get_column (board : t) c =
+  List.fold_right (fun row_i acc -> List.nth row_i c :: acc) board []
+
 let row1 =
   [
     { letter = None; point = TripleWord };

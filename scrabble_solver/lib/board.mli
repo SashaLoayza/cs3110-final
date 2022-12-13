@@ -1,5 +1,14 @@
 type t
-(** The board**)
+(** The 15x15 scrabble board and the letters placed on it.*)
+
+type tile
+(**A single tile of the board, which is possibly occupied by a letter.*)
+
+val get_row : t -> int -> tile list
+(**[get_row board r] is the [r]th row of [board] as a [tile list], 0-indexed*)
+
+val get_column : t -> int -> tile list
+(**[get_column board c] is the [c]th row of [board] as a [tile list], 0-indexed*)
 
 val init : t
 (** empty board*)
