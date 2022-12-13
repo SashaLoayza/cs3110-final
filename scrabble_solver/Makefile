@@ -17,5 +17,9 @@ test:
 play:
 	OCAMLRUNPARAM=b dune exec bin/main.exe
 
+doc:
+	dune build @doc		
+	open _build/default/_doc/_html/index.html
+
 clean:
 	dune clean
