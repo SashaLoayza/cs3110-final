@@ -1,3 +1,4 @@
+(**The type of a command which includes the necessary information to undo itself*)
 type t =
   | BoardAddWord of Word.t (*Add a word/succession of tiles to the board*)
   | BoardClear of Board.t (*Clear the board*)
