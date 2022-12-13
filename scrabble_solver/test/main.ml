@@ -59,14 +59,35 @@ let place_test (name : string) (board : Board.t) (letter : Letter.t option)
     (row : int) (column : int) (expected_output : string) : test =
   name >:: fun _ ->
   assert_equal expected_output
-    (Board.board_to_string (Board.place board letter row column))
+    (Board.row_to_string (Board.place board letter row column) row)
+    ~printer:Fun.id
+
+let add_word_test_row (name : string) (board : Board.t) (word : Word.t)
+    (row : int) (expected_output : string) : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (Board.row_to_string (Board.add_word board word) row)
     ~printer:Fun.id
 
 let board_tests =
   [
-    place_test "bruh" Board.init (Letter.from_input_opt 'a') 5 5 "idc"
-    (*add_word_test "adding cat to empty board" Board.init catword
-      "c,a,t,_,_,_,_,_,_,_,_,_,_,_,_";*);
+    place_test "place 0 1" Board.init
+      (Letter.from_input_opt 'a')
+      0 1 "|_||a||_||_||_||_||_||_||_||_||_||_||_||_||_|";
+    place_test "place 3 9" Board.init
+      (Letter.from_input_opt 'j')
+      3 9 "|_||_||_||_||_||_||_||_||_||j||_||_||_||_||_|";
+    place_test "place 8 0" Board.init
+      (Letter.from_input_opt 'y')
+      8 0 "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
+    place_test "place 14 14" Board.init
+      (Letter.from_input_opt 'm')
+      14 14 "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||m|";
+    place_test "place 0 0" Board.init
+      (Letter.from_input_opt 'y')
+      0 0 "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|"
+    (* add_word_test_row "adding cat to empty board" Board.init catword 0
+       "c,a,t,_,_,_,_,_,_,_,_,_,_,_,_"; *);
   ]
 
 let main_tests = []
