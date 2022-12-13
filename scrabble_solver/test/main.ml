@@ -163,7 +163,7 @@ let board_tests =
     (* add_words_test "adding aa and aah" Board.init aaword aahword
        "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||_| -- testing this is v ery \
        difficult with all the printing"; *)
-    validate_board_tests "testing aa is a valid word"
+    validate_board_tests "testing aa and aah is a valid word"
       (Board.add_word Board.init aahword)
       aaword table true;
     validate_board_tests "testing cat is a valid word" Board.init catwordc table
@@ -174,9 +174,11 @@ let board_tests =
       true;
     validate_board_tests "testing aa is a valid word" Board.init aawordc table
       true;
-    validate_board_tests "testing aa is a valid word"
-      (Board.add_word Board.init aahwordc)
-      aawordc table true;
+    (* validate_board_tests "testing aa is a valid word" (Board.add_word
+       Board.init aahwordc) aawordc table true *)
+    add_words_test "Cause a collision on adding words"
+      (Board.add_word Board.init catword)
+      bigword "failure";
   ]
 
 let deluxeword = Word.from_input (2, 8) Down "deluxe"
