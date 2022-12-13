@@ -46,7 +46,6 @@ let dictionary_tests =
   ]
 
 let hand_tests = []
-let catword = Word.from_input (0, 0) Right "cat"
 
 let add_word_test (name : string) (board : Board.t) (word : Word.t)
     (expected_output : string) : test =
@@ -69,8 +68,19 @@ let add_word_test_row (name : string) (board : Board.t) (word : Word.t)
     (Board.row_to_string (Board.add_word board word) row)
     ~printer:Fun.id
 
+let add_word_test_col (name : string) (board : Board.t) (word : Word.t)
+    (col : int) (expected_output : string) : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (Board.col_to_string (Board.add_word board word) col)
+    ~printer:Fun.id
+
+let catword = Word.from_input (0, 0) Right "cat"
 let batword = Word.from_input (0, 5) Right "baths"
 let bigword = Word.from_input (0, 0) Right "abcdefghijklmno"
+let catwordc = Word.from_input (0, 0) Down "cat"
+let batwordc = Word.from_input (0, 5) Down "baths"
+let bigwordc = Word.from_input (0, 0) Down "abcdefghijklmno"
 
 let board_tests =
   [
@@ -94,6 +104,12 @@ let board_tests =
     add_word_test_row "adding baths to empty board" Board.init batword 0
       "|_||_||_||_||_||B||A||T||H||S||_||_||_||_||_|";
     add_word_test_row "adding 14 letterr to empty board" Board.init bigword 0
+      "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|";
+    add_word_test_col "adding cat to empty board" Board.init catwordc 0
+      "|C||A||T||_||_||_||_||_||_||_||_||_||_||_||_|";
+    add_word_test_col "adding baths to empty board" Board.init batwordc 5
+      "|B||A||T||H||S||_||_||_||_||_||_||_||_||_||_|";
+    add_word_test_col "adding 14 letterr to empty board" Board.init bigwordc 0
       "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|";
   ]
 

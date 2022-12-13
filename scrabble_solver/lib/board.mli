@@ -25,4 +25,5 @@ val remove : t -> int -> int -> t
 
 val add_word : t -> Word.t -> t
 val row_to_string : t -> int -> string
+val col_to_string : t -> int -> string
 val board_to_string : t -> string
