@@ -232,6 +232,12 @@ let placement_check (board : t) (word : Word.t) =
 let validate_placement (board : t) (word : Word.t) =
   unbound_check board word && placement_check board word
 
+let validate_first (board : t) (word : Word.t) =
+  let r, c = word.pos in
+  match word.direction with
+  | Right -> if r <> 7 || c > 7 then false else c + word.length - 1 >= 7
+  | Down -> if c <> 7 || r > 7 then false else r + word.length - 1 <= 7
+
 (** let validate_words (board : t) (word : Word.t) = if board = init then true
     else false (* else branch isn't updated*)
 
