@@ -8,6 +8,9 @@ let size t = List.length (char_list t)
 let letter_list (t : t) = List.map Letter.from_input (char_list t)
 let to_string_list t = List.map (String.make 1) (char_list t)
 
+let from_letter_list (lst : Letter.t list) : t =
+  List.map (fun x -> Letter.char_value x) lst
+
 (** [letter_n t n] is the nth letter of [Hand.t t]*)
 let letter_n t n = List.nth (from_char_list t) n
 

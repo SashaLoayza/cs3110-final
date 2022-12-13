@@ -4,6 +4,7 @@ type t =
   | HandMake of Letter.t list
     (* Clear the current hand, if any, and initialize a new hand of up to 7
        letters. *)
+  | View (*Views the board*)
   | Undo (* Undo the last command*)
   | Solve (* Run the solver engine and print the top solutions.*)
   | Exit (* Exit the program*)

@@ -4,6 +4,7 @@ type t =
   | HandMake of Letter.t list
     (* Clear the current hand, if any, and initialize a new hand of up to 7
        letters. *)
+  | View (*Views the board*)
   | Undo (* Undo the last command*)
   | Solve (* Run the solver engine and print the top solutions.*)
   | Exit (* Exit the program*)
@@ -40,7 +41,12 @@ let cmd_of_string s =
       let pos = (row, col) in
       let letter_list = Letter.make_let_opt_list word in
       BoardAddWord
-        { pos; direction; length = List.length letter_list; letter_list }
-  | "VIEW" -> failwith "view"
+        {
+          pos;
+          direction;
+          length = List.length letter_list;
+          letter_list = List.rev letter_list;
+        }
+  | "VIEW" -> View
   | "HELP-SETUP" -> failwith "help"
   | _ -> raise (Failure "Please enter something valid (add/view/help-setup)")

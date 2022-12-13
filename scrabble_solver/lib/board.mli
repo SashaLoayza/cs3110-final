@@ -39,3 +39,7 @@ val board_to_string : t -> string
 val validate_board : t -> Word.t -> Dictionary.t -> bool
 (** [validate_board board] returns true if all words on [board] are valid words
     in the scrabble dictionary*)
+
+val pretty_board : t -> string
+(** [board_to_string board] returns the string representation of the entire
+    board with the axis for user convenience*)

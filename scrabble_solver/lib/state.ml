@@ -20,11 +20,18 @@ let execute_cmd st cmd dict =
         board = Board.add_word st.board w dict;
         prev_command = cmd;
       }
-  | Command.BoardClear _ -> failwith ""
-  | Command.HandMake _ -> failwith ""
+  | Command.BoardClear board ->
+      { hand = st.hand; board = Board.init; prev_command = cmd }
+  | Command.HandMake letter_list ->
+      {
+        hand = Hand.from_letter_list letter_list;
+        board = st.board;
+        prev_command = cmd;
+      }
+  | Command.View ->
+      print_endline (Board.pretty_board st.board);
+      st
   | Command.Undo -> failwith ""
+  | Command.Exit -> failwith ""
   | Command.Solve -> failwith ""
-  | Command.Empty -> failwith ""
-  | _ -> failwith ""
-
-(*Board.add_word board word dictionaryTable*)
+  | Command.Empty -> failwith "impossible"

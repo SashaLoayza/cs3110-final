@@ -5,6 +5,9 @@ val from_char_list : char list -> t
 (** [from_char_list char_list] is the representation of the players hand as a
     value of type [Hand.t]. It sorts the input char list so that t is sorted.*)
 
+val from_letter_list : Letter.t list -> t
+(** [from_letter_list letter_list] converts a list of letters into a char list*)
+
 val char_list : t -> char list
 (** [char_list char_list] is the representation of the players hand as a value
     of type [char list], where all chars are in uppercase ascii representation.*)
