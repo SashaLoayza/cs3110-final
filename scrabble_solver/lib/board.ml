@@ -258,6 +258,42 @@ let positions (word : Word.t) =
   | Right -> List.rev (right_pos listOfLetters word.pos [])
   | Down -> List.rev (down_pos listOfLetters word.pos [])
 
+(*[none_smaller lst s] Scans lst to find the next value of a None that has a
+  larger index than s*)
+let rec none_smaller lst (s : int) : int =
+  let temptile = List.nth lst s in
+  match temptile.letter with
+  | None -> s
+  | _ -> if s = 0 then s else none_smaller lst (s - 1)
+
+(*[none_larger lst s] Scans lst to find the next value of a None that has a
+  larger index than s *)
+let rec none_larger lst (s : int) : int =
+  let temptile = List.nth lst s in
+  match temptile.letter with
+  | None -> s
+  | _ -> if s = List.length lst - 1 then s else none_larger lst (s + 1)
+
+(*given a coordinate, this function scans left to find the edge of the word.*)
+let find_left board (r, c) =
+  let row = get_row board r in
+  none_smaller row c
+
+(*given a coordinate, this function scans right to find the edge of the word.*)
+let find_right board (r, c) =
+  let row = get_row board r in
+  none_larger row c
+(*given a coordinate, this function scans up to find the edge of the word.*)
+
+let find_up board (r, c) =
+  let col = get_column board c in
+  none_smaller col r
+(*given a coordinate, this function scans down to find the edge of the word.*)
+
+let find_down board (r, c) =
+  let col = get_column board c in
+  none_larger col r
+
 let validate_words (board : t) (word : Word.t) = failwith ":("
 
 let validate_board (board : t) (word : Word.t) =
