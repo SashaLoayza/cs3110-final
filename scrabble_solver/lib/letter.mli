@@ -1,5 +1,5 @@
 type t
-(** Represents a letter *)
+(** Represents a single letter with a character and point value *)
 
 exception NotValidLetter of string
 (** Rasied when an unkown letter is encountered. It carries the value not valid
@@ -24,3 +24,6 @@ val point_value : t -> int
    representation of a letter*)
 
 val make_let_opt_list : string -> t option list
+(**[make_let_opt_list letters_string] is the [Letter.t option list] of letters
+   in [letters_string], where the dash character is represented by [None] and
+   regular character values are [Some letter]*)
