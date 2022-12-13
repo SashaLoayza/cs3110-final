@@ -234,7 +234,7 @@ let validate_first (board : t) (word : Word.t) =
   let r, c = word.pos in
   match word.direction with
   | Right -> if r <> 7 || c > 7 then false else c + word.length - 1 >= 7
-  | Down -> if c <> 7 || r > 7 then false else r + word.length - 1 <= 7
+  | Down -> if c <> 7 || r > 7 then false else r + word.length - 1 >= 7
 
 (*generate the coordinates in a list for a word that is horizontal*)
 let rec right_pos lst (rs, cs) acc =
@@ -360,13 +360,6 @@ let validate_words (board : t) (word : Word.t) (d : Dictionary.t) =
       validate_right_hor board cords d && validate_right_verts board cords d
   | Down -> validate_down_vert board cords d && validate_down_hors board cords d
 
-let validate_board (board : t) (word : Word.t) (d : Dictionary.t) =
-  if board = init then
-    Dictionary.contains_word d
-      (List.fold_left (fun x y -> x ^ y) "" (word_opt_ts word.letter_list))
-    && validate_first board word
-  else validate_placement board word && validate_words board word d
-
 (*******************to string**************************)
 (*To String functions To string works for rows, columns and board*)
 
@@ -411,6 +404,13 @@ let pretty_board board =
   ^ row_to_string board 10 ^ "\n11 " ^ row_to_string board 11 ^ "\n12 "
   ^ row_to_string board 12 ^ "\n13 " ^ row_to_string board 13 ^ "\n14 "
   ^ row_to_string board 14 ^ "\n"
+
+let validate_board (board : t) (word : Word.t) (d : Dictionary.t) =
+  if board = init then
+    Dictionary.contains_word d
+      (List.fold_left (fun x y -> x ^ y) "" (word_opt_ts word.letter_list))
+    && validate_first board word
+  else validate_placement board word && validate_words board word d
 
 let add_word (board : t) (word : Word.t) (d : Dictionary.t) : t =
   match word.direction with
