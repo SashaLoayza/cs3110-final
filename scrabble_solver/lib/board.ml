@@ -197,9 +197,9 @@ let unbound_check (board : t) (word : Word.t) =
   else
     match word.direction with
     | Down ->
-        if c + word.length > 14 then failwith "Unbound placement" else true
+        if c + word.length - 1 > 14 then failwith "Unbound placement" else true
     | Right ->
-        if r + word.length > 14 then failwith "Unbound placement" else true
+        if r + word.length - 1 > 14 then failwith "Unbound placement" else true
 
 let horizontal_placement_check (board : t) (word : Word.t) =
   let r, c = word.pos in
