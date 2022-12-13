@@ -247,7 +247,7 @@ let rec down_pos lst (rs, cs) acc =
 let rec word_opt_ts lopt =
   match lopt with
   | [] -> []
-  | None :: t -> word_opt_ts t
+  | None :: t -> String.make 1 ' ' :: word_opt_ts t
   | Some v :: t -> String.make 1 (char_value v) :: word_opt_ts t
 
 (*Generates a list of the coordinates for each letter in word and does not
@@ -263,7 +263,7 @@ let positions (word : Word.t) =
 let rec none_smaller lst (s : int) : int =
   let temptile = List.nth lst s in
   match temptile.letter with
-  | None -> s
+  | None -> s + 1
   | _ -> if s = 0 then s else none_smaller lst (s - 1)
 
 (*[none_larger lst s] Scans lst to find the next value of a None that has a
@@ -271,7 +271,7 @@ let rec none_smaller lst (s : int) : int =
 let rec none_larger lst (s : int) : int =
   let temptile = List.nth lst s in
   match temptile.letter with
-  | None -> s
+  | None -> s - 1
   | _ -> if s = List.length lst - 1 then s else none_larger lst (s + 1)
 
 (*given a coordinate, this function scans left to find the edge of the word.*)
@@ -298,7 +298,7 @@ let generate_word lst s e =
   List.fold_left
     (fun x y -> x ^ y)
     ""
-    (sublist s e (word_opt_ts (List.rev (tile_to_letters lst))))
+    (sublist s (e + 1) (word_opt_ts (tile_to_letters lst)))
 
 (*[horizontal_w b s] returns the start and end indices of the horizontal word
   that is connnected to s*)

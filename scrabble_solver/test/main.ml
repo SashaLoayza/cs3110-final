@@ -114,6 +114,7 @@ let bigword = Word.from_input (0, 0) Right "abcdefghijklmno"
 let catwordc = Word.from_input (0, 0) Down "cat"
 let batwordc = Word.from_input (0, 5) Down "baths"
 let bigwordc = Word.from_input (0, 0) Down "abcdefghijklmno"
+let centerword = Word.from_input (8, 8) Right "center"
 
 let board_tests =
   [
@@ -138,14 +139,18 @@ let board_tests =
       "|_||_||_||_||_||B||A||T||H||S||_||_||_||_||_|";
     add_word_test_row "adding 14 letterr to empty board" Board.init bigword 0
       "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|";
+    add_word_test_row "adding 14 letterr to empty board" Board.init centerword 8
+      "|_||_||_||_||_||_||_||_||C||E||N||T||E||R||_|";
     add_word_test_col "adding cat to empty board" Board.init catwordc 0
       "|C||A||T||_||_||_||_||_||_||_||_||_||_||_||_|";
     add_word_test_col "adding baths to empty board" Board.init batwordc 5
       "|B||A||T||H||S||_||_||_||_||_||_||_||_||_||_|";
     add_word_test_col "adding 14 letterr to empty board" Board.init bigwordc 0
-      "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|"
-    (* validate_board_tests "testing cat is a valid word" Board.init catword
-       table true; *);
+      "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|";
+    validate_board_tests "testing cat is a valid word" Board.init catword table
+      true;
+    validate_board_tests "testing center is a valid word" Board.init centerword
+      table true;
   ]
 
 let main_tests = []
