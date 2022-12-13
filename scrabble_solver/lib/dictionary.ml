@@ -22,3 +22,11 @@ let create_hash d =
 let get_words (t : t) l =
   let key = create_key l in
   Hashtbl.find_all t key
+
+let valid_word (d : t) (word : string) =
+  let words = get_words d word in
+  if List.length words = 0 then false
+  else
+    match List.find_opt (fun x -> x = word) words with
+    | None -> false
+    | _ -> true
