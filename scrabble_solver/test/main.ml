@@ -179,8 +179,9 @@ let board_tests =
       true;
     validate_board_tests "testing aa is a valid word" Board.init aawordc table
       true;
-    (* validate_board_tests "testing aa is a valid word" (Board.add_word
-       Board.init aahwordc) aawordc table true *)
+    validate_board_tests "testing aa is a valid word"
+      (Board.add_word Board.init aahwordc)
+      aawordc table true;
     ( "Collision on word placement" >:: fun _ ->
       assert_raises PlacementCollision (fun () ->
           Board.add_word (Board.add_word Board.init catword) bigword) );
