@@ -119,9 +119,9 @@ let rec sublist2_aux first last lst index acc =
   else if index < last then sublist2_aux first last lst (index + 1) acc
   else acc
 
-(**[sublist first last lst] ist lst[first..last+1], since last is included.
-   Requires: 0<= first <= length(lst) and first <= last <= list.length. (So List
-   must be nonempty) Sublist: lower is inclusive and upper is exclusive*)
+(**[sublist first last lst] is lst[first..last]. Requires: 0<= first <=
+   length(lst) and first <= last <= list.length. (So List must be nonempty)
+   Sublist: lower is inclusive and upper is exclusive*)
 let sublist first last lst =
   if
     first >= 0
@@ -131,15 +131,6 @@ let sublist first last lst =
     && first <= last + 1
   then List.rev (sublist2_aux first last lst 0 [])
   else raise (Failure "Precondition was not met")
-
-(* let final_index = List.length lst - 1 in assert ( 0 <= first && first <=
-   final_index && first <= last && last <= final_index); (* ASSERT
-   PRECONDITION*) let rec sublist_helper first last lst = match first with | 0
-   -> ( match lst with | [] -> failwith "sublist_helper cannot be called on the
-   empty list" | h :: t -> if last = 0 then [ h ] else h :: sublist_helper 0
-   (last - 1) t) | n -> ( match lst with | [] -> failwith "sublist_helper cannot
-   be called on the empty list" | h :: t -> sublist_helper (first - 1) (last -
-   1) t) in sublist_helper first last lst *)
 
 (* get obtains the tile of the board *)
 let get t row column : tile =
@@ -153,13 +144,11 @@ let place_tile (board : t) tile row column =
   else
     let new_row =
       let initial = List.nth board row in
-      if column = 0 then []
-      else
-        sublist 0 (column - 1) initial
-        @ (tile :: sublist (column + 1) (List.length initial - 1) initial)
+      sublist 0 column initial
+      @ (tile :: sublist (column + 1) (List.length initial) initial)
     in
-    let head_rows = if row = 0 then [] else sublist 0 (row - 1) board in
-    head_rows @ (new_row :: sublist (row + 1) (List.length board - 1) board)
+    let head_rows = if row = 0 then [] else sublist 0 row board in
+    head_rows @ (new_row :: sublist (row + 1) (List.length board) board)
 
 (** place letter on a tile*)
 let place board letter row column =
