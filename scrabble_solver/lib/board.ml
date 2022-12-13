@@ -361,7 +361,11 @@ let validate_words (board : t) (word : Word.t) (d : Dictionary.t) =
   | Down -> validate_down_vert board cords d && validate_down_hors board cords d
 
 let validate_board (board : t) (word : Word.t) (d : Dictionary.t) =
-  (*validate_placement board word &&*) validate_words board word d
+  if board = init then
+    Dictionary.contains_word d
+      (List.fold_left (fun x y -> x ^ y) "" (word_opt_ts word.letter_list))
+    && validate_first board word
+  else validate_placement board word && validate_words board word d
 
 (*******************to string**************************)
 (*To String functions To string works for rows, columns and board*)
