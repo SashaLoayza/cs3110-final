@@ -5,6 +5,9 @@ open Dictionary
 
 let valid_words = Arg.read_arg "data/dictionary.txt"
 
+(** [table] creates a hashtable according to the specs in dictionary.ml.*)
+let table = create_hash valid_words
+
 (**[validate_letters letters] [string list], a list of strings, raises exception
    if letters is not a string list with each index only having length of 1*)
 let rec validate_letters letters =
