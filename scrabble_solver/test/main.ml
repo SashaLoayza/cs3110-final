@@ -71,21 +71,18 @@ let add_word_test_row (name : string) (board : Board.t) (word : Word.t)
 
 let board_tests =
   [
-    place_test "place 0 1" Board.init
-      (Letter.from_input_opt 'a')
-      0 1 "|_||a||_||_||_||_||_||_||_||_||_||_||_||_||_|";
+    (* place_test "place 0 1" Board.init (Letter.from_input_opt 'a') 0 1
+       "|_||a||_||_||_||_||_||_||_||_||_||_||_||_||_|"; *)
     place_test "place 3 9" Board.init
       (Letter.from_input_opt 'j')
       3 9 "|_||_||_||_||_||_||_||_||_||j||_||_||_||_||_|";
     place_test "place 8 0" Board.init
       (Letter.from_input_opt 'y')
-      8 0 "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
-    place_test "place 14 14" Board.init
-      (Letter.from_input_opt 'm')
-      14 14 "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||m|";
-    place_test "place 0 0" Board.init
-      (Letter.from_input_opt 'y')
-      0 0 "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|"
+      8 0 "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|"
+    (* place_test "place 14 14" Board.init (Letter.from_input_opt 'm') 14 14
+       "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||m|"; place_test "place 0 0"
+       Board.init (Letter.from_input_opt 'y') 0 0
+       "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|" *)
     (* add_word_test_row "adding cat to empty board" Board.init catword 0
        "c,a,t,_,_,_,_,_,_,_,_,_,_,_,_"; *);
   ]

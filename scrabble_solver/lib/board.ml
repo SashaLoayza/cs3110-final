@@ -112,27 +112,34 @@ let middle_row =
 let init = first_half @ middle_row @ List.rev first_half
 let place_word (board : t) (word : Word.t) = failwith "unimplemented"
 
+(*auxillary sublist*)
+let rec sublist2_aux first last lst index acc =
+  if index >= first && index < last then
+    sublist2_aux first last lst (index + 1) (List.nth lst index :: acc)
+  else if index < last then sublist2_aux first last lst (index + 1) acc
+  else acc
+
 (**[sublist first last lst] ist lst[first..last+1], since last is included.
-   Requires: 0<= first <= length(lst) - 1 and first <= last <= list.length - 1.
-   (So List must be nonempty)*)
+   Requires: 0<= first <= length(lst) and first <= last <= list.length. (So List
+   must be nonempty) Sublist: lower is inclusive and upper is exclusive*)
 let sublist first last lst =
-  let final_index = List.length lst - 1 in
-  assert (
-    0 <= first && first <= final_index && first <= last && last <= final_index);
-  (* ASSERT PRECONDITION*)
-  let rec sublist_helper first last lst =
-    match first with
-    | 0 -> (
-        match lst with
-        | [] -> failwith "sublist_helper cannot be called on the empty list"
-        | h :: t ->
-            if last = 0 then [ h ] else h :: sublist_helper 0 (last - 1) t)
-    | n -> (
-        match lst with
-        | [] -> failwith "sublist_helper cannot be called on the empty list"
-        | h :: t -> sublist_helper (first - 1) (last - 1) t)
-  in
-  sublist_helper first last lst
+  if
+    first >= 0
+    && first <= List.length lst
+    && last >= -1
+    && last <= List.length lst
+    && first <= last + 1
+  then List.rev (sublist2_aux first last lst 0 [])
+  else raise (Failure "Precondition was not met")
+
+(* let final_index = List.length lst - 1 in assert ( 0 <= first && first <=
+   final_index && first <= last && last <= final_index); (* ASSERT
+   PRECONDITION*) let rec sublist_helper first last lst = match first with | 0
+   -> ( match lst with | [] -> failwith "sublist_helper cannot be called on the
+   empty list" | h :: t -> if last = 0 then [ h ] else h :: sublist_helper 0
+   (last - 1) t) | n -> ( match lst with | [] -> failwith "sublist_helper cannot
+   be called on the empty list" | h :: t -> sublist_helper (first - 1) (last -
+   1) t) in sublist_helper first last lst *)
 
 (* get obtains the tile of the board *)
 let get t row column : tile =
