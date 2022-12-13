@@ -1,17 +1,13 @@
 type t =
   | BoardAddWord of Word.t (*Add a word/succession of tiles to the board*)
-  | BoardRemWord of Word.t (*Remove a word/succession of tiles from the board*)
   | BoardClear of Board.t (*Clear the board*)
   | HandMake of Letter.t list
     (* Clear the current hand, if any, and initialize a new hand of up to 7
        letters. *)
-  | HandAdd of Letter.t
-    (* Add a single letter to the current hand, if it has less than 7
-       letters. *)
-  | HandRem of Letter.t (* Remove a single letter from the current hand*)
   | Undo (* Undo the last command*)
   | Solve (* Run the solver engine and print the top solutions.*)
   | Exit (* Exit the program*)
+  | Empty (* Nothing *)
 
 exception EmptyCommand
 (**[parse_cmd cmd_string] is a list of strings, where the first string is the

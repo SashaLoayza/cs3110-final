@@ -3,5 +3,7 @@ type t
     encompasses the current state of the board/hand, the current running
     environment (i.e. solve), and the changes made by the command*)
 
-val execute_cmd : t -> Command.t -> t
+val initial_state : t
+
+val execute_cmd : t -> Command.t -> Dictionary.t -> t
 (** The new state after the given command has been executed.*)

@@ -8,7 +8,7 @@ let valid_words = Arg.read_arg "data/dictionary.txt"
 (** [table] creates a hashtable according to the specs in dictionary.ml.*)
 let dictionaryTable = create_hash valid_words
 
-let state = failwith "initialize state"
+let state = State.initial_state
 
 (**[validate_letters letters] [string list], a list of strings, raises exception
    if letters is not a string list with each index only having length of 1*)
@@ -68,7 +68,7 @@ let read_hand () =
 let read_command s (state : State.t) =
   let capTrim = String.uppercase_ascii (String.trim s) in
   let comm = Command.cmd_of_string capTrim in
-  State.execute_cmd state comm
+  State.execute_cmd state comm dictionaryTable
 
 (* State.execute_cmd state input_cmd *)
 let rec command_loop () (s : State.t) =
