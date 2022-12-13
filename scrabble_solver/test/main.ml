@@ -1,5 +1,6 @@
 open OUnit2
 open Scrabble_solver
+open Board
 
 let point_val_test (name : string) (c : Letter.t) (expected_output : int) : test
     =
@@ -121,23 +122,27 @@ let centerwordc = Word.from_input (8, 8) Right "center"
 let aahwordc = Word.from_input (2, 2) Right "aah"
 let aawordc = Word.from_input (3, 2) Right "aa"
 
+(* exception Collision of string *)
+
+let colString = "Place word on an open spot"
+
 let board_tests =
   [
     place_test "place 0 1" Board.init
       (Letter.from_input_opt 'a')
-      0 1 "|_||a||_||_||_||_||_||_||_||_||_||_||_||_||_|";
+      0 1 "|_||A||_||_||_||_||_||_||_||_||_||_||_||_||_|";
     place_test "place 3 9" Board.init
       (Letter.from_input_opt 'j')
-      3 9 "|_||_||_||_||_||_||_||_||_||j||_||_||_||_||_|";
+      3 9 "|_||_||_||_||_||_||_||_||_||J||_||_||_||_||_|";
     place_test "place 8 0" Board.init
       (Letter.from_input_opt 'y')
-      8 0 "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
+      8 0 "|Y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
     place_test "place 14 14" Board.init
       (Letter.from_input_opt 'm')
-      14 14 "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||m|";
+      14 14 "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||M|";
     place_test "place 0 0" Board.init
       (Letter.from_input_opt 'y')
-      0 0 "|y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
+      0 0 "|Y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
     add_word_test_row "adding cat to empty board" Board.init catword 0
       "|C||A||T||_||_||_||_||_||_||_||_||_||_||_||_|";
     add_word_test_row "adding baths to empty board" Board.init batword 0
@@ -176,9 +181,9 @@ let board_tests =
       true;
     (* validate_board_tests "testing aa is a valid word" (Board.add_word
        Board.init aahwordc) aawordc table true *)
-    add_words_test "Cause a collision on adding words"
-      (Board.add_word Board.init catword)
-      bigword "failure";
+    ( "Collision on word placement" >:: fun _ ->
+      assert_raises PlacementCollision (fun () ->
+          Board.add_word (Board.add_word Board.init catword) bigword) );
   ]
 
 let deluxeword = Word.from_input (2, 8) Down "deluxe"

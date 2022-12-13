@@ -18,6 +18,9 @@ val place : t -> Letter.t option -> int -> int -> t
     [board\[row\]\[column\]]. If a letter is already on that tile, that letter
     is replaced by [letter].*)
 
+exception PlacementCollision
+(**exception raised when placing a tile on a tile that is already occupied*)
+
 val add_word : t -> Word.t -> t
 val row_to_string : t -> int -> string
 val col_to_string : t -> int -> string
