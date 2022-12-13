@@ -74,11 +74,11 @@ let dictionary_tests =
 
 let hand_tests = []
 
-let add_word_test (name : string) (board : Board.t) (word : Word.t)
-    (expected_output : string) : test =
+let add_words_test (name : string) (board : Board.t) (word1 : Word.t)
+    (word2 : Word.t) (expected_output : string) : test =
   name >:: fun _ ->
   assert_equal expected_output
-    (Board.board_to_string (Board.add_word board word))
+    (Board.board_to_string (Board.add_word (Board.add_word board word1) word2))
     ~printer:Fun.id
 
 let place_test (name : string) (board : Board.t) (letter : Letter.t option)
@@ -115,6 +115,11 @@ let catwordc = Word.from_input (0, 0) Down "cat"
 let batwordc = Word.from_input (0, 5) Down "baths"
 let bigwordc = Word.from_input (0, 0) Down "abcdefghijklmno"
 let centerword = Word.from_input (8, 8) Right "center"
+let aahword = Word.from_input (2, 2) Right "aah"
+let aaword = Word.from_input (3, 2) Right "aa"
+let centerwordc = Word.from_input (8, 8) Right "center"
+let aahwordc = Word.from_input (2, 2) Right "aah"
+let aawordc = Word.from_input (3, 2) Right "aa"
 
 let board_tests =
   [
@@ -151,6 +156,27 @@ let board_tests =
       true;
     validate_board_tests "testing center is a valid word" Board.init centerword
       table true;
+    validate_board_tests "testing aah is a valid word" Board.init aahword table
+      true;
+    validate_board_tests "testing aa is a valid word" Board.init aaword table
+      true;
+    (* add_words_test "adding aa and aah" Board.init aaword aahword
+       "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||_| -- testing this is v ery \
+       difficult with all the printing"; *)
+    validate_board_tests "testing aa is a valid word"
+      (Board.add_word Board.init aahword)
+      aaword table true;
+    validate_board_tests "testing cat is a valid word" Board.init catwordc table
+      true;
+    validate_board_tests "testing center is a valid word" Board.init centerwordc
+      table true;
+    validate_board_tests "testing aah is a valid word" Board.init aahwordc table
+      true;
+    validate_board_tests "testing aa is a valid word" Board.init aawordc table
+      true;
+    validate_board_tests "testing aa is a valid word"
+      (Board.add_word Board.init aahwordc)
+      aawordc table true;
   ]
 
 let main_tests = []

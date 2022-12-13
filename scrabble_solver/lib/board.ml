@@ -314,10 +314,12 @@ let vertical_w b (r, c) =
   let sE = (find_up b col (r, c), find_down b col (r, c)) in
   generate_word col (fst sE) (snd sE)
 
+(*validates the one large horizontal word for a horizontal word input*)
 let validate_right_hor b cords d =
   let hword = horizontal_w b (List.nth cords 0) in
   if String.length hword < 2 then true else Dictionary.contains_word d hword
 
+(*Validates all crosswords of the input word*)
 let rec validate_right_verts b cords d =
   match cords with
   | [] -> true
@@ -326,12 +328,24 @@ let rec validate_right_verts b cords d =
       if String.length vword < 2 then validate_right_verts b t d
       else Dictionary.contains_word d vword && validate_right_verts b t d
 
+let validate_down_vert b cords d =
+  let vword = vertical_w b (List.nth cords 0) in
+  if String.length vword < 2 then true else Dictionary.contains_word d vword
+
+let rec validate_down_hors b cords d =
+  match cords with
+  | [] -> true
+  | h :: t ->
+      let hword = horizontal_w b h in
+      if String.length hword < 2 then validate_down_hors b t d
+      else Dictionary.contains_word d hword && validate_down_hors b t d
+
 let validate_words (board : t) (word : Word.t) (d : Dictionary.t) =
   let cords = positions word in
   match word.direction with
   | Right ->
       validate_right_hor board cords d && validate_right_verts board cords d
-  | Down -> failwith ""
+  | Down -> validate_down_vert board cords d && validate_down_hors board cords d
 
 let validate_board (board : t) (word : Word.t) (d : Dictionary.t) =
   (*validate_placement board word &&*) validate_words board word d
