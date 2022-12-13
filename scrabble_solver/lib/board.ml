@@ -14,6 +14,9 @@ type tile = {
 
 type t = tile list list
 
+exception PlacementCollision
+
+let colString = "Place word on an open spot"
 let get_row (board : t) r = List.nth board r
 
 let get_column (board : t) c =
@@ -142,16 +145,16 @@ let place_tile (board : t) tile row column =
   if row > 14 || column > 14 || row < 0 || column < 0 then
     failwith "Unbound row or column, please enter values between 0 and 14"
   else
-    match tile.letter with
-    | None -> failwith "illegal move, spot is taken"
-    | Some _ ->
-        let new_row =
-          let initial = List.nth board row in
+    let new_row =
+      let initial = List.nth board row in
+      match (List.nth initial column).letter with
+      | Some _ -> raise PlacementCollision
+      | None ->
           sublist 0 column initial
           @ (tile :: sublist (column + 1) (List.length initial) initial)
-        in
-        let head_rows = if row = 0 then [] else sublist 0 row board in
-        head_rows @ (new_row :: sublist (row + 1) (List.length board) board)
+    in
+    let head_rows = if row = 0 then [] else sublist 0 row board in
+    head_rows @ (new_row :: sublist (row + 1) (List.length board) board)
 
 (** place letter on a tile*)
 let place board letter row column =
