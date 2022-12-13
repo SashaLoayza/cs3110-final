@@ -21,7 +21,7 @@ let get_point_val c =
   | '0' | '_' -> 0
   | _ -> raise (NotValidLetter "Not a valid Letter")
 
-let from_input s = { value = s; points = get_point_val s }
+let from_input s = { value = Char.uppercase_ascii s; points = get_point_val s }
 let from_input_opt s = if s = '-' then None else Some (from_input s)
 let char_value letter = letter.value
 let point_value letter = letter.points
