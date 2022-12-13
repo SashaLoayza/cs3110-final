@@ -180,8 +180,6 @@ let add_word (board : t) (word : Word.t) : t =
   | Right -> add_word_horizontal board word
   | Down -> add_word_vertical board word
 
-let remove board row column = place board None row column
-
 let unbound_check (board : t) (word : Word.t) =
   let r, c = word.pos in
   if r > 14 || r < 0 || c > 14 || c < 0 then failwith "Unbound placement"
