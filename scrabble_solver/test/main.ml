@@ -74,7 +74,7 @@ let dictionary_tests =
 
 let hand_tests = []
 
-let add_word_test (name : string) (board : Board.t) (word : Word.t)
+let add_words_test (name : string) (board : Board.t) (word : Word.t)
     (expected_output : string) : test =
   name >:: fun _ ->
   assert_equal expected_output
@@ -102,12 +102,24 @@ let add_word_test_col (name : string) (board : Board.t) (word : Word.t)
     (Board.col_to_string (Board.add_word board word) col)
     ~printer:Fun.id
 
+let validate_board_tests (name : string) (board : Board.t) (word : Word.t)
+    (d : Dictionary.t) (expected_output : bool) : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (Board.validate_board (Board.add_word board word) word d)
+
 let catword = Word.from_input (0, 0) Right "cat"
 let batword = Word.from_input (0, 5) Right "baths"
 let bigword = Word.from_input (0, 0) Right "abcdefghijklmno"
 let catwordc = Word.from_input (0, 0) Down "cat"
 let batwordc = Word.from_input (0, 5) Down "baths"
 let bigwordc = Word.from_input (0, 0) Down "abcdefghijklmno"
+let centerword = Word.from_input (8, 8) Right "center"
+let aahword = Word.from_input (2, 2) Right "aah"
+let aaword = Word.from_input (3, 2) Right "aa"
+let centerwordc = Word.from_input (8, 8) Right "center"
+let aahwordc = Word.from_input (2, 2) Right "aah"
+let aawordc = Word.from_input (3, 2) Right "aa"
 
 let board_tests =
   [
@@ -132,12 +144,98 @@ let board_tests =
       "|_||_||_||_||_||B||A||T||H||S||_||_||_||_||_|";
     add_word_test_row "adding 14 letterr to empty board" Board.init bigword 0
       "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|";
+    add_word_test_row "adding 14 letterr to empty board" Board.init centerword 8
+      "|_||_||_||_||_||_||_||_||C||E||N||T||E||R||_|";
     add_word_test_col "adding cat to empty board" Board.init catwordc 0
       "|C||A||T||_||_||_||_||_||_||_||_||_||_||_||_|";
     add_word_test_col "adding baths to empty board" Board.init batwordc 5
       "|B||A||T||H||S||_||_||_||_||_||_||_||_||_||_|";
     add_word_test_col "adding 14 letterr to empty board" Board.init bigwordc 0
       "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|";
+    validate_board_tests "testing cat is a valid word" Board.init catword table
+      true;
+    validate_board_tests "testing center is a valid word" Board.init centerword
+      table true;
+    validate_board_tests "testing aah is a valid word" Board.init aahword table
+      true;
+    validate_board_tests "testing aa is a valid word" Board.init aaword table
+      true;
+    (* add_words_test "adding aa and aah" Board.init aaword aahword
+       "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||_| -- testing this is v ery \
+       difficult with all the printing"; *)
+    validate_board_tests "testing aa and aah is a valid word"
+      (Board.add_word Board.init aahword)
+      aaword table true;
+    validate_board_tests "testing cat is a valid word" Board.init catwordc table
+      true;
+    validate_board_tests "testing center is a valid word" Board.init centerwordc
+      table true;
+    validate_board_tests "testing aah is a valid word" Board.init aahwordc table
+      true;
+    validate_board_tests "testing aa is a valid word" Board.init aawordc table
+      true;
+    (* validate_board_tests "testing aa is a valid word" (Board.add_word
+       Board.init aahwordc) aawordc table true *)
+    add_words_test "Cause a collision on adding words"
+      (Board.add_word Board.init catword)
+      bigword "failure";
+  ]
+
+let deluxeword = Word.from_input (2, 8) Down "deluxe"
+let greatestword = Word.from_input (7, 3) Right "great-st"
+let worldword = Word.from_input (5, 4) Down "wo-ld"
+let editionword = Word.from_input (9, 3) Right "e-ition"
+let teachword = Word.from_input (9, 6) Down "-each"
+
+let big_words_test =
+  [
+    validate_board_tests "testing deluxe is a valid word" Board.init deluxeword
+      table true;
+    validate_board_tests "testing greatest and deluxe is a valid board"
+      (Board.add_word Board.init deluxeword)
+      greatestword table true;
+    validate_board_tests
+      "testing world and greatest and deluxe is a valid board"
+      (Board.add_word (Board.add_word Board.init deluxeword) greatestword)
+      worldword table true;
+    validate_board_tests
+      "testing edition and world and greatest and deluxe is a valid board"
+      (Board.add_word
+         (Board.add_word (Board.add_word Board.init deluxeword) greatestword)
+         worldword)
+      editionword table true;
+    validate_board_tests
+      "testing teach and edition and world and greatest and deluxe is a valid \
+       board"
+      (Board.add_word
+         (Board.add_word
+            (Board.add_word (Board.add_word Board.init deluxeword) greatestword)
+            worldword)
+         editionword)
+      teachword table true;
+    add_words_test "adding a large set of words"
+      (Board.add_word
+         (Board.add_word
+            (Board.add_word (Board.add_word Board.init deluxeword) greatestword)
+            worldword)
+         editionword)
+      teachword
+      "\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||D||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||E||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||L||_||_||_||_||_||_|\n\
+       |_||_||_||_||W||_||_||_||U||_||_||_||_||_||_|\n\
+       |_||_||_||_||O||_||_||_||X||_||_||_||_||_||_|\n\
+       |_||_||_||G||R||E||A||T||E||S||T||_||_||_||_|\n\
+       |_||_||_||_||L||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||E||D||I||T||I||O||N||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||E||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||A||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||C||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||H||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n";
   ]
 
 let main_tests = []
@@ -145,6 +243,13 @@ let main_tests = []
 let suite =
   "test suite for final project"
   >::: List.flatten
-         [ letter_tests; dictionary_tests; hand_tests; board_tests; main_tests ]
+         [
+           letter_tests;
+           dictionary_tests;
+           hand_tests;
+           board_tests;
+           big_words_test;
+           main_tests;
+         ]
 
 let _ = run_test_tt_main suite

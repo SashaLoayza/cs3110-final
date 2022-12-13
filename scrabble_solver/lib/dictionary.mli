@@ -18,5 +18,5 @@ val get_words : t -> string -> string list
   permutations of [l] *)
 
 val contains_word : t -> string -> bool
-(*[valid_words l] sees is word l is contained within the hasmap and returns true
-  if it is and false otherwise*)
+(*[contains_word l] sees if word l is contained within the hashmap and returns
+  true if it is and false otherwise*)
