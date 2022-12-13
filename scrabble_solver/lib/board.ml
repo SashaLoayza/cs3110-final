@@ -227,12 +227,44 @@ let validate_first (board : t) (word : Word.t) =
   | Right -> if r <> 7 || c > 7 then false else c + word.length - 1 >= 7
   | Down -> if c <> 7 || r > 7 then false else r + word.length - 1 <= 7
 
+(*generate the coordinates in a list for a word that is horizontal*)
+let rec right_pos lst (rs, cs) acc =
+  match lst with
+  | [] -> acc
+  | h :: t ->
+      if h = "-" then right_pos t (rs, cs + 1) acc
+      else right_pos t (rs, cs + 1) ((rs, cs) :: acc)
+
+(*generate the coordinates in a list for a word that is vertical*)
+let rec down_pos lst (rs, cs) acc =
+  match lst with
+  | [] -> acc
+  | h :: t ->
+      if h = "-" then down_pos t (rs + 1, cs) acc
+      else down_pos t (rs + 1, cs) ((rs, cs) :: acc)
+
+(*Takes in a letter option list and returns a string list of each letter*)
+let rec word_opt_ts lopt =
+  match lopt with
+  | [] -> []
+  | None :: t -> word_opt_ts t
+  | Some v :: t -> String.make 1 (char_value v) :: word_opt_ts t
+
+(*Generates a list of the coordinates for each letter in word and does not
+  generatte coordinates for the dashes*)
+let positions (word : Word.t) =
+  let listOfLetters = List.rev (word_opt_ts word.letter_list) in
+  match word.direction with
+  | Right -> List.rev (right_pos listOfLetters word.pos [])
+  | Down -> List.rev (down_pos listOfLetters word.pos [])
+
 let validate_words (board : t) (word : Word.t) = failwith ":("
 
 let validate_board (board : t) (word : Word.t) =
   validate_placement board word && validate_words board word
 
-(*To String functions*)
+(*******************to string**************************)
+(*To String functions To string works for rows, columns and board*)
 let rec tile_to_letters (tList : tile list) =
   match tList with
   | [] -> []
