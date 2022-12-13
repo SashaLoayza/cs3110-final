@@ -146,11 +146,13 @@ let place_tile (board : t) tile row column =
   else
     let new_row =
       let initial = List.nth board row in
-      sublist 0 column initial
-      @ (tile :: sublist (column + 1) (List.length initial - 1) initial)
+      if column = 0 then []
+      else
+        sublist 0 (column - 1) initial
+        @ (tile :: sublist (column + 1) (List.length initial - 1) initial)
     in
-    sublist 0 (row - 1) board
-    @ (new_row :: sublist (row + 1) (List.length board - 1) board)
+    let head_rows = if row = 0 then [] else sublist 0 (row - 1) board in
+    head_rows @ (new_row :: sublist (row + 1) (List.length board - 1) board)
 
 (** place letter on a tile*)
 let place board letter row column =
