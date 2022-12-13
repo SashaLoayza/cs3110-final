@@ -37,6 +37,13 @@ let contains_word_test (name : string) (t : Dictionary.t) (l : string)
 
 (*copy and pasted from main.ml *)
 let valid_words = Arg.read_arg "data/dictionary.txt"
+let table = Dictionary.create_hash valid_words
+
+let full_d_test (name : string) (htable : Dictionary.t) (l : string)
+    (expected_output : bool) : test =
+  name >:: fun _ ->
+  (* the [printer] tells OUnit how to convert the output to a string *)
+  assert_equal expected_output (Dictionary.contains_word htable l)
 
 let dictionary_tests =
   [
@@ -61,12 +68,8 @@ let dictionary_tests =
     contains_word_test "2 words, and present"
       (Dictionary.create_hash [| "oneWord"; "Wordone" |])
       "onWoerd" false;
-    contains_word_test "Ians word: abyssal"
-      (Dictionary.create_hash valid_words)
-      "ABYSSAL" true;
-    contains_word_test "not a word"
-      (Dictionary.create_hash valid_words)
-      "POG" false;
+    full_d_test "Ians word: abyssal" table "ABYSSAL" true;
+    full_d_test "not a word" table "POG" false;
   ]
 
 let hand_tests = []
