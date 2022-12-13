@@ -22,3 +22,5 @@ val char_value : t -> char
 val point_value : t -> int
 (**[point_value l] is the point value of a letter. Requires that [l] is a valid
    representation of a letter*)
+
+val make_let_opt_list : string -> t option list

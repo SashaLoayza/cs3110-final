@@ -21,7 +21,7 @@ val place : t -> Letter.t option -> int -> int -> t
 exception PlacementCollision
 (**exception raised when placing a tile on a tile that is already occupied*)
 
-val add_word : t -> Word.t -> t
+val add_word : t -> Word.t -> Dictionary.t -> t
 val row_to_string : t -> int -> string
 val col_to_string : t -> int -> string
 val board_to_string : t -> string

@@ -6,3 +6,5 @@ type t = {
 (*state includes the last command*)
 
 let execute_cmd t cmd = raise (Failure "Unimplemented: State.execute_cmd")
+
+(*Board.add_word board word dictionaryTable*)

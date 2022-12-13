@@ -1,5 +1,3 @@
-open Letter
-
 type tile_value =
   | Normal
   | DoubleLetter
@@ -113,7 +111,6 @@ let middle_row =
 
 (* init initializes an empty board*)
 let init = first_half @ middle_row @ List.rev first_half
-let place_word (board : t) (word : Word.t) = failwith "unimplemented"
 
 (*auxillary sublist*)
 let rec sublist2_aux first last lst index acc =
@@ -192,11 +189,6 @@ let rec add_word_vertical (board : t) (word : Word.t) : t =
           add_word_vertical board
             { word with pos = (r + 1, c); letter_list = t })
 
-let add_word (board : t) (word : Word.t) : t =
-  match word.direction with
-  | Right -> add_word_horizontal board word
-  | Down -> add_word_vertical board word
-
 let remove board row column = place board None row column
 
 let unbound_check (board : t) (word : Word.t) =
@@ -265,7 +257,7 @@ let rec word_opt_ts lopt =
   match lopt with
   | [] -> []
   | None :: t -> String.make 1 ' ' :: word_opt_ts t
-  | Some v :: t -> String.make 1 (char_value v) :: word_opt_ts t
+  | Some v :: t -> String.make 1 (Letter.char_value v) :: word_opt_ts t
 
 (*Generates a list of the coordinates for each letter in word and does not
   generate coordinates for the dashes*)
@@ -378,7 +370,8 @@ let rec letter_opt_ts lopt =
   match lopt with
   | [] -> ""
   | None :: t -> letter_opt_ts t ^ "|_|"
-  | Some v :: t -> letter_opt_ts t ^ "|" ^ String.make 1 (char_value v) ^ "|"
+  | Some v :: t ->
+      letter_opt_ts t ^ "|" ^ String.make 1 (Letter.char_value v) ^ "|"
 
 let rec col_tile_list board c r acc =
   if r = 15 then acc else col_tile_list board c (r + 1) (get board r c :: acc)
@@ -414,3 +407,14 @@ let pretty_board board =
   ^ row_to_string board 10 ^ "\n11 " ^ row_to_string board 11 ^ "\n12 "
   ^ row_to_string board 12 ^ "\n13 " ^ row_to_string board 13 ^ "\n14 "
   ^ row_to_string board 14 ^ "\n"
+
+let add_word (board : t) (word : Word.t) (d : Dictionary.t) : t =
+  match word.direction with
+  | Right ->
+      if validate_board (add_word_horizontal board word) word d then
+        add_word_horizontal board word
+      else raise (Failure "Not a valid word placement")
+  | Down ->
+      if validate_board (add_word_vertical board word) word d then
+        add_word_vertical board word
+      else raise (Failure "Not a valid word placement")

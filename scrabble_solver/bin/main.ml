@@ -6,7 +6,9 @@ open Dictionary
 let valid_words = Arg.read_arg "data/dictionary.txt"
 
 (** [table] creates a hashtable according to the specs in dictionary.ml.*)
-let table = create_hash valid_words
+let dictionaryTable = create_hash valid_words
+
+let state = failwith "initialize state"
 
 (**[validate_letters letters] [string list], a list of strings, raises exception
    if letters is not a string list with each index only having length of 1*)
@@ -49,11 +51,8 @@ let main () =
 let help () =
   let command_descriptions =
     "add: \n\
-     To add a tile with letter [l] to the board at row [r] and column [c], \
-     type command 'add [l] [r] [c]'.\n\n\
-     remove: \n\
-     To remove an existing tile from board at row [r] and column [c], type \
-     command 'remove [r] [c]'\n\n\
+     To add a word [w] to the board starting at row [r] and column [c] with \
+     [direction] (down or right), type command 'add [w] [r] [c] [direction]'.\n\n\
      view: To view the current board's position, type 'view'\n\n\
      To see this help command, type 'help-setup' at any time.\n"
   in
@@ -66,12 +65,18 @@ let read_hand () =
       solve
         (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
 
-let rec command_loop () =
-  match read_line () with
-  | exception End_of_file -> command_loop ()
-  | cmd -> print_endline "Not yet implemented"
+let read_command s (state : State.t) =
+  let capTrim = String.uppercase_ascii (String.trim s) in
+  let comm = Command.cmd_of_string capTrim in
+  State.execute_cmd state comm
 
-let main () =
+(* State.execute_cmd state input_cmd *)
+let rec command_loop () (s : State.t) =
+  match read_line () with
+  | exception End_of_file -> command_loop () s
+  | cmd -> read_command cmd s
+
+let main () (state : State.t) =
   print_endline "Welcome to team LION's Scrabble Solver!\n";
   print_endline
     "Currently, the scrabble board is empty.\n\
@@ -81,7 +86,8 @@ let main () =
   print_endline
     "To enter solving mode, type 'solve' at any time. Then, to go back to \
      setup mode, type 'setup'.";
-  command_loop ()
+  command_loop () state;
+  ()
 
 (* Execute the solver engine. *)
-let () = main ()
+let () = main () state

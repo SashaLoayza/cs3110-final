@@ -23,5 +23,17 @@ let get_point_val c =
 
 let from_input s = { value = Char.uppercase_ascii s; points = get_point_val s }
 let from_input_opt s = if s = '-' then None else Some (from_input s)
+
+let rec charlist_of_string s i acc =
+  if i < 0 then acc else charlist_of_string s (i - 1) (s.[i] :: acc)
+
+let rec make_opt_helper c =
+  match c with
+  | [] -> []
+  | h :: t -> from_input_opt h :: make_opt_helper t
+
+let rec make_let_opt_list s =
+  List.rev (make_opt_helper (charlist_of_string s (String.length s - 1) []))
+
 let char_value letter = letter.value
 let point_value letter = letter.points
