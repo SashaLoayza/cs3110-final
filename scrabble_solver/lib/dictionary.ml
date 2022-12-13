@@ -23,7 +23,7 @@ let get_words (t : t) l =
   let key = create_key l in
   Hashtbl.find_all t key
 
-let valid_word (d : t) (word : string) =
+let contains_word (d : t) (word : string) =
   let words = get_words d word in
   if List.length words = 0 then false
   else
