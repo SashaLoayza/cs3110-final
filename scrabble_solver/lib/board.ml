@@ -228,7 +228,7 @@ let placement_check (board : t) (word : Word.t) =
   | Down -> vertical_placement_check board word
 
 let validate_placement (board : t) (word : Word.t) =
-  unbound_check board word && placement_check board word
+  unbound_check board word (*&& placement_check board word*)
 
 let validate_first (board : t) (word : Word.t) =
   let r, c = word.pos in
@@ -410,7 +410,7 @@ let validate_board (board : t) (word : Word.t) (d : Dictionary.t) =
     Dictionary.contains_word d
       (List.fold_left (fun x y -> x ^ y) "" (word_opt_ts word.letter_list))
     && validate_first board word
-  else validate_placement board word && validate_words board word d
+  else (*validate_placement board word &&*) validate_words board word d
 
 let add_word (board : t) (word : Word.t) (d : Dictionary.t) : t =
   match word.direction with

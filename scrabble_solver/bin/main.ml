@@ -74,7 +74,14 @@ let read_command s (state : State.t) =
 let rec command_loop (s : State.t) =
   match read_line () with
   | exception End_of_file -> command_loop s
-  | cmd -> command_loop (read_command cmd s)
+  | cmd ->
+      let newState =
+        try read_command cmd s
+        with _ ->
+          print_endline "Please enter valid sytax and try again";
+          command_loop s
+      in
+      command_loop newState
 
 let main (state : State.t) =
   print_endline "Welcome to team LION's Scrabble Solver!\n";

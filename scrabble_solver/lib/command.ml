@@ -28,25 +28,27 @@ let cmd_of_string s =
   let ic = parse_cmd s in
   match List.hd ic with
   | "ADD" ->
-      let word = List.nth ic 1 in
-      let row = int_of_string (List.nth ic 2) in
-      let col = int_of_string (List.nth ic 3) in
-      let dir = List.nth ic 4 in
-      let direction =
-        match dir with
-        | "RIGHT" -> Word.Right
-        | "DOWN" -> Word.Down
-        | _ -> raise (Failure "Incorrect direction")
-      in
-      let pos = (row, col) in
-      let letter_list = Letter.make_let_opt_list word in
-      BoardAddWord
-        {
-          pos;
-          direction;
-          length = List.length letter_list;
-          letter_list = List.rev letter_list;
-        }
+      if List.length ic < 5 then raise (Failure "Please enter all args for add")
+      else
+        let word = List.nth ic 1 in
+        let row = int_of_string (List.nth ic 2) in
+        let col = int_of_string (List.nth ic 3) in
+        let dir = List.nth ic 4 in
+        let direction =
+          match dir with
+          | "RIGHT" -> Word.Right
+          | "DOWN" -> Word.Down
+          | _ -> raise (Failure "Incorrect direction")
+        in
+        let pos = (row, col) in
+        let letter_list = Letter.make_let_opt_list word in
+        BoardAddWord
+          {
+            pos;
+            direction;
+            length = List.length letter_list;
+            letter_list = List.rev letter_list;
+          }
   | "VIEW" -> View
   | "HELP-SETUP" -> failwith "help"
   | _ -> raise (Failure "Please enter something valid (add/view/help-setup)")
