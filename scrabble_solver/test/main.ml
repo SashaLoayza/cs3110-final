@@ -85,7 +85,58 @@ let dictionary_tests =
     full_d_test "not a word" table "POG" false;
   ]
 
-let hand_tests = []
+let combinations_test (name : string) (c : char list)
+    (expected_output : char list array) : test =
+  name >:: fun _ -> assert_equal expected_output (Solve.combinations c)
+
+let combinations_len_test (name : string) (c : char list)
+    (expected_output : int) : test =
+  name >:: fun _ ->
+  assert_equal expected_output (Array.length (Solve.combinations c))
+
+let hand_tests =
+  [
+    combinations_test "testing a" [ 'a' ] [| [ 'a' ] |];
+    (* combinations_test "testing a" [| 'a'; 'b' |] [| [ 'a' ]; [ 'b' ]; [ 'a';
+       'b' ] |]; *)
+    combinations_len_test "testing a length" [ 'a' ] 1;
+    combinations_len_test "testing a, b" [ 'a'; 'b' ] 3;
+    combinations_len_test "testing a, b, c" [ 'a'; 'b'; 'c' ] 7;
+    combinations_len_test "testing a, b, c" [ 'a'; 'b'; 'c'; 'd' ] 15;
+    combinations_len_test "combinations of 6 items"
+      [ 'a'; 'b'; 'c'; 'd'; 'e'; 'f' ]
+      63;
+    combinations_len_test "8 items"
+      [ 'a'; 'b'; 'c'; 'd'; 'e'; 'f'; 'g'; 'h' ]
+      255;
+    combinations_len_test "12 items"
+      [ 'a'; 'b'; 'c'; 'd'; 'e'; 'f'; 'g'; 'h'; 'i'; 'j'; 'k'; 'l' ]
+      4095;
+    combinations_len_test "20 items"
+      [
+        'a';
+        'b';
+        'c';
+        'd';
+        'e';
+        'f';
+        'g';
+        'h';
+        'i';
+        'j';
+        'k';
+        'l';
+        'm';
+        'n';
+        'o';
+        'p';
+        'q';
+        'r';
+        's';
+        't';
+      ]
+      1048575;
+  ]
 
 let add_words_test (name : string) (board : Board.t) (word : Word.t)
     (d : Dictionary.t) (expected_output : string) : test =
