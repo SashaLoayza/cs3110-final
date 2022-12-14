@@ -23,6 +23,11 @@ val place : t -> Letter.t option -> int -> int -> t
     [board\[row\]\[column\]]. If a letter is already on that tile, that letter
     is replaced by [letter].*)
 
+(** place_unsafe puts letter on a tile without checking for collisions*)
+val place_unsafe : t -> Letter.t option -> int -> int -> t
+
+val remove : t ->  int -> int -> t
+(** [remove board row column] is board with position (row,column) set to None*)
 exception PlacementCollision
 (** exception raised when placing a tile on a tile that is already occupied*)
 

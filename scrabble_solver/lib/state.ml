@@ -80,9 +80,49 @@ let main_solve_perms st dict =
       print_endline
         (List.fold_left (fun x y -> x ^ "\n" ^ y) "" (find_perms cList));
       ()
+
 (* let read_hand () = match read_line () with | exception End_of_file -> () |
    letters -> solve (letters |> String.split_on_char ' ' |> List.filter (fun x
    -> x <> "")) *)
+let rec remove_word board word =
+  match word.Word.letter_list with
+  | [] -> board
+  | h :: t ->
+      let r, c = word.pos in
+      print_endline (string_of_int r ^ string_of_int c);
+      let pos' = if word.direction = Right then (r, c + 1) else (r + 1, c) in
+      let board' = if h = None then board else Board.remove board r c in
+      remove_word board' { word with pos = pos'; letter_list = t }
+
+let execute_undo (st : t) : t =
+  match st.prev_command with
+  | BoardAddWord word ->
+      let new_board = remove_word st.board word in
+      print_endline "Removed previously added word from the board.";
+      { st with board = new_board }
+  | BoardClear b -> { st with board = b }
+  | HandMake l ->
+      print_endline "You can't undo making a hand!";
+      st
+  (* Clear the current hand, if any, and initialize a new hand of up to 7
+     letters. *)
+  | View ->
+      print_endline "Once you've seen it you can't unsee it :(";
+      st
+  | Undo ->
+      print_endline "You can only undo once!";
+      st
+  | PERM ->
+      print_endline "Permutations are inevitable. Never undo them :o";
+      st
+  | Solve _ ->
+      print_endline
+        "Solving is inevitable. Just be happy you know the answer now.";
+      st
+  | Exit -> failwith "impossible (program ended)" (* Exit the program*)
+  | Empty ->
+      print_endline "Can't undo an empty command";
+      st (* Nothing *)
 
 let execute_cmd st cmd dict =
   match cmd with
@@ -102,13 +142,13 @@ let execute_cmd st cmd dict =
       }
   | Command.View ->
       print_endline (Board.pretty_board st.board);
-      st
-  | Command.Undo -> failwith ""
+      { st with prev_command = cmd }
+  | Command.Undo -> execute_undo st
   | Command.PERM ->
       main_solve_perms st dict;
-      st
-  | Command.Exit -> failwith ""
+      { st with prev_command = cmd }
+  | Command.Exit -> exit 0
   | Command.Solve (r, c) ->
       main_solve r c st dict;
-      st
+      { st with prev_command = cmd }
   | Command.Empty -> failwith "impossible"

@@ -155,6 +155,26 @@ let place_tile (board : t) tile row column =
     let head_rows = if row = 0 then [] else sublist 0 row board in
     head_rows @ (new_row :: sublist (row + 1) (List.length board) board)
 
+(** place_tile_unsafe places a tile on the board and overrides collision check*)
+let place_tile_unsafe (board : t) tile row column =
+  if row > 14 || column > 14 || row < 0 || column < 0 then
+    failwith "Unbound row or column, please enter values between 0 and 14"
+  else
+    let new_row =
+      let initial = List.nth board row in
+      sublist 0 column initial
+      @ (tile :: sublist (column + 1) (List.length initial) initial)
+    in
+    let head_rows = if row = 0 then [] else sublist 0 row board in
+    head_rows @ (new_row :: sublist (row + 1) (List.length board) board)
+
+let place_unsafe board letter row column =
+  if row > 14 || column > 14 || row < 0 || column < 0 then
+    failwith "Unbound row or column, please enter values between 0 and 14"
+  else
+    let new_tile = { (get board row column) with letter } in
+    place_tile_unsafe board new_tile row column
+
 (** place letter on a tile*)
 let place board letter row column =
   if row > 14 || column > 14 || row < 0 || column < 0 then
@@ -191,7 +211,7 @@ let rec add_word_vertical (board : t) (word : Word.t) : t =
           add_word_vertical board
             { word with pos = (r + 1, c); letter_list = t })
 
-let remove board row column = place board None row column
+let remove board row column = place_unsafe board None row column
 
 let unbound_check (board : t) (word : Word.t) =
   let r, c = word.pos in

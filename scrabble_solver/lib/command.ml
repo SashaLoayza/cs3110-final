@@ -56,4 +56,5 @@ let cmd_of_string s =
       if List.length ic < 3 then raise (Failure "Please enter all args for add")
       else Solve (int_of_string (List.nth ic 1), int_of_string (List.nth ic 2))
   | "PERM" -> PERM
+  | "UNDO" -> Undo
   | _ -> raise (Failure "Please enter something valid (add/view/help-setup)")
