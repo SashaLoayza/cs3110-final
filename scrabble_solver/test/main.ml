@@ -15,7 +15,7 @@ the main program has side effects (It prints to the screen) which
 cannot be (easily) tested directly. 
 
 Using exceptions to view control structure helped us to test 
-that our pgrogram was catching errors in the right places. 
+that our program was catching errors in the right places. 
 As exceptions carry specific error messages, we were able
 to track the point of exception and conclude that our 
 validations were catching user-input errors at the right point
@@ -24,20 +24,31 @@ in the program.
 Modules Tested by OUnit:
 
 Board.ml
-  -
+  - We test that placing a single tile on the board properly updates the board rep type
+  - We test that adding words to the board properly updates the correct columns or rows
+  - We test that validating the placement of correct boards returns true and visa versa
 
 Dictionary.ml
-  -
+  - We test the Dictionary's hash table by adding all words from the dictionary. 
+  - We check that certain words are contained in the table, and others are not
 
 Letter.ml
-  -
+  - We test that conversion between rep types of letters matches our abstractions
+  - We test that letters have the correct point values
 
 Solve.ml
-  -
+  - word_list_tests tests that expected valid words are produced by a given set of letters
+  - Uses glass box testing by checking for membership of output using List.mem 
 
 Word.ml
-  -
+  - The Word.from_input function is tested in conjunction with board tests as the 
+    types are implicitly checked by OCaml's type system.
 
+Command.ml
+  - Command_of_string is tested by checking the variant types of the output
+  - We assert that bad commands raise failure (path through spec)
+
+State.ml is currently tested manually by the running of the program.
 
 
 The test plan should be located in a comment at the top of the test file.
@@ -159,7 +170,7 @@ let word_list_tests =
     false;
 ]
 
-let hand_tests =
+let combinations_tests =
   [
     combinations_test "testing a" [ 'a' ] [| [ 'a' ] |];
     (* combinations_test "testing a" [| 'a'; 'b' |] [| [ 'a' ]; [ 'b' ]; [ 'a';
@@ -540,7 +551,7 @@ let suite =
          [
            letter_tests;
            dictionary_tests;
-           hand_tests;
+           combinations_tests;
            board_tests;
            big_words_test;
            main_tests;

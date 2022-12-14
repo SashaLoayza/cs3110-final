@@ -12,4 +12,4 @@ type t =
   | Empty (* Nothing *)
 
 val cmd_of_string : string -> t
-(**Given an input string, return the correct command of type t*)
+(**Given an input string, return the correct command of type t. Raises: Failure when the command is invalid.*)
