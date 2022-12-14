@@ -12,7 +12,14 @@ open Board
 
     Much of the program is manually tested, such as running the repl, since the
     main program has side effects (It prints to the screen) which cannot be
-    (easily) tested directly.
+    (easily) tested directly. All of the command states were manually tested
+    they have side effects based on inputs.
+
+    We automatically test placing words and letters on the board. A major
+    component of our test suite is supposed to mimic real world game play.This
+    is seen in our additions of large words that have small overlaps. the tests
+    validate each word addition and then further check to see if the board is
+    created correctly.
 
     Using exceptions to view control structure helped us to test that our
     program was catching errors in the right places. As exceptions carry
