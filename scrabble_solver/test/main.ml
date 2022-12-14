@@ -1,63 +1,74 @@
 open OUnit2
 open Scrabble_solver
 open Board
-(** ################ TEST PLAN ################ 
 
-To test the scrabble_solver, we focused on ensuring the
-correctness of fundamental helper functions using 
-black-box testing, exposing the types of data structures 
-such as those in Hand.ml, Letter.ml, and Dictionary.ml. This allowed us 
-to make sure that our concrete representations were storing the correct
-values (and satisfied our definition of the Abstraction Functions).
+(** ################ TEST PLAN ################
 
-Much of the program is manually tested, such as running the repl, since 
-the main program has side effects (It prints to the screen) which
-cannot be (easily) tested directly. 
+    To test the scrabble_solver, we focused on ensuring the correctness of
+    fundamental helper functions using black-box testing, exposing the types of
+    data structures such as those in Hand.ml, Letter.ml, and Dictionary.ml. This
+    allowed us to make sure that our concrete representations were storing the
+    correct values (and satisfied our definition of the Abstraction Functions).
 
-Using exceptions to view control structure helped us to test 
-that our program was catching errors in the right places. 
-As exceptions carry specific error messages, we were able
-to track the point of exception and conclude that our 
-validations were catching user-input errors at the right point
-in the program.
+    Much of the program is manually tested, such as running the repl, since the
+    main program has side effects (It prints to the screen) which cannot be
+    (easily) tested directly.
 
-Modules Tested by OUnit:
+    Using exceptions to view control structure helped us to test that our
+    program was catching errors in the right places. As exceptions carry
+    specific error messages, we were able to track the point of exception and
+    conclude that our validations were catching user-input errors at the right
+    point in the program.
 
-Board.ml
-  - We test that placing a single tile on the board properly updates the board rep type
-  - We test that adding words to the board properly updates the correct columns or rows
-  - We test that validating the placement of correct boards returns true and visa versa
+    Modules Tested by OUnit:
 
-Dictionary.ml
-  - We test the Dictionary's hash table by adding all words from the dictionary. 
-  - We check that certain words are contained in the table, and others are not
+    Board.ml
 
-Letter.ml
-  - We test that conversion between rep types of letters matches our abstractions
-  - We test that letters have the correct point values
+    - We test that placing a single tile on the board properly updates the board
+      rep type
+    - We test that adding words to the board properly updates the correct
+      columns or rows
+    - We test that validating the placement of correct boards returns true and
+      visa versa
 
-Solve.ml
-  - word_list_tests tests that expected valid words are produced by a given set of letters
-  - Uses glass box testing by checking for membership of output using List.mem 
+    Dictionary.ml
 
-Word.ml
-  - The Word.from_input function is tested in conjunction with board tests as the 
-    types are implicitly checked by OCaml's type system.
+    - We test the Dictionary's hash table by adding all words from the
+      dictionary.
+    - We check that certain words are contained in the table, and others are not
 
-Command.ml
-  - Command_of_string is tested by checking the variant types of the output
-  - We assert that bad commands raise failure (path through spec)
+    Letter.ml
 
-State.ml is currently tested manually by the running of the program.
+    - We test that conversion between rep types of letters matches our
+      abstractions
+    - We test that letters have the correct point values
 
+    Solve.ml
 
-The test plan should be located in a comment at the top of the test file.
+    - word_list_tests tests that expected valid words are produced by a given
+      set of letters
+    - Uses glass box testing by checking for membership of output using List.mem
 
--4: The test plan is missing.
--1: The test plan does not explain which parts of the system were automatically tested by OUnit vs. manually tested.
--1: The test plan does not explain what modules were tested by OUnit and how test cases were developed (black box, glass box, randomized, etc.).
--1: The test plan does not provide an argument for why the testing approach demonstrates the correctness of the system.
-*)
+    Word.ml
+
+    - The Word.from_input function is tested in conjunction with board tests as
+      the types are implicitly checked by OCaml's type system.
+
+    Command.ml
+
+    - Command_of_string is tested by checking the variant types of the output
+    - We assert that bad commands raise failure (path through spec)
+
+    State.ml is currently tested manually by the running of the program.
+
+    The test plan should be located in a comment at the top of the test file.
+
+    -4: The test plan is missing. -1: The test plan does not explain which parts
+    of the system were automatically tested by OUnit vs. manually tested. -1:
+    The test plan does not explain what modules were tested by OUnit and how
+    test cases were developed (black box, glass box, randomized, etc.). -1: The
+    test plan does not provide an argument for why the testing approach
+    demonstrates the correctness of the system. *)
 let char_val_test (name : string) (c : Letter.t) (expected_output : char) : test
     =
   name >:: fun _ -> assert_equal expected_output (Letter.char_value c)
@@ -160,15 +171,18 @@ let word_list_tests =
   [
     word_list_test "HAT can be made with [A,H,T]" table [ 'a'; 'h'; 't' ] "HAT"
       true;
-    word_list_test "THA cannot be made with [A,H,T]" table [ 'a'; 'h'; 't' ] "THA"
-      false;
-    word_list_test "BATTLE can be made with [A,B,T,T,E,L]" table [ 'a';'b';'t';'t';'e';'l' ] "BATTLE"
-    true;
-    word_list_test "BATTLE can be made with [M,A,B,T,T,E,L]" table [ 'm';'a';'b';'t';'t';'e';'l' ] "BATTLE"
-    true;
-    word_list_test "AA cannot be made with [M,A,B,T,T,E,L]" table [ 'm';'a';'b';'t';'t';'e';'l' ] "AA"
-    false;
-]
+    word_list_test "THA cannot be made with [A,H,T]" table [ 'a'; 'h'; 't' ]
+      "THA" false;
+    word_list_test "BATTLE can be made with [A,B,T,T,E,L]" table
+      [ 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "BATTLE" true;
+    word_list_test "BATTLE can be made with [M,A,B,T,T,E,L]" table
+      [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "BATTLE" true;
+    word_list_test "AA cannot be made with [M,A,B,T,T,E,L]" table
+      [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "AA" false;
+  ]
 
 let combinations_tests =
   [
@@ -543,7 +557,11 @@ let big_words_test =
        |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n";
   ]
 
-let main_tests = []
+let command_test (name : string) (s : string) (expected_output : Command.t) :
+    test =
+  name >:: fun _ -> assert_equal expected_output (Command.cmd_of_string s)
+
+let command_tests = [ command_test "view" "view" Command.View ]
 
 let suite =
   "test suite for final project"
@@ -556,7 +574,7 @@ let suite =
            
            board_tests;
            big_words_test;
-           main_tests;
+           command_tests;
            word_list_tests;
          ]
 
