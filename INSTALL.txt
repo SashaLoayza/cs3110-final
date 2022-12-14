@@ -1,5 +1,11 @@
 RUN THE FOLLOWING COMMAND IN THE TERMINAL:
 opam install bitv
 
+TO RUN TEST CASES:
+1. Enter the scrabble_solver folder
+2. make test
+
+TO RUN THE PROGRAM:
 Please follow the steps listed below before running this application:
-make play
+1. Enter the scrabble_solver folder
+2. make play
