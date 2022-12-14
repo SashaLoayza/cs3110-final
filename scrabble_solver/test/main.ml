@@ -12,7 +12,14 @@ open Board
 
     Much of the program is manually tested, such as running the repl, since the
     main program has side effects (It prints to the screen) which cannot be
-    (easily) tested directly.
+    (easily) tested directly. All of the command states were manually tested
+    they have side effects based on inputs.
+
+    We automatically test placing words and letters on the board. A major
+    component of our test suite is supposed to mimic real world game play.This
+    is seen in our additions of large words that have small overlaps. the tests
+    validate each word addition and then further check to see if the board is
+    created correctly.
 
     Using exceptions to view control structure helped us to test that our
     program was catching errors in the right places. As exceptions carry
@@ -368,6 +375,7 @@ let teachword = Word.from_input (9, 6) Down "-each"
 let dealersword = Word.from_input (2, 8) Right "-ealers"
 let wammusword = Word.from_input (5, 4) Right "-amm-s"
 let anaesthesiaword = Word.from_input (13, 0) Right "ANAEST-ESia"
+let aDENOCARCINOMASword = Word.from_input (0, 0) Down "ADENOCARCINOM-S"
 
 let big_words_test =
   [
@@ -567,9 +575,61 @@ let big_words_test =
        |_||_||_||_||_||_||C||_||_||_||_||_||_||_||_|\n\
        |A||N||A||E||S||T||H||E||S||I||A||_||_||_||_|\n\
        |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n";
+    validate_board_tests
+      "testing teach and edition\n\
+      \  and world and\n\
+      \  greatest and deluxe is\n\
+      \       a valid board"
+      (Board.add_word
+         (Board.add_word
+            (Board.add_word
+               (Board.add_word
+                  (Board.add_word
+                     (Board.add_word
+                        (Board.add_word
+                           (Board.add_word Board.init greatestword table)
+                           deluxeword table)
+                        worldword table)
+                     editionword table)
+                  teachword table)
+               dealersword table)
+            wammusword table)
+         anaesthesiaword table)
+      aDENOCARCINOMASword table true;
+    add_words_test "adding a large set of words"
+      (Board.add_word
+         (Board.add_word
+            (Board.add_word
+               (Board.add_word
+                  (Board.add_word
+                     (Board.add_word
+                        (Board.add_word
+                           (Board.add_word Board.init greatestword table)
+                           deluxeword table)
+                        worldword table)
+                     editionword table)
+                  teachword table)
+               dealersword table)
+            wammusword table)
+         anaesthesiaword table)
+      aDENOCARCINOMASword table
+      "\n\
+       |A||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n\
+       |D||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n\
+       |E||_||_||_||_||_||_||_||D||E||A||L||E||R||S|\n\
+       |N||_||_||_||_||_||_||_||E||_||_||_||_||_||_|\n\
+       |O||_||_||_||_||_||_||_||L||_||_||_||_||_||_|\n\
+       |C||_||_||_||W||A||M||M||U||S||_||_||_||_||_|\n\
+       |A||_||_||_||O||_||_||_||X||_||_||_||_||_||_|\n\
+       |R||_||_||G||R||E||A||T||E||S||T||_||_||_||_|\n\
+       |C||_||_||_||L||_||_||_||_||_||_||_||_||_||_|\n\
+       |I||_||_||E||D||I||T||I||O||N||_||_||_||_||_|\n\
+       |N||_||_||_||_||_||E||_||_||_||_||_||_||_||_|\n\
+       |O||_||_||_||_||_||A||_||_||_||_||_||_||_||_|\n\
+       |M||_||_||_||_||_||C||_||_||_||_||_||_||_||_|\n\
+       |A||N||A||E||S||T||H||E||S||I||A||_||_||_||_|\n\
+       |S||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n";
   ]
-
-let main_tests = []
 
 let suite =
   "test suite for final project"
@@ -580,7 +640,6 @@ let suite =
            combinations_tests;
            board_tests;
            big_words_test;
-           main_tests;
            word_list_tests;
          ]
 
