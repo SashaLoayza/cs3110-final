@@ -359,8 +359,11 @@ let validate_words (board : t) (word : Word.t) (d : Dictionary.t) =
   let cords = positions word in
   match word.direction with
   | Right ->
-      validate_right_hor board cords d && validate_right_verts board cords d
-  | Down -> validate_down_vert board cords d && validate_down_hors board cords d
+      let b = add_word_horizontal board word in
+      validate_right_hor b cords d && validate_right_verts b cords d
+  | Down ->
+      let b = add_word_vertical board word in
+      validate_down_vert b cords d && validate_down_hors b cords d
 
 (*******************to string**************************)
 (*To String functions To string works for rows, columns and board*)
