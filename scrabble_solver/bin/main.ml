@@ -6,7 +6,7 @@ open Dictionary
 let valid_words = Arg.read_arg "data/dictionary.txt"
 
 (** [table] creates a hashtable according to the specs in dictionary.ml.*)
-let dictionaryTable = create_hash valid_words
+let dictionaryTable = Dictionary.create_hash valid_words
 
 let state = State.initial_state
 

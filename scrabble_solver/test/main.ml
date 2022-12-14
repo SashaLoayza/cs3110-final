@@ -47,8 +47,14 @@ let contains_word_test (name : string) (t : Dictionary.t) (l : string)
   name >:: fun _ ->
   (* the [printer] tells OUnit how to convert the output to a string *)
   assert_equal expected_output (Dictionary.contains_word t l)
-
 (*copy and pasted from main.ml *)
+
+let word_list_test (name : string) (t : Dictionary.t) (char_list : char list)
+    (contains_word : string) (expected_output : bool) : test =
+  name >:: fun _ ->
+  let found_words = Solve.word_list t char_list in
+  assert_equal expected_output (List.mem contains_word found_words)
+
 let valid_words = Arg.read_arg "data/dictionary.txt"
 let table = Dictionary.create_hash valid_words
 
@@ -93,6 +99,20 @@ let combinations_len_test (name : string) (c : char list)
     (expected_output : int) : test =
   name >:: fun _ ->
   assert_equal expected_output (Array.length (Solve.combinations c))
+
+let word_list_tests =
+  [
+    word_list_test "HAT can be made with [A,H,T]" table [ 'a'; 'h'; 't' ] "HAT"
+      true;
+    word_list_test "THA cannot be made with [A,H,T]" table [ 'a'; 'h'; 't' ] "THA"
+      false;
+    word_list_test "BATTLE can be made with [A,B,T,T,E,L]" table [ 'a';'b';'t';'t';'e';'l' ] "BATTLE"
+    true;
+    word_list_test "BATTLE can be made with [M,A,B,T,T,E,L]" table [ 'm';'a';'b';'t';'t';'e';'l' ] "BATTLE"
+    true;
+    word_list_test "AA cannot be made with [M,A,B,T,T,E,L]" table [ 'm';'a';'b';'t';'t';'e';'l' ] "AA"
+    false;
+]
 
 let hand_tests =
   [
@@ -479,6 +499,7 @@ let suite =
            board_tests;
            big_words_test;
            main_tests;
+           word_list_tests;
          ]
 
 let _ = run_test_tt_main suite

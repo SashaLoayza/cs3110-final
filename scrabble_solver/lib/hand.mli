@@ -1,5 +1,6 @@
 type t
-(** A player's hand, with letters sorted in alphabetical order.*)
+(** A player's hand, with letters sorted in alphabetical order. A hand can
+    include 'A..Z' and '_'*)
 
 val from_char_list : char list -> t
 (** [from_char_list char_list] is the representation of the players hand as a
