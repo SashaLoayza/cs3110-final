@@ -89,7 +89,6 @@ let rec remove_word board word =
   | [] -> board
   | h :: t ->
       let r, c = word.pos in
-      print_endline (string_of_int r ^ string_of_int c);
       let pos' = if word.direction = Right then (r, c + 1) else (r + 1, c) in
       let board' = if h = None then board else Board.remove board r c in
       remove_word board' { word with pos = pos'; letter_list = t }
