@@ -670,6 +670,22 @@ let big_words_test =
        |S||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n";
   ]
 
+let string_to_cmd_test (name : string) (s : string)
+    (expected_output : Command.t) : test =
+  name >:: fun _ -> assert_equal expected_output (Command.cmd_of_string s)
+
+let command_tests =
+  [
+    string_to_cmd_test "VIEW test" "VIEW" Command.View;
+    string_to_cmd_test "add test" "ADD CAT 7 6 RIGHT"
+      (Command.BoardAddWord catword);
+    string_to_cmd_test "add test2" "ADD TARSOMETATARSUS 7 0 RIGHT"
+      (Command.BoardAddWord bigword);
+    string_to_cmd_test "help test" "HELP" Command.Help;
+    string_to_cmd_test "perm test" "PERM" Command.PERM;
+    string_to_cmd_test "undo test" "UNDO" Command.Undo;
+  ]
+
 let suite =
   "test suite for final project"
   >::: List.flatten
@@ -680,6 +696,7 @@ let suite =
            board_tests;
            big_words_test;
            word_list_tests;
+           command_tests;
          ]
 
 let _ = run_test_tt_main suite
