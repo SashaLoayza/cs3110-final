@@ -132,7 +132,14 @@ let sum_combinations n =
   in
   sum_helper n 0
 
-let combinations char_array =
+let combinations s =
+  List.fold_left
+    (fun acc elt ->
+      let new_key = Dictionary.create_key elt in
+      if List.mem new_key acc then acc else new_key :: acc)
+    [] (permutations s)
+
+let new_combinations char_array =
   let index = ref 0 in
   let len = combination_number (Array.length char_array) in
   let result = Array.make len [] in

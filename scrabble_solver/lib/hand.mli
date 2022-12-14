@@ -39,7 +39,7 @@ val permutations : t -> string list
     letters in [Hand.t t]. In the current implementation, this includes
     duplicates if [t] has duplicate letters.*)
 
-val combinations : t -> char list list
+val combinations : char array -> char list array
 (** [combinations t] is the [char list list] of all possible combinations of the
     letters in [Hand.t t], where a single unique combination is a subset of the
     letters of t, in sorted order.*)
