@@ -122,6 +122,9 @@ let execute_undo (st : t) : t =
   | Empty ->
       print_endline "Can't undo an empty command";
       st (* Nothing *)
+  | Help ->
+      print_endline "You don't want my help?! :(";
+      st
 
 let execute_cmd st cmd dict =
   match cmd with
