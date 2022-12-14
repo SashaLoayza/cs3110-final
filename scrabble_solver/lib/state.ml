@@ -64,6 +64,22 @@ let main_solve (r : int) (c : int) st dict =
         r c st dict;
       ()
 
+let find_perms (c : char list) = Hand.permutations (Hand.from_char_list c)
+
+let main_solve_perms st dict =
+  print_endline "Welcome to team LION's Permutation Finder!";
+  print_endline "Enter up to 7 letters. They must be separated by spaces.";
+  match read_line () with
+  | exception End_of_file -> ()
+  | letters ->
+      let cList =
+        List.map
+          (fun x -> x.[0])
+          (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
+      in
+      print_endline
+        (List.fold_left (fun x y -> x ^ "\n" ^ y) "" (find_perms cList));
+      ()
 (* let read_hand () = match read_line () with | exception End_of_file -> () |
    letters -> solve (letters |> String.split_on_char ' ' |> List.filter (fun x
    -> x <> "")) *)
@@ -88,6 +104,9 @@ let execute_cmd st cmd dict =
       print_endline (Board.pretty_board st.board);
       st
   | Command.Undo -> failwith ""
+  | Command.PERM ->
+      main_solve_perms st dict;
+      st
   | Command.Exit -> failwith ""
   | Command.Solve (r, c) ->
       main_solve r c st dict;
