@@ -552,6 +552,8 @@ let suite =
            letter_tests;
            dictionary_tests;
            combinations_tests;
+
+           
            board_tests;
            big_words_test;
            main_tests;
