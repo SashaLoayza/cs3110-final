@@ -16,7 +16,7 @@ val get_words : t -> string -> string list
 
 val get_words_key : t -> char list -> string list
 (**[get_words tbl char_list] is all valid words of letter combinations of
-   [char_list]. Requires: char_list is sorted *)
+   [char_list]. Requires: char_list is sorted (key type) *)
 
 val contains_word : t -> string -> bool
 (**[contains_word tbl word] checks if [word] is contained within [tbl] and

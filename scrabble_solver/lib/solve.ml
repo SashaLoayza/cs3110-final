@@ -32,14 +32,12 @@ let combinations char_list =
   let index = ref 0 in
   let len = combination_number (Array.length char_array) in
   let result = Array.make len [] in
-  Array.fast_sort Char.compare char_array;
+
   for i = Array.length char_array - 1 downto 0 do
     for j = 0 to !index - 1 do
       result.(!index) <- result.(!index) @ (char_array.(i) :: result.(j));
-      print_endline (string_of_int !index);
       incr index
     done;
-    print_endline (string_of_int !index);
     result.(!index) <- [ char_array.(i) ];
     incr index
   done;
@@ -58,6 +56,9 @@ let word_list dictionary char_list =
   in
   let acc = ([], []) in
   (* (prev_combination, accumulated_words) *)
-  let combs = combinations char_list in
+  let sorted_upper =
+    char_list |> List.map Char.uppercase_ascii |> List.sort Char.compare
+  in
+  let combs = combinations sorted_upper in
   let last, acc = Array.fold_left acc_unique_words acc combs in
   acc
