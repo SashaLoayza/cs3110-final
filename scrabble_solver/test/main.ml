@@ -121,18 +121,16 @@ let validate_board_tests (name : string) (board : Board.t) (word : Word.t)
   assert_equal expected_output
     (Board.validate_board (Board.add_word board word d) word d)
 
-let catword = Word.from_input (0, 0) Right "cat"
-let batword = Word.from_input (0, 5) Right "baths"
-let bigword = Word.from_input (0, 0) Right "abcdefghijklmno"
-let catwordc = Word.from_input (0, 0) Down "cat"
-let batwordc = Word.from_input (0, 5) Down "baths"
-let bigwordc = Word.from_input (0, 0) Down "abcdefghijklmno"
-let centerword = Word.from_input (8, 8) Right "center"
-let aahword = Word.from_input (2, 2) Right "aah"
-let aaword = Word.from_input (3, 2) Right "aa"
-let centerwordc = Word.from_input (8, 8) Right "center"
-let aahwordc = Word.from_input (2, 2) Right "aah"
-let aawordc = Word.from_input (3, 2) Right "aa"
+let catword = Word.from_input (7, 6) Right "cat"
+let batword = Word.from_input (7, 5) Right "baths"
+let bigword = Word.from_input (7, 0) Right "TARSOMETATARSUS"
+let catwordc = Word.from_input (6, 7) Down "cat"
+let batwordc = Word.from_input (5, 7) Down "baths"
+let bigwordc = Word.from_input (0, 7) Down "TARSOMETATARSUS"
+let centerword = Word.from_input (7, 7) Right "center"
+let centerwordc = Word.from_input (7, 7) Down "center"
+let aahword = Word.from_input (7, 7) Right "aah"
+let aaword = Word.from_input (8, 7) Right "aa"
 
 (* exception Collision of string *)
 
@@ -155,85 +153,75 @@ let board_tests =
     place_test "place 0 0" Board.init
       (Letter.from_input_opt 'y')
       0 0 "|Y||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
-    add_word_test_row "adding cat to empty board" Board.init catword 0 table
-      "|C||A||T||_||_||_||_||_||_||_||_||_||_||_||_|";
-    add_word_test_row "adding baths to empty board" Board.init batword 0 table
+    add_word_test_row "adding cat to empty board" Board.init catword 7 table
+      "|_||_||_||_||_||_||C||A||T||_||_||_||_||_||_|";
+    add_word_test_row "adding baths to empty board" Board.init batword 7 table
       "|_||_||_||_||_||B||A||T||H||S||_||_||_||_||_|";
-    (* add_word_test_row "adding 14 letterr to empty board" Board.init bigword 0
-       table "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|"; *)
-    add_word_test_row "adding 14 letterr to empty board" Board.init centerword 8
-      table "|_||_||_||_||_||_||_||_||C||E||N||T||E||R||_|";
-    add_word_test_col "adding cat to empty board" Board.init catwordc 0 table
-      "|C||A||T||_||_||_||_||_||_||_||_||_||_||_||_|";
-    add_word_test_col "adding baths to empty board" Board.init batwordc 5 table
-      "|B||A||T||H||S||_||_||_||_||_||_||_||_||_||_|";
-    (* add_word_test_col "adding 14 letterr to empty board" Board.init bigwordc
-       0 table "|A||B||C||D||E||F||G||H||I||J||K||L||M||N||O|"; *)
+    add_word_test_row "adding 14 letterr to empty board" Board.init bigword 7
+      table "|T||A||R||S||O||M||E||T||A||T||A||R||S||U||S|";
+    add_word_test_row "adding centered word to empty board" Board.init
+      centerword 7 table "|_||_||_||_||_||_||_||C||E||N||T||E||R||_||_|";
+    add_word_test_col "adding cat vertically to empty board" Board.init catwordc
+      7 table "|_||_||_||_||_||_||C||A||T||_||_||_||_||_||_|";
+    add_word_test_col "adding baths to empty board" Board.init batwordc 7 table
+      "|_||_||_||_||_||B||A||T||H||S||_||_||_||_||_|";
+    add_word_test_col "adding 14 letterr to empty board" Board.init bigwordc 7
+      table "|T||A||R||S||O||M||E||T||A||T||A||R||S||U||S|";
+    add_word_test_col "adding centered word to empty board" Board.init
+      centerwordc 7 table "|_||_||_||_||_||_||_||C||E||N||T||E||R||_||_|";
     validate_board_tests "testing cat is a valid word" Board.init catword table
       true;
     validate_board_tests "testing center is a valid word" Board.init centerword
       table true;
     validate_board_tests "testing aah is a valid word" Board.init aahword table
       true;
-    validate_board_tests "testing aa is a valid word" Board.init aaword table
-      true;
-    (* add_words_test "adding aa and aah" Board.init aaword aahword
-       "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||_| -- testing this is v ery \
-       difficult with all the printing"; *)
-    validate_board_tests "testing aa and aah is a valid word"
+    validate_board_tests "testing aa is a valid word after placing aah"
       (Board.add_word Board.init aahword table)
       aaword table true;
     validate_board_tests "testing cat is a valid word" Board.init catwordc table
       true;
     validate_board_tests "testing center is a valid word" Board.init centerwordc
       table true;
-    validate_board_tests "testing aah is a valid word" Board.init aahwordc table
-      true;
-    validate_board_tests "testing aa is a valid word" Board.init aawordc table
-      true;
-    validate_board_tests "testing aa is a valid word"
-      (Board.add_word Board.init aahwordc table)
-      aawordc table true
-    (* ( "Collision on word placement" >:: fun _ -> assert_raises
-       PlacementCollision (fun () -> Board.add_word (Board.add_word Board.init
-       catword table) bigword) ); *);
   ]
 
-let deluxeword = Word.from_input (2, 8) Down "deluxe"
-let greatestword = Word.from_input (7, 3) Right "great-st"
+let deluxeword = Word.from_input (2, 8) Down "delux-"
+let greatestword = Word.from_input (7, 3) Right "greatest"
 let worldword = Word.from_input (5, 4) Down "wo-ld"
 let editionword = Word.from_input (9, 3) Right "e-ition"
 let teachword = Word.from_input (9, 6) Down "-each"
+let dealersword = Word.from_input (2, 8) Right "-ealers"
+let wammusword = Word.from_input (5, 4) Right "-amm-s"
+let anaesthesiaword = Word.from_input (13, 0) Right "ANAEST-ESia"
 
 let big_words_test =
   [
-    validate_board_tests "testing deluxe is a valid word" Board.init deluxeword
-      table true;
-    validate_board_tests "testing greatest and deluxe is a valid board"
-      (Board.add_word Board.init deluxeword table)
+    validate_board_tests "testing greatest is a valid word" Board.init
       greatestword table true;
-    validate_board_tests
-      "testing world and greatest and deluxe is a valid board"
+    validate_board_tests "testing greatest and deluxe is a valid board"
+      (Board.add_word Board.init greatestword table)
+      deluxeword table true;
+    validate_board_tests "testing world and greatest and deluxe is a validboard"
       (Board.add_word
-         (Board.add_word Board.init deluxeword table)
-         greatestword table)
+         (Board.add_word Board.init greatestword table)
+         deluxeword table)
       worldword table true;
     validate_board_tests
       "testing edition and world and greatest and deluxe is a valid board"
       (Board.add_word
          (Board.add_word
-            (Board.add_word Board.init deluxeword table)
-            greatestword table)
+            (Board.add_word Board.init greatestword table)
+            deluxeword table)
          worldword table)
       editionword table true;
     validate_board_tests
-      "testing teach and edition and world and greatest and deluxe is a valid \
-       board"
+      "testing teach and edition\n\
+      \  and world and\n\
+      \      greatest and deluxe is a valid board"
       (Board.add_word
          (Board.add_word
             (Board.add_word
-               (Board.add_word Board.init deluxeword table)
-               greatestword table)
+               (Board.add_word Board.init greatestword table)
+               deluxeword table)
             worldword table)
          editionword table)
       teachword table true;
@@ -241,8 +229,8 @@ let big_words_test =
       (Board.add_word
          (Board.add_word
             (Board.add_word
-               (Board.add_word Board.init deluxeword table)
-               greatestword table)
+               (Board.add_word Board.init greatestword table)
+               deluxeword table)
             worldword table)
          editionword table)
       teachword table
@@ -261,6 +249,141 @@ let big_words_test =
        |_||_||_||_||_||_||A||_||_||_||_||_||_||_||_|\n\
        |_||_||_||_||_||_||C||_||_||_||_||_||_||_||_|\n\
        |_||_||_||_||_||_||H||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n";
+    validate_board_tests
+      "testing teach and edition\n\
+      \  and world and\n\
+      \      greatest and deluxe is a valid board"
+      (Board.add_word
+         (Board.add_word
+            (Board.add_word
+               (Board.add_word
+                  (Board.add_word Board.init greatestword table)
+                  deluxeword table)
+               worldword table)
+            editionword table)
+         teachword table)
+      dealersword table true;
+    add_words_test "adding a large set of words"
+      (Board.add_word
+         (Board.add_word
+            (Board.add_word
+               (Board.add_word
+                  (Board.add_word Board.init greatestword table)
+                  deluxeword table)
+               worldword table)
+            editionword table)
+         teachword table)
+      dealersword table
+      "\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||D||E||A||L||E||R||S|\n\
+       |_||_||_||_||_||_||_||_||E||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||L||_||_||_||_||_||_|\n\
+       |_||_||_||_||W||_||_||_||U||_||_||_||_||_||_|\n\
+       |_||_||_||_||O||_||_||_||X||_||_||_||_||_||_|\n\
+       |_||_||_||G||R||E||A||T||E||S||T||_||_||_||_|\n\
+       |_||_||_||_||L||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||E||D||I||T||I||O||N||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||E||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||A||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||C||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||H||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n";
+    validate_board_tests
+      "testing teach and edition\n\
+      \  and world and\n\
+      \      greatest and deluxe is a valid board"
+      (Board.add_word
+         (Board.add_word
+            (Board.add_word
+               (Board.add_word
+                  (Board.add_word
+                     (Board.add_word Board.init greatestword table)
+                     deluxeword table)
+                  worldword table)
+               editionword table)
+            teachword table)
+         dealersword table)
+      wammusword table true;
+    add_words_test "adding a large set of words"
+      (Board.add_word
+         (Board.add_word
+            (Board.add_word
+               (Board.add_word
+                  (Board.add_word
+                     (Board.add_word Board.init greatestword table)
+                     deluxeword table)
+                  worldword table)
+               editionword table)
+            teachword table)
+         dealersword table)
+      wammusword table
+      "\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||D||E||A||L||E||R||S|\n\
+       |_||_||_||_||_||_||_||_||E||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||L||_||_||_||_||_||_|\n\
+       |_||_||_||_||W||A||M||M||U||S||_||_||_||_||_|\n\
+       |_||_||_||_||O||_||_||_||X||_||_||_||_||_||_|\n\
+       |_||_||_||G||R||E||A||T||E||S||T||_||_||_||_|\n\
+       |_||_||_||_||L||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||E||D||I||T||I||O||N||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||E||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||A||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||C||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||H||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n";
+    validate_board_tests
+      "testing teach and edition\n\
+      \  and world and\n\
+      \      greatest and deluxe is a valid board"
+      (Board.add_word
+         (Board.add_word
+            (Board.add_word
+               (Board.add_word
+                  (Board.add_word
+                     (Board.add_word
+                        (Board.add_word Board.init greatestword table)
+                        deluxeword table)
+                     worldword table)
+                  editionword table)
+               teachword table)
+            dealersword table)
+         wammusword table)
+      anaesthesiaword table true;
+    add_words_test "adding a large set of words"
+      (Board.add_word
+         (Board.add_word
+            (Board.add_word
+               (Board.add_word
+                  (Board.add_word
+                     (Board.add_word
+                        (Board.add_word Board.init greatestword table)
+                        deluxeword table)
+                     worldword table)
+                  editionword table)
+               teachword table)
+            dealersword table)
+         wammusword table)
+      anaesthesiaword table
+      "\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||D||E||A||L||E||R||S|\n\
+       |_||_||_||_||_||_||_||_||E||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||_||_||L||_||_||_||_||_||_|\n\
+       |_||_||_||_||W||A||M||M||U||S||_||_||_||_||_|\n\
+       |_||_||_||_||O||_||_||_||X||_||_||_||_||_||_|\n\
+       |_||_||_||G||R||E||A||T||E||S||T||_||_||_||_|\n\
+       |_||_||_||_||L||_||_||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||E||D||I||T||I||O||N||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||E||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||A||_||_||_||_||_||_||_||_|\n\
+       |_||_||_||_||_||_||C||_||_||_||_||_||_||_||_|\n\
+       |A||N||A||E||S||T||H||E||S||I||A||_||_||_||_|\n\
        |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|\n";
   ]
 
