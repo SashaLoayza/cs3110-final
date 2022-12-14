@@ -16,7 +16,11 @@ let help () =
      To add a word [w] to the board starting at row [r] and column [c] with \
      [direction] (down or right), type command 'add [w] [r] [c] [direction]'.\n\n\
      view: To view the current board's position, type 'view'\n\n\
-     To see this help command, type 'help-setup' at any time.\n"
+     perm: \n\
+     To get all the permutations of your current hand, type command 'perm'.\n\
+     You will be prompted for your current hand and all permutations will\
+     be printed to the screen.\n\n\
+     To see this help command, type 'help-setup' at any time.\n\ "
   in
   print_endline command_descriptions
 
