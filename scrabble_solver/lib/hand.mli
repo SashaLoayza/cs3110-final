@@ -38,12 +38,3 @@ val permutations : t -> string list
 (** [permutations t] is the [string list] of all possible permutations of the
     letters in [Hand.t t]. In the current implementation, this includes
     duplicates if [t] has duplicate letters.*)
-
-val combinations : char array -> char list array
-(** [combinations t] is the [char list list] of all possible combinations of the
-    letters in [Hand.t t], where a single unique combination is a subset of the
-    letters of t, in sorted order.*)
-
-val word_list : string array -> t -> string list
-(** [word_list dictionary t] is a list of valid words that can be made out of
-    the seven letters in [t:hand], using dictionary as the set of valid words.*)

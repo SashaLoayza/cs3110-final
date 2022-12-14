@@ -19,9 +19,11 @@ let create_hash d =
   let m = Hashtbl.create (List.length lst) in
   add_el lst m
 
-let get_words (t : t) l =
-  let key = create_key l in
+let get_words (t : t) s =
+  let key = create_key s in
   Hashtbl.find_all t key
+
+let get_words_key t key = Hashtbl.find_all t key
 
 let contains_word (d : t) (word : string) =
   let words = get_words d word in

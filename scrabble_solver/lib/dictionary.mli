@@ -14,6 +14,10 @@ val create_hash : string array -> t
 val get_words : t -> string -> string list
 (**[get_words tbl str] is all valid words of letter combinations of [str] *)
 
+val get_words_key : t -> char list -> string list
+(**[get_words tbl char_list] is all valid words of letter combinations of
+   [char_list]. Requires: char_list is sorted *)
+
 val contains_word : t -> string -> bool
 (**[contains_word tbl word] checks if [word] is contained within [tbl] and
    returns true if it is and false otherwise.*)

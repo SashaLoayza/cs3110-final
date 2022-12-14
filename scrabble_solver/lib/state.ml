@@ -43,7 +43,7 @@ let solve letters r c st =
     | Some v ->
         let tileChar = Letter.char_value v in
         let letters = tileChar :: charLetters in
-        Hand.combinations (array_of_list letters)
+        Solve.combinations letters
     (*List.iter print_endline (word_list valid_words (from_char_list
       (validate_letters letters))) print_endline (List.nth (word_list
       valid_words (from_char_list (validate_letters letters))) 0)*)
