@@ -136,6 +136,30 @@ let hand_tests =
         't';
       ]
       1048575;
+    combinations_len_test "20 items with repetitions"
+      [
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+        'a';
+      ]
+      1048575;
   ]
 
 let add_words_test (name : string) (board : Board.t) (word : Word.t)
