@@ -6,6 +6,7 @@ type t =
        letters. *)
   | View (*Views the board*)
   | Undo (* Undo the last command*)
+  | PERM
   | Solve of int * int (* Run the solver engine and print the top solutions.*)
   | Exit (* Exit the program*)
   | Empty (* Nothing *)
@@ -54,4 +55,5 @@ let cmd_of_string s =
   | "SOLVE" ->
       if List.length ic < 3 then raise (Failure "Please enter all args for add")
       else Solve (int_of_string (List.nth ic 1), int_of_string (List.nth ic 2))
+  | "PERM" -> PERM
   | _ -> raise (Failure "Please enter something valid (add/view/help-setup)")
