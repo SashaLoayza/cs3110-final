@@ -189,6 +189,39 @@ let word_list_tests =
     word_list_test "AA cannot be made with [M,A,B,T,T,E,L]" table
       [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
       "AA" false;
+    word_list_test "metal cannot be made with [M,O,B,T,T,E,L]" table
+      [ 'm'; 'o'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "METAL" false;
+    word_list_test "BAT can be made with [M,A,B,T,T,E,L]" table
+      [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "BAT" true;
+    word_list_test "let can be made with [M,A,B,T,T,E,L]" table
+      [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "LET" true;
+    word_list_test "tale can be made with [M,A,B,T,T,E,L]" table
+      [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "TALE" true;
+    word_list_test "lat can be made with [M,A,B,T,T,E,L]" table
+      [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "LAT" true;
+    word_list_test "BEAT can be made with [M,A,B,T,T,E,L]" table
+      [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "BEAT" true;
+    word_list_test "bean canot be made with [M,A,B,T,T,E,L]" table
+      [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "BEAN" false;
+    word_list_test "MEAN can be made with [M,A,B,T,T,E,L]" table
+      [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "MEAN" false;
+    word_list_test "A can be made with [M,A,B,T,T,E,L]" table
+      [ 'm'; 'a'; 'b'; 't'; 't'; 'e'; 'l' ]
+      "A" false;
+    word_list_test "AA can be made with [A,A,A,A,A,A,A]" table
+      [ 'a'; 'a'; 'a'; 'a'; 'a'; 'a'; 'a' ]
+      "AA" true;
+    word_list_test "word cannot be made with [A,A,A,A,A,A,A]" table
+      [ 'a'; 'a'; 'a'; 'a'; 'a'; 'a'; 'a' ]
+      "word" false;
   ]
 
 let combinations_tests =
@@ -209,7 +242,7 @@ let combinations_tests =
     combinations_len_test "12 items"
       [ 'a'; 'b'; 'c'; 'd'; 'e'; 'f'; 'g'; 'h'; 'i'; 'j'; 'k'; 'l' ]
       4095;
-    combinations_len_test "20 items"
+    combinations_len_test "20 items, max possible combinations"
       [
         'a';
         'b';
@@ -233,7 +266,7 @@ let combinations_tests =
         't';
       ]
       1048575;
-    combinations_len_test "20 items with repetitions"
+    combinations_len_test "20 items with repetitions, max possible combinations"
       [
         'a';
         'a';
@@ -324,6 +357,12 @@ let board_tests =
     remove_test "place 0 1" Board.init
       (Letter.from_input_opt 'a')
       0 1 "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
+    remove_test "place 5 9" Board.init
+      (Letter.from_input_opt 'g')
+      5 9 "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
+    remove_test "place 14 14" Board.init
+      (Letter.from_input_opt 'k')
+      14 14 "|_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|";
     place_test "place 3 9" Board.init
       (Letter.from_input_opt 'j')
       3 9 "|_||_||_||_||_||_||_||_||_||J||_||_||_||_||_|";
