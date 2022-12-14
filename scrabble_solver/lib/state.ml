@@ -151,4 +151,7 @@ let execute_cmd st cmd dict =
   | Command.Solve (r, c) ->
       main_solve r c st dict;
       { st with prev_command = cmd }
+  | Command.Help ->
+      Command.help ();
+      { st with prev_command = cmd }
   | Command.Empty -> failwith "impossible"

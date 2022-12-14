@@ -10,12 +10,28 @@ type t =
   | Solve of int * int (* Run the solver engine and print the top solutions.*)
   | Exit (* Exit the program*)
   | Empty (* Nothing *)
+  | Help
 
 exception EmptyCommand
 (**[parse_cmd cmd_string] is a list of strings, where the first string is the
    command passed in, and all subsequent strings are the arguments of the
    command (if any are given).Raises: an EmptyCommand exception, when the
    resulting list is empty. *)
+
+let help () =
+  let command_descriptions =
+    "add: \n\
+     To add a word [w] to the board starting at row [r] and column [c] with \
+     [direction] (down or right), type command 'add [w] [r] [c] [direction]'.\n\n\
+     view: To view the current board's position, type 'view'\n\n\
+     perm: \n\
+     To get all the permutations of your current hand, type command 'perm'.\n\
+     You will be prompted for your current hand and all permutations willbe \
+     printed to the screen.\n\n\
+     To see this help command, type 'help-setup' at any time.\n\
+    \ "
+  in
+  print_endline command_descriptions
 
 let parse_cmd cmd_string : string list =
   let result =
@@ -57,4 +73,5 @@ let cmd_of_string s =
       else Solve (int_of_string (List.nth ic 1), int_of_string (List.nth ic 2))
   | "PERM" -> PERM
   | "UNDO" -> Undo
+  | "HELP" -> Help
   | _ -> raise (Failure "Please enter something valid (add/view/help-setup)")

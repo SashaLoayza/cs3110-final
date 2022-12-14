@@ -10,28 +10,13 @@ let dictionaryTable = Dictionary.create_hash valid_words
 
 let state = State.initial_state
 
-let help () =
-  let command_descriptions =
-    "add: \n\
-     To add a word [w] to the board starting at row [r] and column [c] with \
-     [direction] (down or right), type command 'add [w] [r] [c] [direction]'.\n\n\
-     view: To view the current board's position, type 'view'\n\n\
-     perm: \n\
-     To get all the permutations of your current hand, type command 'perm'.\n\
-     You will be prompted for your current hand and all permutations willbe \
-     printed to the screen.\n\n\
-     To see this help command, type 'help-setup' at any time.\n\
-    \ "
-  in
-  print_endline command_descriptions
-
 let read_command s (state : State.t) =
   let capTrim = String.uppercase_ascii (String.trim s) in
   let comm = Command.cmd_of_string capTrim in
   State.execute_cmd state comm dictionaryTable
 
 (* State.execute_cmd state input_cmd *)
-let rec command_loop (s : State.t) =
+let rec command_loop (s : State.t) : unit =
   match read_line () with
   | exception End_of_file -> command_loop s
   | cmd ->
@@ -39,7 +24,7 @@ let rec command_loop (s : State.t) =
         try read_command cmd s
         with _ ->
           print_endline "Please enter valid sytax and try again";
-          command_loop s
+          s
       in
       command_loop newState
 
@@ -49,7 +34,7 @@ let main (state : State.t) =
     "Currently, the scrabble board is empty.\n\
      Use the following commands to set up the board to your desired \
      configuration:\n";
-  help ();
+  Command.help ();
   print_endline
     "To enter solving mode, type 'solve [r] [c]' at any time. Solving mode \
      will find possible words that use the letter at [r] [c] Then, to go back \

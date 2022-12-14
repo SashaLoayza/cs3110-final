@@ -11,7 +11,11 @@ type t =
   | Solve of int * int (* Run the solver engine and print the top solutions.*)
   | Exit (* Exit the program*)
   | Empty (* Nothing *)
+  | Help
 
 val cmd_of_string : string -> t
 (**Given an input string, return the correct command of type t. Raises: Failure
    when the command is invalid.*)
+
+val help : unit -> unit
+(** print help command*)
