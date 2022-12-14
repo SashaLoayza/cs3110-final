@@ -258,8 +258,7 @@ let add_word_test_col (name : string) (board : Board.t) (word : Word.t)
 let validate_board_tests (name : string) (board : Board.t) (word : Word.t)
     (d : Dictionary.t) (expected_output : bool) : test =
   name >:: fun _ ->
-  assert_equal expected_output
-    (Board.validate_board (Board.add_word board word d) word d)
+  assert_equal expected_output (Board.validate_board board word d)
 
 let catword = Word.from_input (7, 6) Right "cat"
 let batword = Word.from_input (7, 5) Right "baths"
@@ -337,16 +336,18 @@ let big_words_test =
   [
     validate_board_tests "testing greatest is a valid word" Board.init
       greatestword table true;
-    validate_board_tests "testing greatest and deluxe is a valid board"
+    validate_board_tests "testing greatest and\n       deluxe is a valid board"
       (Board.add_word Board.init greatestword table)
       deluxeword table true;
-    validate_board_tests "testing world and greatest and deluxe is a validboard"
+    validate_board_tests
+      "testing world and greatest\n       and deluxe is a validboard"
       (Board.add_word
          (Board.add_word Board.init greatestword table)
          deluxeword table)
       worldword table true;
     validate_board_tests
-      "testing edition and world and greatest and deluxe is a valid board"
+      "testing edition and world and greatest and deluxe\n\
+      \       is a valid board"
       (Board.add_word
          (Board.add_word
             (Board.add_word Board.init greatestword table)
@@ -354,9 +355,10 @@ let big_words_test =
          worldword table)
       editionword table true;
     validate_board_tests
-      "testing teach and edition\n\
+      "testing teach and\n\
+      \       edition\n\
       \  and world and\n\
-      \      greatest and deluxe is a valid board"
+      \  greatest and deluxe is a valid board"
       (Board.add_word
          (Board.add_word
             (Board.add_word
@@ -365,7 +367,7 @@ let big_words_test =
             worldword table)
          editionword table)
       teachword table true;
-    add_words_test "adding a large set of words"
+    add_words_test "adding a large\n       set of words"
       (Board.add_word
          (Board.add_word
             (Board.add_word
@@ -393,7 +395,8 @@ let big_words_test =
     validate_board_tests
       "testing teach and edition\n\
       \  and world and\n\
-      \      greatest and deluxe is a valid board"
+      \  greatest and deluxe is\n\
+      \       a valid board"
       (Board.add_word
          (Board.add_word
             (Board.add_word
@@ -434,7 +437,8 @@ let big_words_test =
     validate_board_tests
       "testing teach and edition\n\
       \  and world and\n\
-      \      greatest and deluxe is a valid board"
+      \  greatest and deluxe is\n\
+      \       a valid board"
       (Board.add_word
          (Board.add_word
             (Board.add_word
@@ -447,7 +451,7 @@ let big_words_test =
             teachword table)
          dealersword table)
       wammusword table true;
-    add_words_test "adding a large set of words"
+    add_words_test "adding a\n       large set of words"
       (Board.add_word
          (Board.add_word
             (Board.add_word
@@ -479,7 +483,8 @@ let big_words_test =
     validate_board_tests
       "testing teach and edition\n\
       \  and world and\n\
-      \      greatest and deluxe is a valid board"
+      \  greatest and deluxe is\n\
+      \       a valid board"
       (Board.add_word
          (Board.add_word
             (Board.add_word
