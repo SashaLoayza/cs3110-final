@@ -51,4 +51,5 @@ let cmd_of_string s =
           }
   | "VIEW" -> View
   | "HELP-SETUP" -> failwith "help"
+  | "SOLVE" -> Solve
   | _ -> raise (Failure "Please enter something valid (add/view/help-setup)")

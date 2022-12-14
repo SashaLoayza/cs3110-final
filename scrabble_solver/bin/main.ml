@@ -10,44 +10,6 @@ let dictionaryTable = create_hash valid_words
 
 let state = State.initial_state
 
-(**[validate_letters letters] [string list], a list of strings, raises exception
-   if letters is not a string list with each index only having length of 1*)
-let rec validate_letters letters =
-  match letters with
-  | [] -> []
-  | h :: t ->
-      if String.length h < 2 then
-        let num = Char.code (Char.uppercase_ascii h.[0]) in
-        if (num > 64 && num < 91) || num = 48 then h.[0] :: validate_letters t
-        else
-          raise
-            (Failure
-               "Did not meet preconditions for letter input (error code: VL1)")
-      else
-        raise
-          (Failure
-             "Did not meet preconditions for letter input (error code: VL2)")
-
-(** [solve letters] returns a list of valid scrabble words given letters. *)
-let solve letters =
-  if List.length (validate_letters letters) > 1 then
-    List.iter print_endline
-      (word_list valid_words (from_char_list (validate_letters letters)))
-    (* print_endline (List.nth (word_list valid_words (from_char_list
-       (validate_letters letters))) 0)*)
-  else
-    raise
-      (Failure "Did not meet preconditions for letter input (error code: SL1)")
-
-let main () =
-  print_endline "Welcome to team LION's Scrabble Solver!";
-  print_endline "Enter up to 7 letters. They must be separated by spaces.";
-  match read_line () with
-  | exception End_of_file -> ()
-  | letters ->
-      solve
-        (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
-
 let help () =
   let command_descriptions =
     "add: \n\
@@ -57,13 +19,6 @@ let help () =
      To see this help command, type 'help-setup' at any time.\n"
   in
   print_endline command_descriptions
-
-let read_hand () =
-  match read_line () with
-  | exception End_of_file -> ()
-  | letters ->
-      solve
-        (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
 
 let read_command s (state : State.t) =
   let capTrim = String.uppercase_ascii (String.trim s) in
