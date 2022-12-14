@@ -34,7 +34,7 @@ let array_of_list (lst : char list) : char array =
   failwith "convert a list to an array"
 
 (** [solve letters] returns a list of valid scrabble words given letters. *)
-let solve letters r c st =
+let solve letters r c st dict =
   let charLetters = validate_letters letters in
   if List.length charLetters > 1 then
     let tileChar_opt = Board.get_letter_opt st.board r c in
@@ -43,7 +43,9 @@ let solve letters r c st =
     | Some v ->
         let tileChar = Letter.char_value v in
         let letters = tileChar :: charLetters in
-        Solve.combinations letters
+        let pWords = Solve.word_list dict letters in
+        let cWords = List.filter (fun x -> String.contains x tileChar) pWords in
+        print_endline (List.fold_left (fun x y -> x ^ "\n" ^ y) "" cWords)
     (*List.iter print_endline (word_list valid_words (from_char_list
       (validate_letters letters))) print_endline (List.nth (word_list
       valid_words (from_char_list (validate_letters letters))) 0)*)
@@ -51,7 +53,7 @@ let solve letters r c st =
     raise
       (Failure "Did not meet preconditions for letter input (error code: SL1)")
 
-let main_solve (r : int) (c : int) st =
+let main_solve (r : int) (c : int) st dict =
   print_endline "Welcome to team LION's Scrabble Solver!";
   print_endline "Enter up to 7 letters. They must be separated by spaces.";
   match read_line () with
@@ -59,7 +61,7 @@ let main_solve (r : int) (c : int) st =
   | letters ->
       solve
         (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
-        r c st;
+        r c st dict;
       ()
 
 (* let read_hand () = match read_line () with | exception End_of_file -> () |
@@ -88,6 +90,6 @@ let execute_cmd st cmd dict =
   | Command.Undo -> failwith ""
   | Command.Exit -> failwith ""
   | Command.Solve (r, c) ->
-      main_solve r c st;
+      main_solve r c st dict;
       st
   | Command.Empty -> failwith "impossible"
