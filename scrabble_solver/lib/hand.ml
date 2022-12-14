@@ -140,10 +140,10 @@ let combinations char_array =
   for i = Array.length char_array - 1 downto 0 do
     for j = 0 to !index - 1 do
       result.(!index) <- result.(!index) @ (char_array.(i) :: result.(j));
-      print_endline (string_of_int !index);
+      (* print_endline (string_of_int !index); *)
       incr index
     done;
-    print_endline (string_of_int !index);
+    (* print_endline (string_of_int !index); *)
     result.(!index) <- [ char_array.(i) ];
     incr index
   done;
