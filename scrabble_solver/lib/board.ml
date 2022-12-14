@@ -137,6 +137,8 @@ let get t row column : tile =
   let r = List.nth t row in
   List.nth r column
 
+let get_letter_opt t row column : Letter.t option = (get t row column).letter
+
 (** place_tile places a tile on the board*)
 let place_tile (board : t) tile row column =
   if row > 14 || column > 14 || row < 0 || column < 0 then

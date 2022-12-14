@@ -30,12 +30,20 @@ let rec validate_letters letters =
           (Failure
              "Did not meet preconditions for letter input (error code: VL2)")
 
+let array_of_list (lst : char list) : char array =
+  failwith "convert a list to an array"
+
 (** [solve letters] returns a list of valid scrabble words given letters. *)
-let solve letters =
+let solve letters r c st =
   let charLetters = validate_letters letters in
   if List.length charLetters > 1 then
-    print_endline
-      "This is where you want to call ur combinations on [charLetters]"
+    let tileChar_opt = Board.get_letter_opt st.board r c in
+    match tileChar_opt with
+    | None -> failwith "Please solve on a letter already placed on the board"
+    | Some v ->
+        let tileChar = Letter.char_value v in
+        let letters = tileChar :: charLetters in
+        Hand.combinations (array_of_list letters)
     (*List.iter print_endline (word_list valid_words (from_char_list
       (validate_letters letters))) print_endline (List.nth (word_list
       valid_words (from_char_list (validate_letters letters))) 0)*)
@@ -43,7 +51,7 @@ let solve letters =
     raise
       (Failure "Did not meet preconditions for letter input (error code: SL1)")
 
-let main_solve () =
+let main_solve (r : int) (c : int) st =
   print_endline "Welcome to team LION's Scrabble Solver!";
   print_endline "Enter up to 7 letters. They must be separated by spaces.";
   match read_line () with
@@ -51,6 +59,8 @@ let main_solve () =
   | letters ->
       solve
         (letters |> String.split_on_char ' ' |> List.filter (fun x -> x <> ""))
+        r c st;
+      ()
 
 (* let read_hand () = match read_line () with | exception End_of_file -> () |
    letters -> solve (letters |> String.split_on_char ' ' |> List.filter (fun x
@@ -77,7 +87,7 @@ let execute_cmd st cmd dict =
       st
   | Command.Undo -> failwith ""
   | Command.Exit -> failwith ""
-  | Command.Solve ->
-      main_solve ();
+  | Command.Solve (r, c) ->
+      main_solve r c st;
       st
   | Command.Empty -> failwith "impossible"

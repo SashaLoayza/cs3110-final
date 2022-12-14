@@ -7,7 +7,7 @@ type t =
        letters. *)
   | View (*Views the board*)
   | Undo (* Undo the last command*)
-  | Solve (* Run the solver engine and print the top solutions.*)
+  | Solve of int * int (* Run the solver engine and print the top solutions.*)
   | Exit (* Exit the program*)
   | Empty (* Nothing *)
 

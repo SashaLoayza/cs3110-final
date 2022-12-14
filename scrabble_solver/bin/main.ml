@@ -46,8 +46,9 @@ let main (state : State.t) =
      configuration:\n";
   help ();
   print_endline
-    "To enter solving mode, type 'solve' at any time. Then, to go back to \
-     setup mode, type 'setup'.";
+    "To enter solving mode, type 'solve [r] [c]' at any time. Solving mode \
+     will find possible words that use the letter at [r] [c] Then, to go back \
+     to setup mode, type 'setup'.";
   command_loop state;
   ()
 

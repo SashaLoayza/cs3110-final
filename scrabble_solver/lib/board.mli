@@ -13,6 +13,11 @@ val get_row : t -> int -> tile list
 val get_column : t -> int -> tile list
 (** [get_column board c] is the [c]th row of [board] as a [tile list], 0-indexed*)
 
+val get_letter_opt : t -> int -> int -> Letter.t option
+(** [get_letter_opt] is the letter that may be contained in the tile located at
+    [r] [c]. If there is no letter in that tile yet, than [get_letter_opt] is
+    None.*)
+
 val place : t -> Letter.t option -> int -> int -> t
 (** place [board] [letter] [row] [column] is [board] with [letter] placed on
     [board\[row\]\[column\]]. If a letter is already on that tile, that letter
