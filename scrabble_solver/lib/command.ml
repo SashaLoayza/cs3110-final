@@ -28,7 +28,7 @@ let help () =
      To get all the permutations of your current hand, type command 'perm'.\n\
      You will be prompted for your current hand and all permutations willbe \
      printed to the screen.\n\n\
-     To see this help command, type 'help-setup' at any time.\n\
+     To see this help command, type 'help' at any time.\n\
     \ "
   in
   print_endline command_descriptions
@@ -67,7 +67,6 @@ let cmd_of_string s =
             letter_list = List.rev letter_list;
           }
   | "VIEW" -> View
-  | "HELP-SETUP" -> Help
   | "SOLVE" ->
       if List.length ic < 3 then raise (Failure "Please enter all args for add")
       else Solve (int_of_string (List.nth ic 1), int_of_string (List.nth ic 2))

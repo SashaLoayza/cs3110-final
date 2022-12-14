@@ -37,8 +37,7 @@ let main (state : State.t) =
   Command.help ();
   print_endline
     "To enter solving mode, type 'solve [r] [c]' at any time. Solving mode \
-     will find possible words that use the letter at [r] [c] Then, to go back \
-     to setup mode, type 'setup'.";
+     will find possible words that use the letter at [r] [c].";
   command_loop state;
   ()
 
