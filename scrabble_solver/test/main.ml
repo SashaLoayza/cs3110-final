@@ -1,7 +1,52 @@
 open OUnit2
 open Scrabble_solver
 open Board
+(** ################ TEST PLAN ################ 
 
+To test the scrabble_solver, we focused on ensuring the
+correctness of fundamental helper functions using 
+black-box testing, exposing the types of data structures 
+such as those in Hand.ml, Letter.ml, and Dictionary.ml. This allowed us 
+to make sure that our concrete representations were storing the correct
+values (and satisfied our definition of the Abstraction Functions).
+
+Much of the program is manually tested, such as running the repl, since 
+the main program has side effects (It prints to the screen) which
+cannot be (easily) tested directly. 
+
+Using exceptions to view control structure helped us to test 
+that our pgrogram was catching errors in the right places. 
+As exceptions carry specific error messages, we were able
+to track the point of exception and conclude that our 
+validations were catching user-input errors at the right point
+in the program.
+
+Modules Tested by OUnit:
+
+Board.ml
+  -
+
+Dictionary.ml
+  -
+
+Letter.ml
+  -
+
+Solve.ml
+  -
+
+Word.ml
+  -
+
+
+
+The test plan should be located in a comment at the top of the test file.
+
+-4: The test plan is missing.
+-1: The test plan does not explain which parts of the system were automatically tested by OUnit vs. manually tested.
+-1: The test plan does not explain what modules were tested by OUnit and how test cases were developed (black box, glass box, randomized, etc.).
+-1: The test plan does not provide an argument for why the testing approach demonstrates the correctness of the system.
+*)
 let char_val_test (name : string) (c : Letter.t) (expected_output : char) : test
     =
   name >:: fun _ -> assert_equal expected_output (Letter.char_value c)
